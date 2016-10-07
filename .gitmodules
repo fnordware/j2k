@@ -1,3 +1,6 @@
 [submodule "ext/Little-CMS"]
 	path = ext/Little-CMS
 	url = https://github.com/mm2/Little-CMS.git
+[submodule "ext/grok"]
+	path = ext/grok
+	url = https://github.com/GrokImageCompression/grok.git
