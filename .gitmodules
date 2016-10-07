@@ -1,0 +1,3 @@
+[submodule "ext/Little-CMS"]
+	path = ext/Little-CMS
+	url = https://github.com/mm2/Little-CMS.git
