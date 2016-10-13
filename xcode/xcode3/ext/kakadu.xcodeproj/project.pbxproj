@@ -1,0 +1,658 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AAD239A1DA856690070538E /* jp2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21D41DA856680070538E /* jp2.h */; };
+		2AAD239B1DA856690070538E /* jpx.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21D51DA856680070538E /* jpx.h */; };
+		2AAD239C1DA856690070538E /* kdu_cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21D61DA856680070538E /* kdu_cache.h */; };
+		2AAD239D1DA856690070538E /* kdu_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21D71DA856680070538E /* kdu_client.h */; };
+		2AAD239E1DA856690070538E /* kdu_client_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21D81DA856680070538E /* kdu_client_window.h */; };
+		2AAD239F1DA856690070538E /* kdu_clientx.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21D91DA856680070538E /* kdu_clientx.h */; };
+		2AAD23A01DA856690070538E /* kdu_file_io.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21DA1DA856680070538E /* kdu_file_io.h */; };
+		2AAD23A11DA856690070538E /* kdu_video_io.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21DB1DA856680070538E /* kdu_video_io.h */; };
+		2AAD23A21DA856690070538E /* mj2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21DC1DA856680070538E /* mj2.h */; };
+		2AAD23AA1DA856690070538E /* jp2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD21E61DA856680070538E /* jp2.cpp */; };
+		2AAD23AB1DA856690070538E /* jp2_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21E71DA856680070538E /* jp2_local.h */; };
+		2AAD23AC1DA856690070538E /* jp2_shared.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21E81DA856680070538E /* jp2_shared.h */; };
+		2AAD23AD1DA856690070538E /* jpx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD21E91DA856680070538E /* jpx.cpp */; };
+		2AAD23AE1DA856690070538E /* jpx_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21EA1DA856680070538E /* jpx_local.h */; };
+		2AAD23AF1DA856690070538E /* mj2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD21EB1DA856680070538E /* mj2.cpp */; };
+		2AAD23B01DA856690070538E /* mj2_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD21EC1DA856680070538E /* mj2_local.h */; };
+		2AAD240A1DA856690070538E /* kdu_region_compositor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22C51DA856690070538E /* kdu_region_compositor.cpp */; };
+		2AAD240B1DA856690070538E /* kdu_region_compositor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22C61DA856690070538E /* kdu_region_compositor.h */; };
+		2AAD240C1DA856690070538E /* kdu_region_decompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22C71DA856690070538E /* kdu_region_decompressor.cpp */; };
+		2AAD240D1DA856690070538E /* kdu_region_decompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22C81DA856690070538E /* kdu_region_decompressor.h */; };
+		2AAD240E1DA856690070538E /* kdu_stripe_compressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22C91DA856690070538E /* kdu_stripe_compressor.cpp */; };
+		2AAD240F1DA856690070538E /* kdu_stripe_compressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22CA1DA856690070538E /* kdu_stripe_compressor.h */; };
+		2AAD24101DA856690070538E /* kdu_stripe_decompressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22CB1DA856690070538E /* kdu_stripe_decompressor.cpp */; };
+		2AAD24111DA856690070538E /* kdu_stripe_decompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22CC1DA856690070538E /* kdu_stripe_decompressor.h */; };
+		2AAD24121DA856690070538E /* msvc_region_compositor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22CD1DA856690070538E /* msvc_region_compositor_local.h */; };
+		2AAD24131DA856690070538E /* msvc_region_decompressor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22CE1DA856690070538E /* msvc_region_decompressor_local.h */; };
+		2AAD24141DA856690070538E /* region_compositor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22CF1DA856690070538E /* region_compositor_local.h */; };
+		2AAD24151DA856690070538E /* region_decompressor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22D01DA856690070538E /* region_decompressor_local.h */; };
+		2AAD24161DA856690070538E /* stripe_compressor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22D11DA856690070538E /* stripe_compressor_local.h */; };
+		2AAD24171DA856690070538E /* stripe_decompressor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22D21DA856690070538E /* stripe_decompressor_local.h */; };
+		2AAD24181DA856690070538E /* x86_region_compositor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22D31DA856690070538E /* x86_region_compositor_local.h */; };
+		2AAD24191DA856690070538E /* x86_region_decompressor_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22D41DA856690070538E /* x86_region_decompressor_local.h */; };
+		2AAD241A1DA856690070538E /* block_coding_common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22E01DA856690070538E /* block_coding_common.cpp */; };
+		2AAD241B1DA856690070538E /* block_coding_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22E11DA856690070538E /* block_coding_common.h */; };
+		2AAD241C1DA856690070538E /* block_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22E21DA856690070538E /* block_decoder.cpp */; };
+		2AAD241D1DA856690070538E /* block_encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22E31DA856690070538E /* block_encoder.cpp */; };
+		2AAD241E1DA856690070538E /* decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22E41DA856690070538E /* decoder.cpp */; };
+		2AAD241F1DA856690070538E /* encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22E51DA856690070538E /* encoder.cpp */; };
+		2AAD24201DA856690070538E /* gcc_coder_mmx_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22E61DA856690070538E /* gcc_coder_mmx_local.h */; };
+		2AAD24211DA856690070538E /* mq_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22E71DA856690070538E /* mq_decoder.cpp */; };
+		2AAD24221DA856690070538E /* mq_decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22E81DA856690070538E /* mq_decoder.h */; };
+		2AAD24231DA856690070538E /* mq_encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22E91DA856690070538E /* mq_encoder.cpp */; };
+		2AAD24241DA856690070538E /* mq_encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22EA1DA856690070538E /* mq_encoder.h */; };
+		2AAD24251DA856690070538E /* msvc_block_decode_asm.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22EB1DA856690070538E /* msvc_block_decode_asm.h */; };
+		2AAD24261DA856690070538E /* msvc_coder_mmx_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22EC1DA856690070538E /* msvc_coder_mmx_local.h */; };
+		2AAD24271DA856690070538E /* x86_coder_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22ED1DA856690070538E /* x86_coder_local.h */; };
+		2AAD24291DA856690070538E /* kdu_arch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22F01DA856690070538E /* kdu_arch.cpp */; };
+		2AAD242A1DA856690070538E /* kdu_arch.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F11DA856690070538E /* kdu_arch.h */; };
+		2AAD242B1DA856690070538E /* kdu_block_coding.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F21DA856690070538E /* kdu_block_coding.h */; };
+		2AAD242C1DA856690070538E /* kdu_compressed.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F31DA856690070538E /* kdu_compressed.h */; };
+		2AAD242D1DA856690070538E /* kdu_elementary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F41DA856690070538E /* kdu_elementary.h */; };
+		2AAD242E1DA856690070538E /* kdu_kernels.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F51DA856690070538E /* kdu_kernels.h */; };
+		2AAD242F1DA856690070538E /* kdu_messaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F61DA856690070538E /* kdu_messaging.h */; };
+		2AAD24301DA856690070538E /* kdu_params.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F71DA856690070538E /* kdu_params.h */; };
+		2AAD24311DA856690070538E /* kdu_roi_processing.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F81DA856690070538E /* kdu_roi_processing.h */; };
+		2AAD24321DA856690070538E /* kdu_sample_processing.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22F91DA856690070538E /* kdu_sample_processing.h */; };
+		2AAD24331DA856690070538E /* kdu_threads.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22FA1DA856690070538E /* kdu_threads.h */; };
+		2AAD24341DA856690070538E /* kdu_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD22FB1DA856690070538E /* kdu_utils.h */; };
+		2AAD24351DA856690070538E /* blocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22FD1DA856690070538E /* blocks.cpp */; };
+		2AAD24361DA856690070538E /* codestream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22FE1DA856690070538E /* codestream.cpp */; };
+		2AAD24371DA856690070538E /* compressed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD22FF1DA856690070538E /* compressed.cpp */; };
+		2AAD24381DA856690070538E /* compressed_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23001DA856690070538E /* compressed_local.h */; };
+		2AAD24391DA856690070538E /* kernels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD230B1DA856690070538E /* kernels.cpp */; };
+		2AAD243A1DA856690070538E /* messaging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD23151DA856690070538E /* messaging.cpp */; };
+		2AAD243B1DA856690070538E /* params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD23171DA856690070538E /* params.cpp */; };
+		2AAD243C1DA856690070538E /* params_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23181DA856690070538E /* params_local.h */; };
+		2AAD243E1DA856690070538E /* roi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD231B1DA856690070538E /* roi.cpp */; };
+		2AAD243F1DA856690070538E /* roi_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD231C1DA856690070538E /* roi_local.h */; };
+		2AAD24401DA856690070538E /* kdu_threads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD231E1DA856690070538E /* kdu_threads.cpp */; };
+		2AAD24411DA856690070538E /* threads_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD231F1DA856690070538E /* threads_local.h */; };
+		2AAD24421DA856690070538E /* analysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD23211DA856690070538E /* analysis.cpp */; };
+		2AAD24431DA856690070538E /* analysis_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23221DA856690070538E /* analysis_local.h */; };
+		2AAD24441DA856690070538E /* colour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD23231DA856690070538E /* colour.cpp */; };
+		2AAD24451DA856690070538E /* gcc_colour_altivec_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23241DA856690070538E /* gcc_colour_altivec_local.h */; };
+		2AAD24461DA856690070538E /* gcc_colour_mmx_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23251DA856690070538E /* gcc_colour_mmx_local.h */; };
+		2AAD24471DA856690070538E /* gcc_colour_sparcvis_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23261DA856690070538E /* gcc_colour_sparcvis_local.h */; };
+		2AAD24481DA856690070538E /* gcc_dwt_altivec_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23271DA856690070538E /* gcc_dwt_altivec_local.h */; };
+		2AAD24491DA856690070538E /* gcc_dwt_mmx_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23281DA856690070538E /* gcc_dwt_mmx_local.h */; };
+		2AAD244A1DA856690070538E /* gcc_dwt_sparcvis_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23291DA856690070538E /* gcc_dwt_sparcvis_local.h */; };
+		2AAD244B1DA856690070538E /* msvc_colour_mmx_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD232A1DA856690070538E /* msvc_colour_mmx_local.h */; };
+		2AAD244C1DA856690070538E /* msvc_dwt_mmx_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD232B1DA856690070538E /* msvc_dwt_mmx_local.h */; };
+		2AAD244D1DA856690070538E /* multi_transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD232C1DA856690070538E /* multi_transform.cpp */; };
+		2AAD244E1DA856690070538E /* multi_transform_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD232D1DA856690070538E /* multi_transform_local.h */; };
+		2AAD244F1DA856690070538E /* synthesis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD232E1DA856690070538E /* synthesis.cpp */; };
+		2AAD24501DA856690070538E /* synthesis_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD232F1DA856690070538E /* synthesis_local.h */; };
+		2AAD24511DA856690070538E /* transform_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23301DA856690070538E /* transform_local.h */; };
+		2AAD24521DA856690070538E /* x86_colour_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23311DA856690070538E /* x86_colour_local.h */; };
+		2AAD24531DA856690070538E /* x86_dwt_local.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AAD23321DA856690070538E /* x86_dwt_local.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2AAD21D41DA856680070538E /* jp2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jp2.h; sourceTree = "<group>"; };
+		2AAD21D51DA856680070538E /* jpx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jpx.h; sourceTree = "<group>"; };
+		2AAD21D61DA856680070538E /* kdu_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_cache.h; sourceTree = "<group>"; };
+		2AAD21D71DA856680070538E /* kdu_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_client.h; sourceTree = "<group>"; };
+		2AAD21D81DA856680070538E /* kdu_client_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_client_window.h; sourceTree = "<group>"; };
+		2AAD21D91DA856680070538E /* kdu_clientx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_clientx.h; sourceTree = "<group>"; };
+		2AAD21DA1DA856680070538E /* kdu_file_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_file_io.h; sourceTree = "<group>"; };
+		2AAD21DB1DA856680070538E /* kdu_video_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_video_io.h; sourceTree = "<group>"; };
+		2AAD21DC1DA856680070538E /* mj2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mj2.h; sourceTree = "<group>"; };
+		2AAD21E61DA856680070538E /* jp2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jp2.cpp; sourceTree = "<group>"; };
+		2AAD21E71DA856680070538E /* jp2_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jp2_local.h; sourceTree = "<group>"; };
+		2AAD21E81DA856680070538E /* jp2_shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jp2_shared.h; sourceTree = "<group>"; };
+		2AAD21E91DA856680070538E /* jpx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jpx.cpp; sourceTree = "<group>"; };
+		2AAD21EA1DA856680070538E /* jpx_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jpx_local.h; sourceTree = "<group>"; };
+		2AAD21EB1DA856680070538E /* mj2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mj2.cpp; sourceTree = "<group>"; };
+		2AAD21EC1DA856680070538E /* mj2_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mj2_local.h; sourceTree = "<group>"; };
+		2AAD22C51DA856690070538E /* kdu_region_compositor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kdu_region_compositor.cpp; sourceTree = "<group>"; };
+		2AAD22C61DA856690070538E /* kdu_region_compositor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_region_compositor.h; sourceTree = "<group>"; };
+		2AAD22C71DA856690070538E /* kdu_region_decompressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kdu_region_decompressor.cpp; sourceTree = "<group>"; };
+		2AAD22C81DA856690070538E /* kdu_region_decompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_region_decompressor.h; sourceTree = "<group>"; };
+		2AAD22C91DA856690070538E /* kdu_stripe_compressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kdu_stripe_compressor.cpp; sourceTree = "<group>"; };
+		2AAD22CA1DA856690070538E /* kdu_stripe_compressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_stripe_compressor.h; sourceTree = "<group>"; };
+		2AAD22CB1DA856690070538E /* kdu_stripe_decompressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kdu_stripe_decompressor.cpp; sourceTree = "<group>"; };
+		2AAD22CC1DA856690070538E /* kdu_stripe_decompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_stripe_decompressor.h; sourceTree = "<group>"; };
+		2AAD22CD1DA856690070538E /* msvc_region_compositor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msvc_region_compositor_local.h; sourceTree = "<group>"; };
+		2AAD22CE1DA856690070538E /* msvc_region_decompressor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msvc_region_decompressor_local.h; sourceTree = "<group>"; };
+		2AAD22CF1DA856690070538E /* region_compositor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = region_compositor_local.h; sourceTree = "<group>"; };
+		2AAD22D01DA856690070538E /* region_decompressor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = region_decompressor_local.h; sourceTree = "<group>"; };
+		2AAD22D11DA856690070538E /* stripe_compressor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stripe_compressor_local.h; sourceTree = "<group>"; };
+		2AAD22D21DA856690070538E /* stripe_decompressor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stripe_decompressor_local.h; sourceTree = "<group>"; };
+		2AAD22D31DA856690070538E /* x86_region_compositor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x86_region_compositor_local.h; sourceTree = "<group>"; };
+		2AAD22D41DA856690070538E /* x86_region_decompressor_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x86_region_decompressor_local.h; sourceTree = "<group>"; };
+		2AAD22E01DA856690070538E /* block_coding_common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = block_coding_common.cpp; sourceTree = "<group>"; };
+		2AAD22E11DA856690070538E /* block_coding_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block_coding_common.h; sourceTree = "<group>"; };
+		2AAD22E21DA856690070538E /* block_decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = block_decoder.cpp; sourceTree = "<group>"; };
+		2AAD22E31DA856690070538E /* block_encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = block_encoder.cpp; sourceTree = "<group>"; };
+		2AAD22E41DA856690070538E /* decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decoder.cpp; sourceTree = "<group>"; };
+		2AAD22E51DA856690070538E /* encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encoder.cpp; sourceTree = "<group>"; };
+		2AAD22E61DA856690070538E /* gcc_coder_mmx_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcc_coder_mmx_local.h; sourceTree = "<group>"; };
+		2AAD22E71DA856690070538E /* mq_decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mq_decoder.cpp; sourceTree = "<group>"; };
+		2AAD22E81DA856690070538E /* mq_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_decoder.h; sourceTree = "<group>"; };
+		2AAD22E91DA856690070538E /* mq_encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mq_encoder.cpp; sourceTree = "<group>"; };
+		2AAD22EA1DA856690070538E /* mq_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mq_encoder.h; sourceTree = "<group>"; };
+		2AAD22EB1DA856690070538E /* msvc_block_decode_asm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msvc_block_decode_asm.h; sourceTree = "<group>"; };
+		2AAD22EC1DA856690070538E /* msvc_coder_mmx_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msvc_coder_mmx_local.h; sourceTree = "<group>"; };
+		2AAD22ED1DA856690070538E /* x86_coder_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x86_coder_local.h; sourceTree = "<group>"; };
+		2AAD22EF1DA856690070538E /* arch_masm64.asm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm.asm; path = arch_masm64.asm; sourceTree = "<group>"; };
+		2AAD22F01DA856690070538E /* kdu_arch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kdu_arch.cpp; sourceTree = "<group>"; };
+		2AAD22F11DA856690070538E /* kdu_arch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_arch.h; sourceTree = "<group>"; };
+		2AAD22F21DA856690070538E /* kdu_block_coding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_block_coding.h; sourceTree = "<group>"; };
+		2AAD22F31DA856690070538E /* kdu_compressed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_compressed.h; sourceTree = "<group>"; };
+		2AAD22F41DA856690070538E /* kdu_elementary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_elementary.h; sourceTree = "<group>"; };
+		2AAD22F51DA856690070538E /* kdu_kernels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_kernels.h; sourceTree = "<group>"; };
+		2AAD22F61DA856690070538E /* kdu_messaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_messaging.h; sourceTree = "<group>"; };
+		2AAD22F71DA856690070538E /* kdu_params.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_params.h; sourceTree = "<group>"; };
+		2AAD22F81DA856690070538E /* kdu_roi_processing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_roi_processing.h; sourceTree = "<group>"; };
+		2AAD22F91DA856690070538E /* kdu_sample_processing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_sample_processing.h; sourceTree = "<group>"; };
+		2AAD22FA1DA856690070538E /* kdu_threads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_threads.h; sourceTree = "<group>"; };
+		2AAD22FB1DA856690070538E /* kdu_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdu_utils.h; sourceTree = "<group>"; };
+		2AAD22FD1DA856690070538E /* blocks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blocks.cpp; sourceTree = "<group>"; };
+		2AAD22FE1DA856690070538E /* codestream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = codestream.cpp; sourceTree = "<group>"; };
+		2AAD22FF1DA856690070538E /* compressed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compressed.cpp; sourceTree = "<group>"; };
+		2AAD23001DA856690070538E /* compressed_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compressed_local.h; sourceTree = "<group>"; };
+		2AAD230B1DA856690070538E /* kernels.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kernels.cpp; sourceTree = "<group>"; };
+		2AAD23151DA856690070538E /* messaging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = messaging.cpp; sourceTree = "<group>"; };
+		2AAD23171DA856690070538E /* params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = params.cpp; sourceTree = "<group>"; };
+		2AAD23181DA856690070538E /* params_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = params_local.h; sourceTree = "<group>"; };
+		2AAD231B1DA856690070538E /* roi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = roi.cpp; sourceTree = "<group>"; };
+		2AAD231C1DA856690070538E /* roi_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = roi_local.h; sourceTree = "<group>"; };
+		2AAD231E1DA856690070538E /* kdu_threads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kdu_threads.cpp; sourceTree = "<group>"; };
+		2AAD231F1DA856690070538E /* threads_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threads_local.h; sourceTree = "<group>"; };
+		2AAD23211DA856690070538E /* analysis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analysis.cpp; sourceTree = "<group>"; };
+		2AAD23221DA856690070538E /* analysis_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analysis_local.h; sourceTree = "<group>"; };
+		2AAD23231DA856690070538E /* colour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colour.cpp; sourceTree = "<group>"; };
+		2AAD23241DA856690070538E /* gcc_colour_altivec_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcc_colour_altivec_local.h; sourceTree = "<group>"; };
+		2AAD23251DA856690070538E /* gcc_colour_mmx_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcc_colour_mmx_local.h; sourceTree = "<group>"; };
+		2AAD23261DA856690070538E /* gcc_colour_sparcvis_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcc_colour_sparcvis_local.h; sourceTree = "<group>"; };
+		2AAD23271DA856690070538E /* gcc_dwt_altivec_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcc_dwt_altivec_local.h; sourceTree = "<group>"; };
+		2AAD23281DA856690070538E /* gcc_dwt_mmx_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcc_dwt_mmx_local.h; sourceTree = "<group>"; };
+		2AAD23291DA856690070538E /* gcc_dwt_sparcvis_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcc_dwt_sparcvis_local.h; sourceTree = "<group>"; };
+		2AAD232A1DA856690070538E /* msvc_colour_mmx_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msvc_colour_mmx_local.h; sourceTree = "<group>"; };
+		2AAD232B1DA856690070538E /* msvc_dwt_mmx_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msvc_dwt_mmx_local.h; sourceTree = "<group>"; };
+		2AAD232C1DA856690070538E /* multi_transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multi_transform.cpp; sourceTree = "<group>"; };
+		2AAD232D1DA856690070538E /* multi_transform_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi_transform_local.h; sourceTree = "<group>"; };
+		2AAD232E1DA856690070538E /* synthesis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = synthesis.cpp; sourceTree = "<group>"; };
+		2AAD232F1DA856690070538E /* synthesis_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synthesis_local.h; sourceTree = "<group>"; };
+		2AAD23301DA856690070538E /* transform_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = transform_local.h; sourceTree = "<group>"; };
+		2AAD23311DA856690070538E /* x86_colour_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x86_colour_local.h; sourceTree = "<group>"; };
+		2AAD23321DA856690070538E /* x86_dwt_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x86_dwt_local.h; sourceTree = "<group>"; };
+		D2AAC046055464E500DB518D /* libkakadu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkakadu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D289987405E68DCB004EDB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* kakadu */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD21C21DA856680070538E /* kakadu-v6.3.1 */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = kakadu;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC046055464E500DB518D /* libkakadu.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AAD21C21DA856680070538E /* kakadu-v6.3.1 */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD21C31DA856680070538E /* apps */,
+				2AAD22DE1DA856690070538E /* coresys */,
+			);
+			name = "kakadu-v6.3.1";
+			path = "../../../ext/kakadu-v6.3.1";
+			sourceTree = SOURCE_ROOT;
+		};
+		2AAD21C31DA856680070538E /* apps */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD21D31DA856680070538E /* compressed_io */,
+				2AAD21E51DA856680070538E /* jp2 */,
+				2AAD22C41DA856690070538E /* support */,
+			);
+			path = apps;
+			sourceTree = "<group>";
+		};
+		2AAD21D31DA856680070538E /* compressed_io */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD21D41DA856680070538E /* jp2.h */,
+				2AAD21D51DA856680070538E /* jpx.h */,
+				2AAD21D61DA856680070538E /* kdu_cache.h */,
+				2AAD21D71DA856680070538E /* kdu_client.h */,
+				2AAD21D81DA856680070538E /* kdu_client_window.h */,
+				2AAD21D91DA856680070538E /* kdu_clientx.h */,
+				2AAD21DA1DA856680070538E /* kdu_file_io.h */,
+				2AAD21DB1DA856680070538E /* kdu_video_io.h */,
+				2AAD21DC1DA856680070538E /* mj2.h */,
+			);
+			path = compressed_io;
+			sourceTree = "<group>";
+		};
+		2AAD21E51DA856680070538E /* jp2 */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD21E61DA856680070538E /* jp2.cpp */,
+				2AAD21E71DA856680070538E /* jp2_local.h */,
+				2AAD21E81DA856680070538E /* jp2_shared.h */,
+				2AAD21E91DA856680070538E /* jpx.cpp */,
+				2AAD21EA1DA856680070538E /* jpx_local.h */,
+				2AAD21EB1DA856680070538E /* mj2.cpp */,
+				2AAD21EC1DA856680070538E /* mj2_local.h */,
+			);
+			path = jp2;
+			sourceTree = "<group>";
+		};
+		2AAD22C41DA856690070538E /* support */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD22C51DA856690070538E /* kdu_region_compositor.cpp */,
+				2AAD22C61DA856690070538E /* kdu_region_compositor.h */,
+				2AAD22C71DA856690070538E /* kdu_region_decompressor.cpp */,
+				2AAD22C81DA856690070538E /* kdu_region_decompressor.h */,
+				2AAD22C91DA856690070538E /* kdu_stripe_compressor.cpp */,
+				2AAD22CA1DA856690070538E /* kdu_stripe_compressor.h */,
+				2AAD22CB1DA856690070538E /* kdu_stripe_decompressor.cpp */,
+				2AAD22CC1DA856690070538E /* kdu_stripe_decompressor.h */,
+				2AAD22CD1DA856690070538E /* msvc_region_compositor_local.h */,
+				2AAD22CE1DA856690070538E /* msvc_region_decompressor_local.h */,
+				2AAD22CF1DA856690070538E /* region_compositor_local.h */,
+				2AAD22D01DA856690070538E /* region_decompressor_local.h */,
+				2AAD22D11DA856690070538E /* stripe_compressor_local.h */,
+				2AAD22D21DA856690070538E /* stripe_decompressor_local.h */,
+				2AAD22D31DA856690070538E /* x86_region_compositor_local.h */,
+				2AAD22D41DA856690070538E /* x86_region_decompressor_local.h */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		2AAD22DE1DA856690070538E /* coresys */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD22DF1DA856690070538E /* coding */,
+				2AAD22EE1DA856690070538E /* common */,
+				2AAD22FC1DA856690070538E /* compressed */,
+				2AAD230A1DA856690070538E /* kernels */,
+				2AAD23141DA856690070538E /* messaging */,
+				2AAD23161DA856690070538E /* parameters */,
+				2AAD231A1DA856690070538E /* roi */,
+				2AAD231D1DA856690070538E /* threads */,
+				2AAD23201DA856690070538E /* transform */,
+			);
+			path = coresys;
+			sourceTree = "<group>";
+		};
+		2AAD22DF1DA856690070538E /* coding */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD22E01DA856690070538E /* block_coding_common.cpp */,
+				2AAD22E11DA856690070538E /* block_coding_common.h */,
+				2AAD22E21DA856690070538E /* block_decoder.cpp */,
+				2AAD22E31DA856690070538E /* block_encoder.cpp */,
+				2AAD22E41DA856690070538E /* decoder.cpp */,
+				2AAD22E51DA856690070538E /* encoder.cpp */,
+				2AAD22E61DA856690070538E /* gcc_coder_mmx_local.h */,
+				2AAD22E71DA856690070538E /* mq_decoder.cpp */,
+				2AAD22E81DA856690070538E /* mq_decoder.h */,
+				2AAD22E91DA856690070538E /* mq_encoder.cpp */,
+				2AAD22EA1DA856690070538E /* mq_encoder.h */,
+				2AAD22EB1DA856690070538E /* msvc_block_decode_asm.h */,
+				2AAD22EC1DA856690070538E /* msvc_coder_mmx_local.h */,
+				2AAD22ED1DA856690070538E /* x86_coder_local.h */,
+			);
+			path = coding;
+			sourceTree = "<group>";
+		};
+		2AAD22EE1DA856690070538E /* common */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD22EF1DA856690070538E /* arch_masm64.asm */,
+				2AAD22F01DA856690070538E /* kdu_arch.cpp */,
+				2AAD22F11DA856690070538E /* kdu_arch.h */,
+				2AAD22F21DA856690070538E /* kdu_block_coding.h */,
+				2AAD22F31DA856690070538E /* kdu_compressed.h */,
+				2AAD22F41DA856690070538E /* kdu_elementary.h */,
+				2AAD22F51DA856690070538E /* kdu_kernels.h */,
+				2AAD22F61DA856690070538E /* kdu_messaging.h */,
+				2AAD22F71DA856690070538E /* kdu_params.h */,
+				2AAD22F81DA856690070538E /* kdu_roi_processing.h */,
+				2AAD22F91DA856690070538E /* kdu_sample_processing.h */,
+				2AAD22FA1DA856690070538E /* kdu_threads.h */,
+				2AAD22FB1DA856690070538E /* kdu_utils.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		2AAD22FC1DA856690070538E /* compressed */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD22FD1DA856690070538E /* blocks.cpp */,
+				2AAD22FE1DA856690070538E /* codestream.cpp */,
+				2AAD22FF1DA856690070538E /* compressed.cpp */,
+				2AAD23001DA856690070538E /* compressed_local.h */,
+			);
+			path = compressed;
+			sourceTree = "<group>";
+		};
+		2AAD230A1DA856690070538E /* kernels */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD230B1DA856690070538E /* kernels.cpp */,
+			);
+			path = kernels;
+			sourceTree = "<group>";
+		};
+		2AAD23141DA856690070538E /* messaging */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD23151DA856690070538E /* messaging.cpp */,
+			);
+			path = messaging;
+			sourceTree = "<group>";
+		};
+		2AAD23161DA856690070538E /* parameters */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD23171DA856690070538E /* params.cpp */,
+				2AAD23181DA856690070538E /* params_local.h */,
+			);
+			path = parameters;
+			sourceTree = "<group>";
+		};
+		2AAD231A1DA856690070538E /* roi */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD231B1DA856690070538E /* roi.cpp */,
+				2AAD231C1DA856690070538E /* roi_local.h */,
+			);
+			path = roi;
+			sourceTree = "<group>";
+		};
+		2AAD231D1DA856690070538E /* threads */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD231E1DA856690070538E /* kdu_threads.cpp */,
+				2AAD231F1DA856690070538E /* threads_local.h */,
+			);
+			path = threads;
+			sourceTree = "<group>";
+		};
+		2AAD23201DA856690070538E /* transform */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD23211DA856690070538E /* analysis.cpp */,
+				2AAD23221DA856690070538E /* analysis_local.h */,
+				2AAD23231DA856690070538E /* colour.cpp */,
+				2AAD23241DA856690070538E /* gcc_colour_altivec_local.h */,
+				2AAD23251DA856690070538E /* gcc_colour_mmx_local.h */,
+				2AAD23261DA856690070538E /* gcc_colour_sparcvis_local.h */,
+				2AAD23271DA856690070538E /* gcc_dwt_altivec_local.h */,
+				2AAD23281DA856690070538E /* gcc_dwt_mmx_local.h */,
+				2AAD23291DA856690070538E /* gcc_dwt_sparcvis_local.h */,
+				2AAD232A1DA856690070538E /* msvc_colour_mmx_local.h */,
+				2AAD232B1DA856690070538E /* msvc_dwt_mmx_local.h */,
+				2AAD232C1DA856690070538E /* multi_transform.cpp */,
+				2AAD232D1DA856690070538E /* multi_transform_local.h */,
+				2AAD232E1DA856690070538E /* synthesis.cpp */,
+				2AAD232F1DA856690070538E /* synthesis_local.h */,
+				2AAD23301DA856690070538E /* transform_local.h */,
+				2AAD23311DA856690070538E /* x86_colour_local.h */,
+				2AAD23321DA856690070538E /* x86_dwt_local.h */,
+			);
+			path = transform;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC043055464E500DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAD239A1DA856690070538E /* jp2.h in Headers */,
+				2AAD239B1DA856690070538E /* jpx.h in Headers */,
+				2AAD239C1DA856690070538E /* kdu_cache.h in Headers */,
+				2AAD239D1DA856690070538E /* kdu_client.h in Headers */,
+				2AAD239E1DA856690070538E /* kdu_client_window.h in Headers */,
+				2AAD239F1DA856690070538E /* kdu_clientx.h in Headers */,
+				2AAD23A01DA856690070538E /* kdu_file_io.h in Headers */,
+				2AAD23A11DA856690070538E /* kdu_video_io.h in Headers */,
+				2AAD23A21DA856690070538E /* mj2.h in Headers */,
+				2AAD23AB1DA856690070538E /* jp2_local.h in Headers */,
+				2AAD23AC1DA856690070538E /* jp2_shared.h in Headers */,
+				2AAD23AE1DA856690070538E /* jpx_local.h in Headers */,
+				2AAD23B01DA856690070538E /* mj2_local.h in Headers */,
+				2AAD240B1DA856690070538E /* kdu_region_compositor.h in Headers */,
+				2AAD240D1DA856690070538E /* kdu_region_decompressor.h in Headers */,
+				2AAD240F1DA856690070538E /* kdu_stripe_compressor.h in Headers */,
+				2AAD24111DA856690070538E /* kdu_stripe_decompressor.h in Headers */,
+				2AAD24121DA856690070538E /* msvc_region_compositor_local.h in Headers */,
+				2AAD24131DA856690070538E /* msvc_region_decompressor_local.h in Headers */,
+				2AAD24141DA856690070538E /* region_compositor_local.h in Headers */,
+				2AAD24151DA856690070538E /* region_decompressor_local.h in Headers */,
+				2AAD24161DA856690070538E /* stripe_compressor_local.h in Headers */,
+				2AAD24171DA856690070538E /* stripe_decompressor_local.h in Headers */,
+				2AAD24181DA856690070538E /* x86_region_compositor_local.h in Headers */,
+				2AAD24191DA856690070538E /* x86_region_decompressor_local.h in Headers */,
+				2AAD241B1DA856690070538E /* block_coding_common.h in Headers */,
+				2AAD24201DA856690070538E /* gcc_coder_mmx_local.h in Headers */,
+				2AAD24221DA856690070538E /* mq_decoder.h in Headers */,
+				2AAD24241DA856690070538E /* mq_encoder.h in Headers */,
+				2AAD24251DA856690070538E /* msvc_block_decode_asm.h in Headers */,
+				2AAD24261DA856690070538E /* msvc_coder_mmx_local.h in Headers */,
+				2AAD24271DA856690070538E /* x86_coder_local.h in Headers */,
+				2AAD242A1DA856690070538E /* kdu_arch.h in Headers */,
+				2AAD242B1DA856690070538E /* kdu_block_coding.h in Headers */,
+				2AAD242C1DA856690070538E /* kdu_compressed.h in Headers */,
+				2AAD242D1DA856690070538E /* kdu_elementary.h in Headers */,
+				2AAD242E1DA856690070538E /* kdu_kernels.h in Headers */,
+				2AAD242F1DA856690070538E /* kdu_messaging.h in Headers */,
+				2AAD24301DA856690070538E /* kdu_params.h in Headers */,
+				2AAD24311DA856690070538E /* kdu_roi_processing.h in Headers */,
+				2AAD24321DA856690070538E /* kdu_sample_processing.h in Headers */,
+				2AAD24331DA856690070538E /* kdu_threads.h in Headers */,
+				2AAD24341DA856690070538E /* kdu_utils.h in Headers */,
+				2AAD24381DA856690070538E /* compressed_local.h in Headers */,
+				2AAD243C1DA856690070538E /* params_local.h in Headers */,
+				2AAD243F1DA856690070538E /* roi_local.h in Headers */,
+				2AAD24411DA856690070538E /* threads_local.h in Headers */,
+				2AAD24431DA856690070538E /* analysis_local.h in Headers */,
+				2AAD24451DA856690070538E /* gcc_colour_altivec_local.h in Headers */,
+				2AAD24461DA856690070538E /* gcc_colour_mmx_local.h in Headers */,
+				2AAD24471DA856690070538E /* gcc_colour_sparcvis_local.h in Headers */,
+				2AAD24481DA856690070538E /* gcc_dwt_altivec_local.h in Headers */,
+				2AAD24491DA856690070538E /* gcc_dwt_mmx_local.h in Headers */,
+				2AAD244A1DA856690070538E /* gcc_dwt_sparcvis_local.h in Headers */,
+				2AAD244B1DA856690070538E /* msvc_colour_mmx_local.h in Headers */,
+				2AAD244C1DA856690070538E /* msvc_dwt_mmx_local.h in Headers */,
+				2AAD244E1DA856690070538E /* multi_transform_local.h in Headers */,
+				2AAD24501DA856690070538E /* synthesis_local.h in Headers */,
+				2AAD24511DA856690070538E /* transform_local.h in Headers */,
+				2AAD24521DA856690070538E /* x86_colour_local.h in Headers */,
+				2AAD24531DA856690070538E /* x86_dwt_local.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC045055464E500DB518D /* kakadu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "kakadu" */;
+			buildPhases = (
+				D2AAC043055464E500DB518D /* Headers */,
+				D2AAC044055464E500DB518D /* Sources */,
+				D289987405E68DCB004EDB86 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kakadu;
+			productName = kakadu;
+			productReference = D2AAC046055464E500DB518D /* libkakadu.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "kakadu" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* kakadu */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC045055464E500DB518D /* kakadu */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC044055464E500DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAD23AA1DA856690070538E /* jp2.cpp in Sources */,
+				2AAD23AD1DA856690070538E /* jpx.cpp in Sources */,
+				2AAD23AF1DA856690070538E /* mj2.cpp in Sources */,
+				2AAD240A1DA856690070538E /* kdu_region_compositor.cpp in Sources */,
+				2AAD240C1DA856690070538E /* kdu_region_decompressor.cpp in Sources */,
+				2AAD240E1DA856690070538E /* kdu_stripe_compressor.cpp in Sources */,
+				2AAD24101DA856690070538E /* kdu_stripe_decompressor.cpp in Sources */,
+				2AAD241A1DA856690070538E /* block_coding_common.cpp in Sources */,
+				2AAD241C1DA856690070538E /* block_decoder.cpp in Sources */,
+				2AAD241D1DA856690070538E /* block_encoder.cpp in Sources */,
+				2AAD241E1DA856690070538E /* decoder.cpp in Sources */,
+				2AAD241F1DA856690070538E /* encoder.cpp in Sources */,
+				2AAD24211DA856690070538E /* mq_decoder.cpp in Sources */,
+				2AAD24231DA856690070538E /* mq_encoder.cpp in Sources */,
+				2AAD24291DA856690070538E /* kdu_arch.cpp in Sources */,
+				2AAD24351DA856690070538E /* blocks.cpp in Sources */,
+				2AAD24361DA856690070538E /* codestream.cpp in Sources */,
+				2AAD24371DA856690070538E /* compressed.cpp in Sources */,
+				2AAD24391DA856690070538E /* kernels.cpp in Sources */,
+				2AAD243A1DA856690070538E /* messaging.cpp in Sources */,
+				2AAD243B1DA856690070538E /* params.cpp in Sources */,
+				2AAD243E1DA856690070538E /* roi.cpp in Sources */,
+				2AAD24401DA856690070538E /* kdu_threads.cpp in Sources */,
+				2AAD24421DA856690070538E /* analysis.cpp in Sources */,
+				2AAD24441DA856690070538E /* colour.cpp in Sources */,
+				2AAD244D1DA856690070538E /* multi_transform.cpp in Sources */,
+				2AAD244F1DA856690070538E /* synthesis.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91EC08733DB70010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = kakadu;
+			};
+			name = Debug;
+		};
+		1DEB91ED08733DB70010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = kakadu;
+			};
+			name = Release;
+		};
+		1DEB91F008733DB70010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91F108733DB70010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "kakadu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91EC08733DB70010E9CD /* Debug */,
+				1DEB91ED08733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "kakadu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91F008733DB70010E9CD /* Debug */,
+				1DEB91F108733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
