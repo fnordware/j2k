@@ -91,13 +91,27 @@ PlatformInputFile::~PlatformInputFile()
 
 
 size_t
+PlatformInputFile::FileSize()
+{
+	SInt64 fork_size = 0;
+	
+	OSErr result = FSGetForkSize(_refNum, &fork_size);
+	
+	if(result != noErr)
+		throw Exception("Error calling FSGetForkSize().");
+	
+	return fork_size;
+}
+
+
+size_t
 PlatformInputFile::Read(void *buf, size_t num_bytes)
 {
 	ByteCount count = num_bytes;
 	
 	OSErr result = FSReadFork(_refNum, fsAtMark, 0, count, (void *)buf, &count);
 	
-	assert(result == noErr);
+	assert(result == noErr || count != num_bytes);
 	
 	return count;
 }
@@ -364,6 +378,14 @@ PlatformInputFile::~PlatformInputFile()
 	if(!result)
 		throw Exception("Error closing file.");
 }
+
+
+size_t
+PlatformInputFile::FileSize()
+{
+	return GetFileSize(_hFile, NULL);
+}
+
 
 size_t
 PlatformInputFile::Read(void *buf, size_t num_bytes)

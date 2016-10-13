@@ -32,6 +32,7 @@ class InputFile
 	
 	virtual ReadFlags Flags() const = 0;
 	
+	virtual size_t FileSize() = 0;
 	virtual size_t Read(void *buf, size_t num_bytes) = 0;
 	virtual bool Seek(size_t position) = 0;
 	virtual size_t Tell() = 0;

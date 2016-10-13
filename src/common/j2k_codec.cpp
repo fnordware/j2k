@@ -12,7 +12,11 @@
 #include "j2k_exception.h"
 
 #include "j2k_grok_codec.h"
-#include "j2k_kakadu_codec.h"
+#include "j2k_openjpeg_codec.h"
+
+#ifdef J2K_USE_KAKADU
+	#include "j2k_kakadu_codec.h"
+#endif
 
 #include "lcms2.h"
 
@@ -197,6 +201,154 @@ Codec::IssRGBProfile(const void *iccProfile, size_t profileSize)
 }
 
 
+template <typename DESTTYPE, typename SRCTYPE>
+static inline DESTTYPE Convert(const SRCTYPE &s);
+
+template <>
+static inline unsigned char
+Convert<unsigned char, unsigned char>(const unsigned char &s)
+{
+	return s;
+}
+
+template <>
+static inline unsigned char
+Convert<unsigned char, unsigned short>(const unsigned short &s)
+{
+	return (s >> 8);
+}
+
+template <>
+static inline unsigned char
+Convert<unsigned char, unsigned int>(const unsigned int &s)
+{
+	return (s >> 24);
+}
+
+template <>
+static inline unsigned short
+Convert<unsigned short, unsigned char>(const unsigned char &s)
+{
+	return ((unsigned short)s << 8 | s);
+}
+
+template <>
+static inline unsigned short
+Convert<unsigned short, unsigned short>(const unsigned short &s)
+{
+	return s;
+}
+
+template <>
+static inline unsigned short
+Convert<unsigned short, unsigned int>(const unsigned int &s)
+{
+	return (s >> 16);
+}
+
+template <>
+static inline unsigned int
+Convert<unsigned int, unsigned char>(const unsigned char &s)
+{
+	return ((unsigned int)s << 24 | (unsigned int)s << 16 | (unsigned int)s << 8 | s);
+}
+
+template <>
+static inline unsigned int
+Convert<unsigned int, unsigned short>(const unsigned short &s)
+{
+	return ((unsigned int)s << 16 | s);
+}
+
+template <>
+static inline unsigned int
+Convert<unsigned int, unsigned int>(const unsigned int &s)
+{
+	return s;
+}
+
+template <typename DESTTYPE, typename SRCTYPE>
+static void
+CopyChannel(const Channel &dest, const Channel &src)
+{
+	const int height = std::min<int>(dest.height, src.height);
+	const int width = std::min<int>(dest.width, src.width);
+	
+	const int destStep = (dest.colbytes / sizeof(DESTTYPE));
+	const int srcStep = (src.colbytes / sizeof(SRCTYPE));
+
+	for(int y=0; y < height; y++)
+	{
+		DESTTYPE *d = (DESTTYPE *)(dest.buf + (y * dest.rowbytes));
+		SRCTYPE *s = (SRCTYPE *)(src.buf + (y * src.rowbytes));
+		
+		for(int x=0; x < width; x++)
+		{
+			*d = Convert<DESTTYPE, SRCTYPE>(*s);
+			
+			d += destStep;
+			s += srcStep;
+		}
+	}
+}
+
+void
+Codec::CopyBuffer(const Buffer &destination, const Buffer &source)
+{
+	for(int i=0; i < destination.channels && i < source.channels; i++)
+	{
+		const Channel &dest = destination.channel[i];
+		const Channel &src = source.channel[i];
+		
+		if(dest.sampleType == UCHAR)
+		{
+			if(src.sampleType == UCHAR)
+			{
+				CopyChannel<unsigned char, unsigned char>(dest, src);
+			}
+			else if(src.sampleType == USHORT)
+			{
+				CopyChannel<unsigned char, unsigned short>(dest, src);
+			}
+			else if(src.sampleType == UINT)
+			{
+				CopyChannel<unsigned char, unsigned int>(dest, src);
+			}
+		}
+		else if(dest.sampleType == USHORT)
+		{
+			if(src.sampleType == UCHAR)
+			{
+				CopyChannel<unsigned short, unsigned char>(dest, src);
+			}
+			else if(src.sampleType == USHORT)
+			{
+				CopyChannel<unsigned short, unsigned short>(dest, src);
+			}
+			else if(src.sampleType == UINT)
+			{
+				CopyChannel<unsigned short, unsigned int>(dest, src);
+			}
+		}
+		else if(dest.sampleType == UINT)
+		{
+			if(src.sampleType == UCHAR)
+			{
+				CopyChannel<unsigned int, unsigned char>(dest, src);
+			}
+			else if(src.sampleType == USHORT)
+			{
+				CopyChannel<unsigned int, unsigned short>(dest, src);
+			}
+			else if(src.sampleType == UINT)
+			{
+				CopyChannel<unsigned int, unsigned int>(dest, src);
+			}
+		}
+	}
+}
+
+
 unsigned int
 Codec::NumberOfCPUs()
 {
@@ -251,7 +403,11 @@ CodecContainer::CodecContainer()
 {
 	// un-comment the line below to start testing the Grok codec!
 	//_codecList.push_back(new GrokCodec);
+	_codecList.push_back(new OpenJPEGCodec);
+	
+#ifdef J2K_USE_KAKADU
 	_codecList.push_back(new KakaduCodec);
+#endif
 	
 	_codecList.sort(CodecCompare);
 }

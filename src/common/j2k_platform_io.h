@@ -45,6 +45,7 @@ class PlatformInputFile : public j2k::InputFile
 	
 	virtual ReadFlags Flags() const { return J2K_READ_SEEKABLE; }
 	
+	virtual size_t FileSize();
 	virtual size_t Read(void *buf, size_t num_bytes);
 	virtual bool Seek(size_t position);
 	virtual size_t Tell();

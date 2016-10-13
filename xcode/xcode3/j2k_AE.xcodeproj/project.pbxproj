@@ -20,15 +20,15 @@
 		2AAD20051DA8093B0070538E /* Out_Dialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AAD1FF31DA8093B0070538E /* Out_Dialog.xib */; };
 		2AAD21961DA80AE90070538E /* About_Dialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AAD21931DA80AE90070538E /* About_Dialog.xib */; };
 		2AAD21971DA80AE90070538E /* j2k_About_Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD21951DA80AE90070538E /* j2k_About_Controller.m */; };
-		2AAD24D31DA858BA0070538E /* libkakadu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAD24CF1DA858AF0070538E /* libkakadu.a */; };
 		2AAD24D41DA858BB0070538E /* libLittle-CMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAD24D21DA858AF0070538E /* libLittle-CMS.a */; };
 		2AAD26241DAB19EA0070538E /* j2k_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD26231DAB19EA0070538E /* j2k_codec.cpp */; };
 		2AAD26281DAB25C50070538E /* j2k_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD26271DAB25C50070538E /* j2k_io.cpp */; };
 		2AAD262D1DAB2AE00070538E /* j2k_exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD262C1DAB2AE00070538E /* j2k_exception.cpp */; };
 		2AAD263E1DAB2D2B0070538E /* j2k_platform_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD263D1DAB2D2B0070538E /* j2k_platform_io.cpp */; };
-		2AAD274B1DAC12480070538E /* j2k_kakadu_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD274A1DAC12480070538E /* j2k_kakadu_codec.cpp */; };
 		2AAD29DB1DAEB2170070538E /* j2k_rgba_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD29DA1DAEB2170070538E /* j2k_rgba_file.cpp */; };
 		2AAD2FCE1DAF14750070538E /* j2k_grok_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD2FCD1DAF14750070538E /* j2k_grok_codec.cpp */; };
+		2AFEB2991DAFE16200BC66DC /* j2k_openjpeg_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEB2981DAFE16200BC66DC /* j2k_openjpeg_codec.cpp */; };
+		2AFEB37F1DAFF8E300BC66DC /* libopenjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFEB37C1DAFF8C100BC66DC /* libopenjpeg.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,12 +53,19 @@
 			remoteGlobalIDString = D2AAC045055464E500DB518D;
 			remoteInfo = "Little-CMS";
 		};
-		2AAD24D71DA858CB0070538E /* PBXContainerItemProxy */ = {
+		2AFEB37B1DAFF8C100BC66DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2AAD24C71DA858AF0070538E /* kakadu.xcodeproj */;
+			containerPortal = 2AFEB3771DAFF8C100BC66DC /* openjpeg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = openjpeg;
+		};
+		2AFEB3981DAFF94200BC66DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AFEB3771DAFF8C100BC66DC /* openjpeg.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = D2AAC045055464E500DB518D;
-			remoteInfo = kakadu;
+			remoteInfo = openjpeg;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -100,6 +107,9 @@
 		2AAD29DA1DAEB2170070538E /* j2k_rgba_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_rgba_file.cpp; sourceTree = "<group>"; };
 		2AAD2FCC1DAF14750070538E /* j2k_grok_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_grok_codec.h; sourceTree = "<group>"; };
 		2AAD2FCD1DAF14750070538E /* j2k_grok_codec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_grok_codec.cpp; sourceTree = "<group>"; };
+		2AFEB2971DAFE16200BC66DC /* j2k_openjpeg_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_openjpeg_codec.h; sourceTree = "<group>"; };
+		2AFEB2981DAFE16200BC66DC /* j2k_openjpeg_codec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_openjpeg_codec.cpp; sourceTree = "<group>"; };
+		2AFEB3771DAFF8C100BC66DC /* openjpeg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openjpeg.xcodeproj; path = ext/openjpeg.xcodeproj; sourceTree = "<group>"; };
 		C4E618CC095A3CE80012CA3F /* j2k.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = j2k.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -109,8 +119,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A9863271156BD32003ABD61 /* Cocoa.framework in Frameworks */,
-				2AAD24D31DA858BA0070538E /* libkakadu.a in Frameworks */,
 				2AAD24D41DA858BB0070538E /* libLittle-CMS.a in Frameworks */,
+				2AFEB37F1DAFF8E300BC66DC /* libopenjpeg.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +171,8 @@
 				2AAD274A1DAC12480070538E /* j2k_kakadu_codec.cpp */,
 				2AAD2FCC1DAF14750070538E /* j2k_grok_codec.h */,
 				2AAD2FCD1DAF14750070538E /* j2k_grok_codec.cpp */,
+				2AFEB2971DAFE16200BC66DC /* j2k_openjpeg_codec.h */,
+				2AFEB2981DAFE16200BC66DC /* j2k_openjpeg_codec.cpp */,
 				2AAD29D91DAEB2170070538E /* j2k_rgba_file.h */,
 				2AAD29DA1DAEB2170070538E /* j2k_rgba_file.cpp */,
 				2AAD1FEC1DA8093B0070538E /* mac */,
@@ -199,10 +211,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2AFEB3781DAFF8C100BC66DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AFEB37C1DAFF8C100BC66DC /* libopenjpeg.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C4E6187C095A3C800012CA3F = {
 			isa = PBXGroup;
 			children = (
 				2AAD1FD91DA8093B0070538E /* src */,
+				2AFEB3771DAFF8C100BC66DC /* openjpeg.xcodeproj */,
 				2AAD24C71DA858AF0070538E /* kakadu.xcodeproj */,
 				2AAD24CA1DA858AF0070538E /* Little-CMS.xcodeproj */,
 				2A9863261156BD32003ABD61 /* Cocoa.framework */,
@@ -234,7 +255,7 @@
 			);
 			dependencies = (
 				2AAD24D61DA858CB0070538E /* PBXTargetDependency */,
-				2AAD24D81DA858CB0070538E /* PBXTargetDependency */,
+				2AFEB3991DAFF94200BC66DC /* PBXTargetDependency */,
 			);
 			name = j2k;
 			productName = FBIO.plugin;
@@ -268,6 +289,10 @@
 					ProductGroup = 2AAD24CB1DA858AF0070538E /* Products */;
 					ProjectRef = 2AAD24CA1DA858AF0070538E /* Little-CMS.xcodeproj */;
 				},
+				{
+					ProductGroup = 2AFEB3781DAFF8C100BC66DC /* Products */;
+					ProjectRef = 2AFEB3771DAFF8C100BC66DC /* openjpeg.xcodeproj */;
+				},
 			);
 			projectRoot = ..;
 			targets = (
@@ -289,6 +314,13 @@
 			fileType = archive.ar;
 			path = "libLittle-CMS.a";
 			remoteRef = 2AAD24D11DA858AF0070538E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2AFEB37C1DAFF8C100BC66DC /* libopenjpeg.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libopenjpeg.a;
+			remoteRef = 2AFEB37B1DAFF8C100BC66DC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -334,9 +366,9 @@
 				2AAD26281DAB25C50070538E /* j2k_io.cpp in Sources */,
 				2AAD262D1DAB2AE00070538E /* j2k_exception.cpp in Sources */,
 				2AAD263E1DAB2D2B0070538E /* j2k_platform_io.cpp in Sources */,
-				2AAD274B1DAC12480070538E /* j2k_kakadu_codec.cpp in Sources */,
 				2AAD29DB1DAEB2170070538E /* j2k_rgba_file.cpp in Sources */,
 				2AAD2FCE1DAF14750070538E /* j2k_grok_codec.cpp in Sources */,
+				2AFEB2991DAFE16200BC66DC /* j2k_openjpeg_codec.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,10 +380,10 @@
 			name = "Little-CMS";
 			targetProxy = 2AAD24D51DA858CB0070538E /* PBXContainerItemProxy */;
 		};
-		2AAD24D81DA858CB0070538E /* PBXTargetDependency */ = {
+		2AFEB3991DAFF94200BC66DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = kakadu;
-			targetProxy = 2AAD24D71DA858CB0070538E /* PBXContainerItemProxy */;
+			name = openjpeg;
+			targetProxy = 2AFEB3981DAFF94200BC66DC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -391,6 +423,8 @@
 					"$(SDK_PATH)/Developer/Headers/FlatCarbon",
 					"../../ext/Little-CMS/include",
 					"../../ext/kakadu-v6.3.1/**",
+					"../../ext/openjpeg/src/**",
+					./ext,
 				);
 				REZ_PREPROCESSOR_DEFINITIONS = __MACH__;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
@@ -454,6 +488,8 @@
 					"$(SDK_PATH)/Developer/Headers/FlatCarbon",
 					"../../ext/Little-CMS/include",
 					"../../ext/kakadu-v6.3.1/**",
+					"../../ext/openjpeg/src/**",
+					./ext,
 				);
 				REZ_PREPROCESSOR_DEFINITIONS = __MACH__;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";

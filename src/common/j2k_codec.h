@@ -59,6 +59,7 @@ enum ColorSpace
 	sLUM,
 	sYCC,
 	esRGB,
+	esYCC,
 	ROMM,
 	CMYK,
 	CIELab,
@@ -197,7 +198,8 @@ typedef struct FileInfo
 enum SampleType
 {
 	UCHAR,
-	USHORT
+	USHORT,
+	UINT
 };
 
 typedef struct Channel
@@ -274,6 +276,8 @@ class Codec
 	static Format GetFileFormat(InputFile &file);
 	static void *CreateProfile(ColorSpace colorSpace, size_t &profileSize);
 	static bool IssRGBProfile(const void *iccProfile, size_t profileSize);
+	
+	static void CopyBuffer(const Buffer &destination, const Buffer &source);
 
   protected:
 	
