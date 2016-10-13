@@ -117,6 +117,15 @@ Codec::GetFileFormat(InputFile &file)
 	return format;
 }
 
+static inline cmsUInt16Number
+SwapEndian(cmsUInt16Number in)
+{
+#ifdef __ppc__
+	return in;
+#else
+	return ( (in >> 8) | (in << 8) );
+#endif
+}
 
 void *
 Codec::CreateProfile(ColorSpace colorSpace, size_t &profileSize)
@@ -140,6 +149,19 @@ Codec::CreateProfile(ColorSpace colorSpace, size_t &profileSize)
 				cmsSaveProfileToMem(iccH, profile, &icc_profile_len);
 
 				profileSize = icc_profile_len;
+				
+				// The profile written to memory is given a timestamp, which will make
+				// profiles that should be identical slightly different, which will
+				// mess with AE.  We're going to hard code our own time instead.
+				
+				cmsICCHeader *icc_header = (cmsICCHeader *)profile;
+				
+				icc_header->date.year	= SwapEndian(2012);
+				icc_header->date.month	= SwapEndian(12);
+				icc_header->date.day	= SwapEndian(12);
+				icc_header->date.hours	= SwapEndian(12);
+				icc_header->date.minutes= SwapEndian(12);
+				icc_header->date.seconds= SwapEndian(12);
 			}
 		}
 		
