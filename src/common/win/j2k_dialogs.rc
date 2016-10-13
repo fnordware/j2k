@@ -1,0 +1,198 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+OUT_DIALOG DIALOGEX 0, 0, 380, 188
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "j2k Options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,323,166,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,267,166,50,14
+    CONTROL         "J2K_BANNER",IDC_STATIC,"Static",SS_BITMAP,7,7,15,13
+    CONTROL         "Lossless",3,"Button",BS_AUTORADIOBUTTON,17,42,71,13
+    GROUPBOX        "Lossy",IDC_STATIC,16,57,152,86
+    CONTROL         "Digital Cinema",4,"Button",BS_AUTORADIOBUTTON,25,70,62,14
+    CONTROL         "File Size",5,"Button",BS_AUTORADIOBUTTON,25,88,52,14
+    CONTROL         "Quality",6,"Button",BS_AUTORADIOBUTTON,25,106,52,14
+    CONTROL         "",9,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,22,127,137,13
+    EDITTEXT        7,110,87,43,14,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        8,110,106,43,14,ES_RIGHT | ES_AUTOHSCROLL
+    CONTROL         "advanced",10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,146,60,15
+    COMBOBOX        11,242,18,67,16,CBS_DROPDOWNLIST | WS_TABSTOP
+    RTEXT           "Format:",12,189,18,47,13,SS_CENTERIMAGE
+    LTEXT           "k",IDC_STATIC,156,88,8,13,SS_CENTERIMAGE
+    CONTROL         "Custom bit depth:",13,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,217,41,75,16
+    CONTROL         "",15,"msctls_updown32",UDS_ARROWKEYS,325,41,9,15
+    EDITTEXT        14,294,42,31,14,ES_RIGHT | ES_AUTOHSCROLL
+    CONTROL         "ycc",16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,217,61,28,13
+    CONTROL         "float encoding",17,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,61,64,12
+    COMBOBOX        18,239,103,62,13,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Tiles:",19,187,102,47,13,SS_CENTERIMAGE
+    COMBOBOX        20,239,121,105,13,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Order:",21,187,121,47,13,SS_CENTERIMAGE
+    COMBOBOX        22,239,139,105,13,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Profile:",23,187,139,47,13,SS_CENTERIMAGE
+    COMBOBOX        24,239,81,62,13,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "DCI Profile:",25,187,81,47,13,SS_CENTERIMAGE
+    COMBOBOX        26,239,81,62,13,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Subsampling:",27,187,81,47,13,SS_CENTERIMAGE
+    CONTROL         "",28,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,239,103,123,12
+    EDITTEXT        29,239,121,62,14,ES_RIGHT | ES_AUTOHSCROLL
+    RTEXT           "Data Rate:",30,187,121,47,13,SS_CENTERIMAGE
+    COMBOBOX        31,307,121,55,15,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        32,240,139,55,31,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "FPS:",33,187,139,47,13,SS_CENTERIMAGE
+    CONTROL         "Stereo",34,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,307,141,37,10
+END
+
+ABOUT_DIALOG DIALOGEX 0, 0, 182, 139
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About j2k"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,66,110,50,14
+    CONTROL         "J2K_BANNER",3,"Static",SS_BITMAP,7,7,15,13
+    CTEXT           "j2k - JPEG 2000 file format",4,7,45,168,8
+    CTEXT           "by Brendan Bolles",5,7,54,168,8
+    CTEXT           "Uses the Kakadu software framework by David Taubman",6,28,70,126,16
+    CTEXT           "version string",7,7,93,168,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    "OUT_DIALOG", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 373
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 180
+    END
+
+    "ABOUT_DIALOG", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 175
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 132
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+J2K_BANNER              BITMAP                  "j2k_banner.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,7,0,0
+ PRODUCTVERSION 2,7,0,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "FileDescription", "j2k"
+            VALUE "FileVersion", "2.7"
+            VALUE "InternalName", "j2k"
+            VALUE "LegalCopyright", "Copyright (C) 2002-2012"
+            VALUE "OriginalFilename", "j2k"
+            VALUE "ProductName", "j2k_dialogs"
+            VALUE "ProductVersion", "2, 7, 0, 0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

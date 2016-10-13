@@ -337,27 +337,36 @@ PlatformOutputFile::Tell()
 #else
 
 
-ae_file_source::ae_file_source(const char *path)
+PlatformInputFile::PlatformInputFile(const char *path) :
+	InputFile()
 {
 	_hFile = CreateFile(path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	if(_hFile == INVALID_HANDLE_VALUE) { kdu_error e; e << "Couldn't open file."; return; }
+	if(_hFile == INVALID_HANDLE_VALUE)
+		throw Exception("Couldn't open file.");
 }
 
-ae_file_source::ae_file_source(const uint16_t *path)
+
+PlatformInputFile::PlatformInputFile(const uint16_t *path) :
+	InputFile()
 {
 	_hFile = CreateFileW((LPCWSTR)path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	if(_hFile == INVALID_HANDLE_VALUE) { kdu_error e; e << "Couldn't open file."; return; }
+	if(_hFile == INVALID_HANDLE_VALUE)
+		throw Exception("Couldn't open file.");
 }
 
-ae_file_source::~ae_file_source()
+
+PlatformInputFile::~PlatformInputFile()
 {
-	close();
+	BOOL result = CloseHandle(_hFile);
+
+	if(!result)
+		throw Exception("Error closing file.");
 }
 
-int
-ae_file_source::read(kdu_byte *buf, int num_bytes)
+size_t
+PlatformInputFile::Read(void *buf, size_t num_bytes)
 {
 	DWORD count = num_bytes, bytes_read = 0;
 	
@@ -366,37 +375,24 @@ ae_file_source::read(kdu_byte *buf, int num_bytes)
 	return bytes_read;
 }
 
-bool
-ae_file_source::close()
-{
-	if(_hFile != INVALID_HANDLE_VALUE)
-	{
-		BOOL result = CloseHandle(_hFile);
-		
-		_hFile = INVALID_HANDLE_VALUE;
-		
-		if(!result) { kdu_error e; e << "Error closing file."; }
-	}
-	
-	return true;
-}
 
 bool
-ae_file_source::seek(kdu_long offset)
+PlatformInputFile::Seek(size_t position)
 {
 	LARGE_INTEGER lpos;
 
-	lpos.QuadPart = offset;
+	lpos.QuadPart = position;
 
 	BOOL result = SetFilePointerEx(_hFile, lpos, NULL, FILE_BEGIN);
 	
 	return result;
 }
 
-kdu_long
-ae_file_source::get_pos()
+
+size_t
+PlatformInputFile::Tell()
 {
-	kdu_long pos;
+	size_t pos;
 	LARGE_INTEGER lpos, zero;
 
 	zero.QuadPart = 0;
@@ -409,70 +405,73 @@ ae_file_source::get_pos()
 }
 
 
-ae_file_target::ae_file_target(const char *path) :
-	_rewriting(false),
-	_pre_rewrite_pos(0)
+PlatformOutputFile::PlatformOutputFile(const char *path) :
+	OutputFile()
 {
 	_hFile = CreateFile(path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	
-	if(_hFile == INVALID_HANDLE_VALUE) { kdu_error e; e << "Couldn't open file for writing."; return; }
+	if(_hFile == INVALID_HANDLE_VALUE)
+		throw Exception("Couldn't open file.");
 }
 
-ae_file_target::ae_file_target(const uint16_t *path) :
-	_rewriting(false),
-	_pre_rewrite_pos(0)
+
+PlatformOutputFile::PlatformOutputFile(const uint16_t *path) :
+	OutputFile()
 {
 	_hFile = CreateFileW((LPCWSTR)path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	
-	if(_hFile == INVALID_HANDLE_VALUE) { kdu_error e; e << "Couldn't open file for writing."; return; }
+	if(_hFile == INVALID_HANDLE_VALUE)
+		throw Exception("Couldn't open file.");
 }
 
-ae_file_target::~ae_file_target()
+
+PlatformOutputFile::~PlatformOutputFile()
 {
-	close();
+	BOOL result = CloseHandle(_hFile);
+
+	assert(result == TRUE);
 }
 
-bool
-ae_file_target::write(const kdu_byte *buf, int num_bytes)
+
+size_t
+PlatformOutputFile::Read(void *buf, size_t num_bytes)
+{
+	DWORD count = num_bytes, bytes_read = 0;
+	
+	BOOL result = ReadFile(_hFile, (LPVOID)buf, count, &bytes_read, NULL);
+
+	return bytes_read;
+}
+
+
+size_t
+PlatformOutputFile::Write(const void *buf, size_t num_bytes)
 {
 	DWORD count = num_bytes, out = 0;
 	
 	BOOL result = WriteFile(_hFile, (LPVOID)buf, count, &out, NULL);
 	
-	return (count == num_bytes && result);
+	return count;
 }
 
-bool
-ae_file_target::close()
-{
-	if(_hFile != INVALID_HANDLE_VALUE)
-	{
-		BOOL result = CloseHandle(_hFile);
-		
-		_hFile = INVALID_HANDLE_VALUE;
-		
-		if(!result) { kdu_error e; e << "Error closing file."; }
-	}
-	
-	return true;
-}
 
 bool
-ae_file_target::seek(kdu_long offset)
+PlatformOutputFile::Seek(size_t position)
 {
 	LARGE_INTEGER lpos;
 
-	lpos.QuadPart = offset;
+	lpos.QuadPart = position;
 
 	BOOL result = SetFilePointerEx(_hFile, lpos, NULL, FILE_BEGIN);
 	
 	return result;
 }
 
-kdu_long
-ae_file_target::get_pos()
+
+size_t
+PlatformOutputFile::Tell()
 {
-	kdu_long pos;
+	size_t pos;
 	LARGE_INTEGER lpos, zero;
 
 	zero.QuadPart = 0;

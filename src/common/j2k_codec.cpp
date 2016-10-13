@@ -20,6 +20,10 @@
 	#include <mach/mach.h>
 #endif
 
+#ifdef WIN32
+	#include <Windows.h>
+#endif
+
 #include <assert.h>
 
 namespace j2k
