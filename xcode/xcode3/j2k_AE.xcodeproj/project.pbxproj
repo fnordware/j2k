@@ -1,0 +1,509 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A9863271156BD32003ABD61 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A9863261156BD32003ABD61 /* Cocoa.framework */; };
+		2AAD1FF61DA8093B0070538E /* AEIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD1FDB1DA8093B0070538E /* AEIO.cpp */; };
+		2AAD1FF71DA8093B0070538E /* fnord_MissingSuiteError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD1FDD1DA8093B0070538E /* fnord_MissingSuiteError.cpp */; };
+		2AAD1FF81DA8093B0070538E /* fnord_SuiteHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD1FDE1DA8093B0070538E /* fnord_SuiteHandler.cpp */; };
+		2AAD1FF91DA8093B0070538E /* FrameSeq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD1FE01DA8093B0070538E /* FrameSeq.cpp */; };
+		2AAD1FFA1DA8093B0070538E /* j2k.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD1FE21DA8093B0070538E /* j2k.cpp */; };
+		2AAD1FFF1DA8093B0070538E /* j2k_PiPL.r in Rez */ = {isa = PBXBuildFile; fileRef = 2AAD1FEA1DA8093B0070538E /* j2k_PiPL.r */; };
+		2AAD20001DA8093B0070538E /* j2k_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AAD1FED1DA8093B0070538E /* j2k_banner.png */; };
+		2AAD20011DA8093B0070538E /* j2k_Out_Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD1FEF1DA8093B0070538E /* j2k_Out_Controller.m */; };
+		2AAD20031DA8093B0070538E /* j2k_OutUI_Cocoa.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD1FF11DA8093B0070538E /* j2k_OutUI_Cocoa.mm */; };
+		2AAD20051DA8093B0070538E /* Out_Dialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AAD1FF31DA8093B0070538E /* Out_Dialog.xib */; };
+		2AAD21961DA80AE90070538E /* About_Dialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AAD21931DA80AE90070538E /* About_Dialog.xib */; };
+		2AAD21971DA80AE90070538E /* j2k_About_Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD21951DA80AE90070538E /* j2k_About_Controller.m */; };
+		2AAD24D31DA858BA0070538E /* libkakadu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAD24CF1DA858AF0070538E /* libkakadu.a */; };
+		2AAD24D41DA858BB0070538E /* libLittle-CMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAD24D21DA858AF0070538E /* libLittle-CMS.a */; };
+		2AAD26241DAB19EA0070538E /* j2k_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD26231DAB19EA0070538E /* j2k_codec.cpp */; };
+		2AAD26281DAB25C50070538E /* j2k_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD26271DAB25C50070538E /* j2k_io.cpp */; };
+		2AAD262D1DAB2AE00070538E /* j2k_exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD262C1DAB2AE00070538E /* j2k_exception.cpp */; };
+		2AAD263E1DAB2D2B0070538E /* j2k_platform_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD263D1DAB2D2B0070538E /* j2k_platform_io.cpp */; };
+		2AAD274B1DAC12480070538E /* j2k_kakadu_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD274A1DAC12480070538E /* j2k_kakadu_codec.cpp */; };
+		2AAD29DB1DAEB2170070538E /* j2k_rgba_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD29DA1DAEB2170070538E /* j2k_rgba_file.cpp */; };
+		2AAD2FCE1DAF14750070538E /* j2k_grok_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD2FCD1DAF14750070538E /* j2k_grok_codec.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2AAD24CE1DA858AF0070538E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AAD24C71DA858AF0070538E /* kakadu.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = kakadu;
+		};
+		2AAD24D11DA858AF0070538E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AAD24CA1DA858AF0070538E /* Little-CMS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = "Little-CMS";
+		};
+		2AAD24D51DA858CB0070538E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AAD24CA1DA858AF0070538E /* Little-CMS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
+			remoteInfo = "Little-CMS";
+		};
+		2AAD24D71DA858CB0070538E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AAD24C71DA858AF0070538E /* kakadu.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
+			remoteInfo = kakadu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2A9863261156BD32003ABD61 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		2AAD1FDB1DA8093B0070538E /* AEIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AEIO.cpp; sourceTree = "<group>"; };
+		2AAD1FDC1DA8093B0070538E /* AEIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEIO.h; sourceTree = "<group>"; };
+		2AAD1FDD1DA8093B0070538E /* fnord_MissingSuiteError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fnord_MissingSuiteError.cpp; sourceTree = "<group>"; };
+		2AAD1FDE1DA8093B0070538E /* fnord_SuiteHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fnord_SuiteHandler.cpp; sourceTree = "<group>"; };
+		2AAD1FDF1DA8093B0070538E /* fnord_SuiteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fnord_SuiteHandler.h; sourceTree = "<group>"; };
+		2AAD1FE01DA8093B0070538E /* FrameSeq.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameSeq.cpp; sourceTree = "<group>"; };
+		2AAD1FE11DA8093B0070538E /* FrameSeq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameSeq.h; sourceTree = "<group>"; };
+		2AAD1FE21DA8093B0070538E /* j2k.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k.cpp; sourceTree = "<group>"; };
+		2AAD1FE31DA8093B0070538E /* j2k.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k.h; sourceTree = "<group>"; };
+		2AAD1FEA1DA8093B0070538E /* j2k_PiPL.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; path = j2k_PiPL.r; sourceTree = "<group>"; };
+		2AAD1FED1DA8093B0070538E /* j2k_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = j2k_banner.png; sourceTree = "<group>"; };
+		2AAD1FEE1DA8093B0070538E /* j2k_Out_Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_Out_Controller.h; sourceTree = "<group>"; };
+		2AAD1FEF1DA8093B0070538E /* j2k_Out_Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = j2k_Out_Controller.m; sourceTree = "<group>"; };
+		2AAD1FF11DA8093B0070538E /* j2k_OutUI_Cocoa.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = j2k_OutUI_Cocoa.mm; sourceTree = "<group>"; };
+		2AAD1FF31DA8093B0070538E /* Out_Dialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Out_Dialog.xib; sourceTree = "<group>"; };
+		2AAD21931DA80AE90070538E /* About_Dialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About_Dialog.xib; sourceTree = "<group>"; };
+		2AAD21941DA80AE90070538E /* j2k_About_Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_About_Controller.h; sourceTree = "<group>"; };
+		2AAD21951DA80AE90070538E /* j2k_About_Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = j2k_About_Controller.m; sourceTree = "<group>"; };
+		2AAD24C71DA858AF0070538E /* kakadu.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = kakadu.xcodeproj; path = ext/kakadu.xcodeproj; sourceTree = "<group>"; };
+		2AAD24CA1DA858AF0070538E /* Little-CMS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Little-CMS.xcodeproj"; path = "ext/Little-CMS.xcodeproj"; sourceTree = "<group>"; };
+		2AAD25D01DA862270070538E /* j2k_OutUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_OutUI.h; sourceTree = "<group>"; };
+		2AAD25D41DA862AA0070538E /* j2k_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_version.h; sourceTree = "<group>"; };
+		2AAD26221DAB19EA0070538E /* j2k_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_codec.h; sourceTree = "<group>"; };
+		2AAD26231DAB19EA0070538E /* j2k_codec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_codec.cpp; sourceTree = "<group>"; };
+		2AAD26261DAB25C50070538E /* j2k_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_io.h; sourceTree = "<group>"; };
+		2AAD26271DAB25C50070538E /* j2k_io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_io.cpp; sourceTree = "<group>"; };
+		2AAD262B1DAB2AE00070538E /* j2k_exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_exception.h; sourceTree = "<group>"; };
+		2AAD262C1DAB2AE00070538E /* j2k_exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_exception.cpp; sourceTree = "<group>"; };
+		2AAD263C1DAB2D2B0070538E /* j2k_platform_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_platform_io.h; sourceTree = "<group>"; };
+		2AAD263D1DAB2D2B0070538E /* j2k_platform_io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_platform_io.cpp; sourceTree = "<group>"; };
+		2AAD27491DAC12480070538E /* j2k_kakadu_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_kakadu_codec.h; sourceTree = "<group>"; };
+		2AAD274A1DAC12480070538E /* j2k_kakadu_codec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_kakadu_codec.cpp; sourceTree = "<group>"; };
+		2AAD29D91DAEB2170070538E /* j2k_rgba_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_rgba_file.h; sourceTree = "<group>"; };
+		2AAD29DA1DAEB2170070538E /* j2k_rgba_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_rgba_file.cpp; sourceTree = "<group>"; };
+		2AAD2FCC1DAF14750070538E /* j2k_grok_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = j2k_grok_codec.h; sourceTree = "<group>"; };
+		2AAD2FCD1DAF14750070538E /* j2k_grok_codec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = j2k_grok_codec.cpp; sourceTree = "<group>"; };
+		C4E618CC095A3CE80012CA3F /* j2k.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = j2k.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C4E618CA095A3CE80012CA3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A9863271156BD32003ABD61 /* Cocoa.framework in Frameworks */,
+				2AAD24D31DA858BA0070538E /* libkakadu.a in Frameworks */,
+				2AAD24D41DA858BB0070538E /* libLittle-CMS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2AAD1FD91DA8093B0070538E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD1FDA1DA8093B0070538E /* aftereffects */,
+				2AAD1FEB1DA8093B0070538E /* common */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = SOURCE_ROOT;
+		};
+		2AAD1FDA1DA8093B0070538E /* aftereffects */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD1FDB1DA8093B0070538E /* AEIO.cpp */,
+				2AAD1FDC1DA8093B0070538E /* AEIO.h */,
+				2AAD1FE01DA8093B0070538E /* FrameSeq.cpp */,
+				2AAD1FE11DA8093B0070538E /* FrameSeq.h */,
+				2AAD1FE21DA8093B0070538E /* j2k.cpp */,
+				2AAD1FE31DA8093B0070538E /* j2k.h */,
+				2AAD1FEA1DA8093B0070538E /* j2k_PiPL.r */,
+				2AAD1FDD1DA8093B0070538E /* fnord_MissingSuiteError.cpp */,
+				2AAD1FDE1DA8093B0070538E /* fnord_SuiteHandler.cpp */,
+				2AAD1FDF1DA8093B0070538E /* fnord_SuiteHandler.h */,
+			);
+			path = aftereffects;
+			sourceTree = "<group>";
+		};
+		2AAD1FEB1DA8093B0070538E /* common */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD25D41DA862AA0070538E /* j2k_version.h */,
+				2AAD25D01DA862270070538E /* j2k_OutUI.h */,
+				2AAD26221DAB19EA0070538E /* j2k_codec.h */,
+				2AAD26231DAB19EA0070538E /* j2k_codec.cpp */,
+				2AAD26261DAB25C50070538E /* j2k_io.h */,
+				2AAD26271DAB25C50070538E /* j2k_io.cpp */,
+				2AAD262B1DAB2AE00070538E /* j2k_exception.h */,
+				2AAD262C1DAB2AE00070538E /* j2k_exception.cpp */,
+				2AAD263C1DAB2D2B0070538E /* j2k_platform_io.h */,
+				2AAD263D1DAB2D2B0070538E /* j2k_platform_io.cpp */,
+				2AAD27491DAC12480070538E /* j2k_kakadu_codec.h */,
+				2AAD274A1DAC12480070538E /* j2k_kakadu_codec.cpp */,
+				2AAD2FCC1DAF14750070538E /* j2k_grok_codec.h */,
+				2AAD2FCD1DAF14750070538E /* j2k_grok_codec.cpp */,
+				2AAD29D91DAEB2170070538E /* j2k_rgba_file.h */,
+				2AAD29DA1DAEB2170070538E /* j2k_rgba_file.cpp */,
+				2AAD1FEC1DA8093B0070538E /* mac */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		2AAD1FEC1DA8093B0070538E /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD1FED1DA8093B0070538E /* j2k_banner.png */,
+				2AAD1FF31DA8093B0070538E /* Out_Dialog.xib */,
+				2AAD1FEE1DA8093B0070538E /* j2k_Out_Controller.h */,
+				2AAD1FEF1DA8093B0070538E /* j2k_Out_Controller.m */,
+				2AAD1FF11DA8093B0070538E /* j2k_OutUI_Cocoa.mm */,
+				2AAD21931DA80AE90070538E /* About_Dialog.xib */,
+				2AAD21941DA80AE90070538E /* j2k_About_Controller.h */,
+				2AAD21951DA80AE90070538E /* j2k_About_Controller.m */,
+			);
+			path = mac;
+			sourceTree = "<group>";
+		};
+		2AAD24C81DA858AF0070538E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD24CF1DA858AF0070538E /* libkakadu.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AAD24CB1DA858AF0070538E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AAD24D21DA858AF0070538E /* libLittle-CMS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C4E6187C095A3C800012CA3F = {
+			isa = PBXGroup;
+			children = (
+				2AAD1FD91DA8093B0070538E /* src */,
+				2AAD24C71DA858AF0070538E /* kakadu.xcodeproj */,
+				2AAD24CA1DA858AF0070538E /* Little-CMS.xcodeproj */,
+				2A9863261156BD32003ABD61 /* Cocoa.framework */,
+				C4E6188C095A3C800012CA3F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C4E6188C095A3C800012CA3F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4E618CC095A3CE80012CA3F /* j2k.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C4E618CB095A3CE80012CA3F /* j2k */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4E618CE095A3CE90012CA3F /* Build configuration list for PBXNativeTarget "j2k" */;
+			buildPhases = (
+				C4E618C9095A3CE80012CA3F /* Sources */,
+				C4E618CA095A3CE80012CA3F /* Frameworks */,
+				C4E618EA095A3E040012CA3F /* Rez */,
+				D0445653099417B00073E055 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AAD24D61DA858CB0070538E /* PBXTargetDependency */,
+				2AAD24D81DA858CB0070538E /* PBXTargetDependency */,
+			);
+			name = j2k;
+			productName = FBIO.plugin;
+			productReference = C4E618CC095A3CE80012CA3F /* j2k.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C4E6187E095A3C800012CA3F /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C4E6187F095A3C800012CA3F /* Build configuration list for PBXProject "j2k_AE" */;
+			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = C4E6187C095A3C800012CA3F;
+			productRefGroup = C4E6188C095A3C800012CA3F /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2AAD24C81DA858AF0070538E /* Products */;
+					ProjectRef = 2AAD24C71DA858AF0070538E /* kakadu.xcodeproj */;
+				},
+				{
+					ProductGroup = 2AAD24CB1DA858AF0070538E /* Products */;
+					ProjectRef = 2AAD24CA1DA858AF0070538E /* Little-CMS.xcodeproj */;
+				},
+			);
+			projectRoot = ..;
+			targets = (
+				C4E618CB095A3CE80012CA3F /* j2k */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2AAD24CF1DA858AF0070538E /* libkakadu.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libkakadu.a;
+			remoteRef = 2AAD24CE1DA858AF0070538E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2AAD24D21DA858AF0070538E /* libLittle-CMS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libLittle-CMS.a";
+			remoteRef = 2AAD24D11DA858AF0070538E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D0445653099417B00073E055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAD20001DA8093B0070538E /* j2k_banner.png in Resources */,
+				2AAD20051DA8093B0070538E /* Out_Dialog.xib in Resources */,
+				2AAD21961DA80AE90070538E /* About_Dialog.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		C4E618EA095A3E040012CA3F /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAD1FFF1DA8093B0070538E /* j2k_PiPL.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C4E618C9095A3CE80012CA3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAD1FF61DA8093B0070538E /* AEIO.cpp in Sources */,
+				2AAD1FF71DA8093B0070538E /* fnord_MissingSuiteError.cpp in Sources */,
+				2AAD1FF81DA8093B0070538E /* fnord_SuiteHandler.cpp in Sources */,
+				2AAD1FF91DA8093B0070538E /* FrameSeq.cpp in Sources */,
+				2AAD1FFA1DA8093B0070538E /* j2k.cpp in Sources */,
+				2AAD20011DA8093B0070538E /* j2k_Out_Controller.m in Sources */,
+				2AAD20031DA8093B0070538E /* j2k_OutUI_Cocoa.mm in Sources */,
+				2AAD21971DA80AE90070538E /* j2k_About_Controller.m in Sources */,
+				2AAD26241DAB19EA0070538E /* j2k_codec.cpp in Sources */,
+				2AAD26281DAB25C50070538E /* j2k_io.cpp in Sources */,
+				2AAD262D1DAB2AE00070538E /* j2k_exception.cpp in Sources */,
+				2AAD263E1DAB2D2B0070538E /* j2k_platform_io.cpp in Sources */,
+				2AAD274B1DAC12480070538E /* j2k_kakadu_codec.cpp in Sources */,
+				2AAD29DB1DAEB2170070538E /* j2k_rgba_file.cpp in Sources */,
+				2AAD2FCE1DAF14750070538E /* j2k_grok_codec.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2AAD24D61DA858CB0070538E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Little-CMS";
+			targetProxy = 2AAD24D51DA858CB0070538E /* PBXContainerItemProxy */;
+		};
+		2AAD24D81DA858CB0070538E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = kakadu;
+			targetProxy = 2AAD24D71DA858CB0070538E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2A99D8E1115D214C006FA64C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				AE_SDK = "\"../../ext/Adobe After Effects CS5 Mac SDK\"";
+				ARCHS = x86_64;
+				COPY_PHASE_STRIP = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					KDU_MAC_SPEEDUPS,
+					KDU_NO_SSSE3,
+				);
+				GCC_REUSE_STRINGS = NO;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(AE_SDK)/Examples/Headers",
+					"$(AE_SDK)/Examples/Headers/SP",
+					"$(AE_SDK)/Examples/Util",
+					"$(AE_SDK)/Examples/Resources",
+					"$(SDK_PATH)/Developer/Headers/FlatCarbon",
+					"../../ext/Little-CMS/include",
+					"../../ext/kakadu-v6.3.1/**",
+				);
+				REZ_PREPROCESSOR_DEFINITIONS = __MACH__;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Release;
+		};
+		2A99D8E2115D214C006FA64C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GENERATE_PKGINFO_FILE = YES;
+				INFOPLIST_FILE = "j2k_AE.plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = j2k;
+				STRIP_INSTALLED_PRODUCT = YES;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Release;
+		};
+		C4E61880095A3C800012CA3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				AE_SDK = "\"../../ext/Adobe After Effects CS5 Mac SDK\"";
+				ARCHS = x86_64;
+				COPY_PHASE_STRIP = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					KDU_MAC_SPEEDUPS,
+					KDU_NO_SSSE3,
+				);
+				GCC_REUSE_STRINGS = NO;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(AE_SDK)/Examples/Headers",
+					"$(AE_SDK)/Examples/Headers/SP",
+					"$(AE_SDK)/Examples/Util",
+					"$(AE_SDK)/Examples/Resources",
+					"$(SDK_PATH)/Developer/Headers/FlatCarbon",
+					"../../ext/Little-CMS/include",
+					"../../ext/kakadu-v6.3.1/**",
+				);
+				REZ_PREPROCESSOR_DEFINITIONS = __MACH__;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		C4E618CF095A3CE90012CA3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GENERATE_PKGINFO_FILE = YES;
+				INFOPLIST_FILE = "j2k_AE.plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = j2k;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C4E6187F095A3C800012CA3F /* Build configuration list for PBXProject "j2k_AE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4E61880095A3C800012CA3F /* Debug */,
+				2A99D8E1115D214C006FA64C /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		C4E618CE095A3CE90012CA3F /* Build configuration list for PBXNativeTarget "j2k" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4E618CF095A3CE90012CA3F /* Debug */,
+				2A99D8E2115D214C006FA64C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C4E6187E095A3C800012CA3F /* Project object */;
+}
