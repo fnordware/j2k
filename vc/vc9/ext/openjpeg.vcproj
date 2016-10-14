@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Little-CMS"
-	ProjectGUID="{5C6AD68A-8C51-4853-9EE2-F292A7A8AED3}"
-	RootNamespace="LittleCMS"
+	Name="openjpeg"
+	ProjectGUID="{67F71FFB-CEAD-49D6-BD48-064CC5F7A467}"
+	RootNamespace="openjpeg"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -44,8 +44,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;OPJ_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -107,8 +107,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;OPJ_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -171,8 +171,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;OPJ_STATIC"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -235,8 +235,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;OPJ_STATIC"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -296,8 +296,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;OPJ_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -360,8 +360,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;OPJ_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -425,8 +425,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;OPJ_STATIC"
 				RuntimeLibrary="2"
 				StructMemberAlignment="3"
 				EnableFunctionLevelLinking="true"
@@ -490,8 +490,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;..\..\..\ext\Little-CMS\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories=".;..\..\..\ext\openjpeg\src\lib\openjp2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;OPJ_STATIC"
 				RuntimeLibrary="2"
 				StructMemberAlignment="3"
 				EnableFunctionLevelLinking="true"
@@ -537,111 +537,95 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsalpha.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\bio.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmscam02.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\cio.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmscgats.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\dwt.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmscnvrt.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\event.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmserr.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\function_list.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsgamma.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\image.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsgmt.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\invert.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmshalf.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\j2k.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsintrp.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\jp2.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsio0.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\mct.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsio1.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\mqc.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmslut.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\openjpeg.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsmd5.c"
+				RelativePath=".\openjpeg.def"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsmtrx.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_clock.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsnamed.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_malloc.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsopt.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\pi.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmspack.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\raw.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmspcs.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\t1.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsplugin.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\t1_generate_luts.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsps2.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\t2.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmssamp.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\tcd.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmssm.c"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\tgt.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmstypes.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsvirt.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmswtpnt.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\cmsxform.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\lcms2.def"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\thread.c"
 				>
 			</File>
 		</Filter>
@@ -651,7 +635,119 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\ext\Little-CMS\src\lcms2_internal.h"
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\bio.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\cio.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\dwt.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\event.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\function_list.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\image.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\invert.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\j2k.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\jp2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\mct.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\mqc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\mqc_inl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\openjpeg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_clock.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_codec.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_includes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_intmath.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_inttypes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_malloc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\opj_stdint.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\pi.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\raw.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\t1.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\t1_luts.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\t2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\tcd.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\tgt.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\thread.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ext\openjpeg\src\lib\openjp2\tls_keys.h"
 				>
 			</File>
 		</Filter>

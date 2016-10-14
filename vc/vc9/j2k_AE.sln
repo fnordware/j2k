@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "j2k_AE", "j2k_AE.vcproj", "{E08AC1B1-4589-46B7-B014-6E999356ED77}"
 	ProjectSection(ProjectDependencies) = postProject
-		{40A6D50C-6DE0-4269-8BCB-FD4748507544} = {40A6D50C-6DE0-4269-8BCB-FD4748507544}
 		{5C6AD68A-8C51-4853-9EE2-F292A7A8AED3} = {5C6AD68A-8C51-4853-9EE2-F292A7A8AED3}
+		{67F71FFB-CEAD-49D6-BD48-064CC5F7A467} = {67F71FFB-CEAD-49D6-BD48-064CC5F7A467}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kakadu", "ext\kakadu.vcproj", "{40A6D50C-6DE0-4269-8BCB-FD4748507544}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Little-CMS", "ext\Little-CMS.vcproj", "{5C6AD68A-8C51-4853-9EE2-F292A7A8AED3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openjpeg", "ext\openjpeg.vcproj", "{67F71FFB-CEAD-49D6-BD48-064CC5F7A467}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{5C6AD68A-8C51-4853-9EE2-F292A7A8AED3}.Debug|x64.Build.0 = Debug_4ByteStruct|x64
 		{5C6AD68A-8C51-4853-9EE2-F292A7A8AED3}.Release|x64.ActiveCfg = Release_4ByteStruct|x64
 		{5C6AD68A-8C51-4853-9EE2-F292A7A8AED3}.Release|x64.Build.0 = Release_4ByteStruct|x64
+		{67F71FFB-CEAD-49D6-BD48-064CC5F7A467}.Debug|x64.ActiveCfg = Debug_4ByteStruct|x64
+		{67F71FFB-CEAD-49D6-BD48-064CC5F7A467}.Debug|x64.Build.0 = Debug_4ByteStruct|x64
+		{67F71FFB-CEAD-49D6-BD48-064CC5F7A467}.Release|x64.ActiveCfg = Release_4ByteStruct|x64
+		{67F71FFB-CEAD-49D6-BD48-064CC5F7A467}.Release|x64.Build.0 = Release_4ByteStruct|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

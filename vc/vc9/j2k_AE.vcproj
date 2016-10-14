@@ -54,8 +54,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\src\aftereffects;..\..\src\common;&quot;..\..\ext\Little-CMS\include&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\SP&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\Win&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Resources&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Util&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\coding&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\common&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\compressed&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\kernels&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\messaging&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\parameters&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\roi&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\threads&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\transform&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\compressed_io&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\jp2&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\support&quot;"
-				PreprocessorDefinitions="MSWindows;WIN32;_WIN64;_DEBUG;_WINDOWS;KDU_PENTIUM_MSVC"
+				AdditionalIncludeDirectories=".\ext;..\..\src\aftereffects;..\..\src\common;&quot;..\..\ext\Little-CMS\include&quot;;..\..\ext\openjpeg\src\lib\openjp2;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\SP&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\Win&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Resources&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Util&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\coding&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\common&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\compressed&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\kernels&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\messaging&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\parameters&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\roi&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\threads&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\transform&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\compressed_io&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\jp2&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\support&quot;"
+				PreprocessorDefinitions="MSWindows;WIN32;_WIN64;_DEBUG;_WINDOWS;OPJ_STATIC"
 				RuntimeLibrary="3"
 				StructMemberAlignment="3"
 				AssemblerOutput="4"
@@ -151,8 +151,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\..\src\aftereffects;..\..\src\common;&quot;..\..\ext\Little-CMS\include&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\SP&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\Win&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Resources&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Util&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\coding&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\common&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\compressed&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\kernels&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\messaging&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\parameters&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\roi&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\threads&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\transform&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\compressed_io&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\jp2&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\support&quot;"
-				PreprocessorDefinitions="MSWindows;WIN32;_WIN64;NDEBUG;_WINDOWS;KDU_PENTIUM_MSVC"
+				AdditionalIncludeDirectories=".\ext;..\..\src\aftereffects;..\..\src\common;&quot;..\..\ext\Little-CMS\include&quot;;..\..\ext\openjpeg\src\lib\openjp2;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\SP&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\Win&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Resources&quot;;&quot;..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Util&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\coding&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\common&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\compressed&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\kernels&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\messaging&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\parameters&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\roi&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\threads&quot;;&quot;..\..\ext\kakadu-v6.3.1\coresys\transform&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\compressed_io&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\jp2&quot;;&quot;..\..\ext\kakadu-v6.3.1\apps\support&quot;"
+				PreprocessorDefinitions="MSWindows;WIN32;_WIN64;NDEBUG;_WINDOWS;OPJ_STATIC"
 				RuntimeLibrary="2"
 				StructMemberAlignment="3"
 				AssemblerOutput="4"
@@ -254,6 +254,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\common\j2k_kakadu_codec.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\common\j2k_openjpeg_codec.h"
 				>
 			</File>
 			<File
@@ -627,7 +631,7 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\common\j2k_kakadu_codec.cpp"
+			RelativePath="..\..\src\common\j2k_openjpeg_codec.cpp"
 			>
 		</File>
 		<File
