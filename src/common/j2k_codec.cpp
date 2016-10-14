@@ -28,6 +28,8 @@
 	#include <Windows.h>
 #endif
 
+#include <limits>
+
 #include <assert.h>
 
 namespace j2k
@@ -202,72 +204,6 @@ Codec::IssRGBProfile(const void *iccProfile, size_t profileSize)
 
 
 template <typename DESTTYPE, typename SRCTYPE>
-static inline DESTTYPE Convert(const SRCTYPE &s);
-
-template <>
-static inline unsigned char
-Convert<unsigned char, unsigned char>(const unsigned char &s)
-{
-	return s;
-}
-
-template <>
-static inline unsigned char
-Convert<unsigned char, unsigned short>(const unsigned short &s)
-{
-	return (s >> 8);
-}
-
-template <>
-static inline unsigned char
-Convert<unsigned char, unsigned int>(const unsigned int &s)
-{
-	return (s >> 24);
-}
-
-template <>
-static inline unsigned short
-Convert<unsigned short, unsigned char>(const unsigned char &s)
-{
-	return ((unsigned short)s << 8 | s);
-}
-
-template <>
-static inline unsigned short
-Convert<unsigned short, unsigned short>(const unsigned short &s)
-{
-	return s;
-}
-
-template <>
-static inline unsigned short
-Convert<unsigned short, unsigned int>(const unsigned int &s)
-{
-	return (s >> 16);
-}
-
-template <>
-static inline unsigned int
-Convert<unsigned int, unsigned char>(const unsigned char &s)
-{
-	return ((unsigned int)s << 24 | (unsigned int)s << 16 | (unsigned int)s << 8 | s);
-}
-
-template <>
-static inline unsigned int
-Convert<unsigned int, unsigned short>(const unsigned short &s)
-{
-	return ((unsigned int)s << 16 | s);
-}
-
-template <>
-static inline unsigned int
-Convert<unsigned int, unsigned int>(const unsigned int &s)
-{
-	return s;
-}
-
-template <typename DESTTYPE, typename SRCTYPE>
 static void
 CopyChannel(const Channel &dest, const Channel &src)
 {
@@ -277,18 +213,113 @@ CopyChannel(const Channel &dest, const Channel &src)
 	const int destStep = (dest.colbytes / sizeof(DESTTYPE));
 	const int srcStep = (src.colbytes / sizeof(SRCTYPE));
 
+	assert(dest.depth <= (sizeof(DESTTYPE) * 8)); // make sure the specified depth
+	assert(src.depth <= (sizeof(SRCTYPE) * 8));   // fits in the specified type
+
+	assert(!dest.sgnd || std::numeric_limits<DESTTYPE>::is_signed); // in other words, a signed channel
+	assert(!src.sgnd || std::numeric_limits<SRCTYPE>::is_signed);   // should have a signed type
+	
+	const int bitShift = ((int)dest.depth - (int)src.depth);
+	
 	for(int y=0; y < height; y++)
 	{
 		DESTTYPE *d = (DESTTYPE *)(dest.buf + (y * dest.rowbytes));
 		SRCTYPE *s = (SRCTYPE *)(src.buf + (y * src.rowbytes));
 		
-		for(int x=0; x < width; x++)
+		if(dest.sgnd == src.sgnd)
 		{
-			*d = Convert<DESTTYPE, SRCTYPE>(*s);
-			
-			d += destStep;
-			s += srcStep;
+			if(bitShift == 0)
+			{
+				// no shift
+				for(int x=0; x < width; x++)
+				{
+					*d = *s;
+					
+					d += destStep;
+					s += srcStep;
+				}
+			}
+			else if(bitShift > 0)
+			{
+				// upshift
+				if(src.depth >= 8)
+				{
+					assert(bitShift <= 24);
+					
+					if(bitShift <= src.depth)
+					{
+						// so we just have to repeat some bits in the gap
+						const int fillDownshift =  (src.depth - bitShift);
+					
+						for(int x=0; x < width; x++)
+						{
+							*d = ( ((DESTTYPE)*s << bitShift) | (*s >> fillDownshift) );
+							
+							d += destStep;
+							s += srcStep;
+						}
+					}
+					else
+					{
+						// have to do two fills
+						// the first one doubles the bit depth
+						// making the second one like the one above
+						const int firstShift = src.depth;
+						const int secondShift = (bitShift - firstShift);
+						const int fillDownshift = ((src.depth * 2) - secondShift);
+						
+						for(int x=0; x < width; x++)
+						{
+							const DESTTYPE t = (((DESTTYPE)*s << firstShift) | *s);
+						
+							*d = ( (t << secondShift) | (t >> fillDownshift) );
+							
+							d += destStep;
+							s += srcStep;
+						}
+					}
+				}
+				else
+					assert(false); // TODO: write upshift for < 8 bit
+			}
+			else
+			{
+				// downshift
+				const int downShift = -bitShift;
+				
+				for(int x=0; x < width; x++)
+				{
+					*d = (*s >> downShift);
+					
+					d += destStep;
+					s += srcStep;
+				}
+			}
 		}
+		else
+			assert(false); // TODO: write singed-unsigned conversions
+	}
+}
+
+template <typename DESTTYPE>
+static void
+CopyChannel(const Channel &dest, const Channel &src)
+{
+	if(src.sampleType == UCHAR)
+	{
+		CopyChannel<DESTTYPE, unsigned char>(dest, src);
+	}
+	else if(src.sampleType == USHORT)
+	{
+		CopyChannel<DESTTYPE, unsigned short>(dest, src);
+	}
+	else if(src.sampleType == UINT)
+	{
+		CopyChannel<DESTTYPE, unsigned int>(dest, src);
+	}
+	else if(src.sampleType == INT)
+	{
+		CopyChannel<DESTTYPE, int>(dest, src);
 	}
 }
 
@@ -302,48 +333,19 @@ Codec::CopyBuffer(const Buffer &destination, const Buffer &source)
 		
 		if(dest.sampleType == UCHAR)
 		{
-			if(src.sampleType == UCHAR)
-			{
-				CopyChannel<unsigned char, unsigned char>(dest, src);
-			}
-			else if(src.sampleType == USHORT)
-			{
-				CopyChannel<unsigned char, unsigned short>(dest, src);
-			}
-			else if(src.sampleType == UINT)
-			{
-				CopyChannel<unsigned char, unsigned int>(dest, src);
-			}
+			CopyChannel<unsigned char>(dest, src);
 		}
 		else if(dest.sampleType == USHORT)
 		{
-			if(src.sampleType == UCHAR)
-			{
-				CopyChannel<unsigned short, unsigned char>(dest, src);
-			}
-			else if(src.sampleType == USHORT)
-			{
-				CopyChannel<unsigned short, unsigned short>(dest, src);
-			}
-			else if(src.sampleType == UINT)
-			{
-				CopyChannel<unsigned short, unsigned int>(dest, src);
-			}
+			CopyChannel<unsigned short>(dest, src);
 		}
 		else if(dest.sampleType == UINT)
 		{
-			if(src.sampleType == UCHAR)
-			{
-				CopyChannel<unsigned int, unsigned char>(dest, src);
-			}
-			else if(src.sampleType == USHORT)
-			{
-				CopyChannel<unsigned int, unsigned short>(dest, src);
-			}
-			else if(src.sampleType == UINT)
-			{
-				CopyChannel<unsigned int, unsigned int>(dest, src);
-			}
+			CopyChannel<unsigned int>(dest, src);
+		}
+		else if(dest.sampleType == INT)
+		{
+			CopyChannel<int>(dest, src);
 		}
 	}
 }

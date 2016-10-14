@@ -340,8 +340,11 @@ WorldToBuffer(PF_EffectWorld *wP, PF_PixelFormat pixelFormat)
 		rgbaChan.width = wP->width;
 		rgbaChan.height = wP->height;
 		
-		rgbaChan.buf = (unsigned char *)wP->data + (i * pixelSize);
 		rgbaChan.sampleType = sampleType;
+		rgbaChan.depth = (pixelSize * 8);
+		rgbaChan.sgnd = false;
+		
+		rgbaChan.buf = (unsigned char *)wP->data + (i * pixelSize);
 		rgbaChan.colbytes = (4 * pixelSize);
 		rgbaChan.rowbytes = wP->rowbytes;
 	}

@@ -199,7 +199,9 @@ enum SampleType
 {
 	UCHAR,
 	USHORT,
-	UINT
+	UINT,
+	
+	INT
 };
 
 typedef struct Channel
@@ -207,18 +209,22 @@ typedef struct Channel
 	unsigned int width;
 	unsigned int height;
 	//unsigned char subsample;
-	//unsigned char depth;
+	
+	SampleType sampleType;
+	unsigned char depth;
+	bool sgnd; // signed (which is a C keyword, hence the Hungarian)
 	
 	unsigned char *buf;
-	SampleType sampleType;
 	intptr_t colbytes;
 	intptr_t rowbytes;
 	
 	Channel() :
 		width(0),
 		height(0),
-		buf(NULL),
 		sampleType(UCHAR),
+		depth(8),
+		sgnd(false),
+		buf(NULL),
 		colbytes(0),
 		rowbytes(0)
 	{

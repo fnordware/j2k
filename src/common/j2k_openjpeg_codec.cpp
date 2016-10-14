@@ -225,7 +225,11 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 				
 				info.depth = image->comps[0].prec;
 				
+				assert(image->comps[0].bpp == 0); // unused?
+				
 				assert(!image->comps[0].sgnd); // not sure I can deal with signed
+				
+				// TODO: fill in more fields in info, like the compression params
 			}
 			else
 				success = false;
@@ -292,64 +296,44 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 			if(imageRead && image != NULL)
 			{
 				assert(subsample == 0); // not dealing with subsample yet
-			
+				
+				// TODO: read one tile at a time and let the user interrupt
+				
 				imageRead = opj_decode(codec, stream, image);
 				
 				if(imageRead)
 				{
 					assert(image->numcomps <= J2K_CODEC_MAX_CHANNELS);
 					
-					for(int i = 0; i < image->numcomps; i++)
+					Buffer openjpegBuffer;
+					
+					openjpegBuffer.channels = image->numcomps;
+					
+					for(int i=0; i < image->numcomps; i++)
 					{
-						const Channel &chan = buffer.channel[i];
+						Channel &chan = openjpegBuffer.channel[i];
 						
 						const opj_image_comp_t &comp = image->comps[i];
 						
-						assert(chan.sampleType == (comp.prec > 8 ? USHORT : UCHAR));
-						assert(chan.width == comp.w);
-						assert(chan.height == comp.h);
+						chan.width = comp.w;
+						chan.height = comp.h;
 						
+						chan.sampleType = INT;
+						chan.depth = comp.prec;
+						chan.sgnd = comp.sgnd;
+						
+						assert(comp.prec > 0);
+						assert(comp.bpp == 0); // unused?
 						assert(!comp.sgnd);
+						
+						chan.buf = (unsigned char *)comp.data;
+						chan.colbytes = sizeof(int);
+						chan.rowbytes = (sizeof(int) * comp.w);
+						
 						assert(comp.data != NULL);
-						
-						
-						OPJ_INT32 *in = comp.data;
-						
-						if(chan.sampleType == UCHAR)
-						{
-							const int step = (chan.colbytes / sizeof(unsigned char));
-						
-							for(int y=0; y < chan.height; y++)
-							{
-								unsigned char *out = (unsigned char *)(chan.buf + (y * chan.rowbytes));
-								
-								for(int x=0; x < chan.width; x++)
-								{
-									*out = *in;
-									
-									out += step;
-									in++;
-								}
-							}
-						}
-						else if(chan.sampleType == USHORT)
-						{
-							const int step = (chan.colbytes / sizeof(unsigned short));
-						
-							for(int y=0; y < chan.height; y++)
-							{
-								unsigned short *out = (unsigned short *)(chan.buf + (y * chan.rowbytes));
-								
-								for(int x=0; x < chan.width; x++)
-								{
-									*out = *in;
-									
-									out += step;
-									in++;
-								}
-							}
-						}
 					}
+					
+					CopyBuffer(buffer, openjpegBuffer);
 				}
 			}
 			else
@@ -457,57 +441,35 @@ OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &b
 				image->x1 = info.width;
 				image->y1 = info.height;
 				
-				for(int i=0; i < buffer.channels; i++)
+				Buffer openjpegBuffer;
+				
+				openjpegBuffer.channels = image->numcomps;
+				
+				for(int i=0; i < image->numcomps; i++)
 				{
-					const Channel &chan = buffer.channel[i];
+					Channel &chan = openjpegBuffer.channel[i];
 					
 					const opj_image_comp_t &comp = image->comps[i];
 					
-					assert(chan.sampleType == (comp.prec > 8 ? USHORT : UCHAR));
-					assert(chan.width == comp.w);
-					assert(chan.height == comp.h);
+					chan.width = comp.w;
+					chan.height = comp.h;
 					
+					chan.sampleType = INT;
+					chan.depth = comp.prec;
+					chan.sgnd = comp.sgnd;
+					
+					assert(comp.prec > 0);
+					assert(comp.bpp == comp.prec); // now it's used
 					assert(!comp.sgnd);
+					
+					chan.buf = (unsigned char *)comp.data;
+					chan.colbytes = sizeof(int);
+					chan.rowbytes = (sizeof(int) * comp.w);
+					
 					assert(comp.data != NULL);
-					
-					
-					OPJ_INT32 *out = comp.data;
-					
-					if(chan.sampleType == UCHAR)
-					{
-						const int step = (chan.colbytes / sizeof(unsigned char));
-					
-						for(int y=0; y < chan.height; y++)
-						{
-							unsigned char *in = (unsigned char *)(chan.buf + (y * chan.rowbytes));
-							
-							for(int x=0; x < chan.width; x++)
-							{
-								*out = *in;
-								
-								out++;
-								in += step;
-							}
-						}
-					}
-					else if(chan.sampleType == USHORT)
-					{
-						const int step = (chan.colbytes / sizeof(unsigned short));
-					
-						for(int y=0; y < chan.height; y++)
-						{
-							unsigned short *in = (unsigned short *)(chan.buf + (y * chan.rowbytes));
-							
-							for(int x=0; x < chan.width; x++)
-							{
-								*out = *in;
-								
-								out++;
-								in += step;
-							}
-						}
-					}
 				}
+				
+				CopyBuffer(openjpegBuffer, buffer);
 				
 			
 				opj_cparameters_t params;
