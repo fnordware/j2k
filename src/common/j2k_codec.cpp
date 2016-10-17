@@ -28,6 +28,7 @@
 	#include <Windows.h>
 #endif
 
+#include <algorithm>
 #include <limits>
 
 #include <assert.h>
