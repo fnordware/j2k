@@ -164,10 +164,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Util\entry.h" />
-    <ClInclude Include="..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\FIEL_Public.h" />
-    <ClInclude Include="..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\PF_Masks.h" />
-    <ClInclude Include="..\..\ext\Adobe After Effects CS5 Win SDK\Examples\Headers\PR_Public.h" />
     <ClInclude Include="..\..\src\aftereffects\AEIO.h" />
     <ClInclude Include="..\..\src\aftereffects\fnord_SuiteHandler.h" />
     <ClInclude Include="..\..\src\aftereffects\FrameSeq.h" />
