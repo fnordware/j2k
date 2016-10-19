@@ -2,7 +2,8 @@
 /* ---------------------------------------------------------------------
 // 
 // j2k - JPEG 2000 plug-ins for Adobe programs
-// Copyright (c) 2002-2016 Brendan Bolles and Aaron Boxer
+// Copyright (c) 2002-2016,  Brendan Bolles, http://www.fnordware.com
+// Copyright (c) 2016,       Aaron Boxer,    http://grokimagecompression.github.io/grok 
 // 
 // This file is part of j2k.
 //
