@@ -89,7 +89,7 @@ typedef A_u_char JPEG_DCI_Profile;
 typedef enum {
 	DCI_PER_FRAME = 0,
 	DCI_PER_SECOND
-};
+} DCI_ENUM;
 typedef A_u_char JPEG_DCI_Per_Frame;
 
 

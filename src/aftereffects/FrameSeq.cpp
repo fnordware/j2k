@@ -88,7 +88,7 @@ static inline PF_FpShort Convert<A_u_short, PF_FpShort>(A_u_short in)
 template <>
 static inline A_u_char Convert<A_u_short, A_u_char>(A_u_short in)
 {
-    return CONVERT16TO8(in);
+    return static_cast<A_u_char>(CONVERT16TO8(in));
 }
 
 
@@ -100,13 +100,13 @@ static inline PF_FpShort Clamp(PF_FpShort in)
 template <>
 static inline A_u_char Convert<PF_FpShort, A_u_char>(PF_FpShort in)
 {
-    return ( Clamp(in) * (PF_FpShort)PF_MAX_CHAN8 ) + 0.5f;
+    return static_cast<A_u_char>(( Clamp(in) * (PF_FpShort)PF_MAX_CHAN8 ) + 0.5f);
 }
 
 template <>
 static inline A_u_short Convert<PF_FpShort, A_u_short>(PF_FpShort in)
 {
-    return ( Clamp(in) * (PF_FpShort)PF_MAX_CHAN16 ) + 0.5f;
+    return static_cast<A_u_char>(( Clamp(in) * (PF_FpShort)PF_MAX_CHAN16 ) + 0.5f);
 }
 
 typedef struct {
@@ -681,8 +681,8 @@ FrameSeq_InitInSpecFromFile(
 #define DEPTH_GREY_8	40
 #define DEPTH_GREY_16	-16
 	
-		A_short			depth = info.planes < 3 ? (info.depth == 16 ? DEPTH_GREY_16 : DEPTH_GREY_8) : // greyscale
-								info.planes * info.depth; // not
+		A_short			depth = static_cast<A_short>(info.planes < 3 ? (info.depth == 16 ? DEPTH_GREY_16 : DEPTH_GREY_8) : // greyscale
+								info.planes * info.depth); // not
 
 		err = suites.IOInSuite()->AEGP_SetInSpecDepth(specH, depth);
 
@@ -867,7 +867,7 @@ FrameSeq_DrawSparseFrame(
 		scale.h = sparse_framePPB->rs.x.den / sparse_framePPB->rs.x.num; // scale.h = 2 means 1/2 x scale
 		scale.v = sparse_framePPB->rs.y.den / sparse_framePPB->rs.y.num;
 		
-		const A_u_char max_subsample = MIN(scale.h, scale.v);
+		const A_u_char max_subsample = static_cast<A_u_char>(MIN(scale.h, scale.v));
 		
 		// only subsample to power of 2 dimensions
 		// not sure what Kadaku does otherwise
@@ -1302,7 +1302,7 @@ FrameSeq_OutputFrame(
 	A_Fixed native_fps = INT2FIX(24);
 	suites.IOOutSuite()->AEGP_GetOutSpecFPS(outH, &native_fps);
 	
-	info.fps = FIX_2_FLOAT(native_fps);
+	info.fps = static_cast<A_FpShort>(FIX_2_FLOAT(native_fps));
 	
 	
 	// get color profile

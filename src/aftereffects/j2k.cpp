@@ -364,7 +364,7 @@ WorldToBuffer(PF_EffectWorld *wP, PF_PixelFormat pixelFormat)
 		rgbaChan.height = wP->height;
 		
 		rgbaChan.sampleType = sampleType;
-		rgbaChan.depth = (pixelSize * 8);
+		rgbaChan.depth = static_cast<unsigned char>(pixelSize * 8);
 		rgbaChan.sgnd = false;
 		
 		rgbaChan.buf = (unsigned char *)wP->data + (i * pixelSize);
