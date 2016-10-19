@@ -58,10 +58,10 @@ typedef struct Rational
 
 typedef struct Subsampling
 {
-	int x;
+	int x; // width * subsampling.x == full width
 	int y;
 	
-	Subsampling() : x(0), y(0) {}
+	Subsampling() : x(1), y(1) {}
 	
 } Subsampling;
 
@@ -221,7 +221,7 @@ typedef struct Channel
 {
 	unsigned int width;
 	unsigned int height;
-	//unsigned char subsample;
+	Subsampling subsampling;
 	
 	SampleType sampleType;
 	unsigned char depth;
@@ -244,6 +244,7 @@ typedef struct Channel
 	}
 	
 } Channel;
+
 
 typedef struct
 {
@@ -302,6 +303,11 @@ class Codec
 	
 	static unsigned int NumberOfCPUs();
 };
+
+
+size_t SizeOfSample(SampleType type);
+
+unsigned int SubsampledSize(unsigned int size, int subsampling);
 
 
 typedef std::list<Codec *> CodecList;

@@ -244,6 +244,22 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 				
 				assert(!image->comps[0].sgnd); // not sure I can deal with signed
 				
+				assert(image->x0 == 0 && image->x0 == 0); // how to deal with this?
+				
+				for(int i=0; i < image->numcomps; i++)
+				{
+					const opj_image_comp_t &comp = image->comps[i];
+					
+					Subsampling &sub = info.subsampling[i];
+					
+					assert(comp.x0 == 0 && comp.y0 == 0); // how?
+					
+					assert(comp.factor == 0); // subsampling?
+					
+					sub.x = comp.dx;
+					sub.y = comp.dy;
+				}
+				
 				// TODO: fill in more fields in info, like the compression params
 			}
 			else

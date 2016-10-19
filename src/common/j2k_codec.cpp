@@ -222,8 +222,10 @@ template <typename DESTTYPE, typename SRCTYPE>
 static void
 CopyChannel(const Channel &dest, const Channel &src)
 {
-	const int height = std::min<int>(dest.height, src.height);
-	const int width = std::min<int>(dest.width, src.width);
+	const int height = dest.height;
+	const int width = dest.width;
+	
+	assert(dest.subsampling.x == 1 && dest.subsampling.y == 1); // not handling destination subsampling right now
 	
 	const int destStep = (dest.colbytes / sizeof(DESTTYPE));
 	const int srcStep = (src.colbytes / sizeof(SRCTYPE));
@@ -236,22 +238,28 @@ CopyChannel(const Channel &dest, const Channel &src)
 	
 	const int bitShift = ((int)dest.depth - (int)src.depth);
 	
-	for(int y=0; y < height; y++)
+	
+	unsigned char *destRow = dest.buf;
+	unsigned char *srcRow = src.buf;
+	
+	for(int y=1; y <= height; y++)
 	{
-		DESTTYPE *d = (DESTTYPE *)(dest.buf + (y * dest.rowbytes));
-		SRCTYPE *s = (SRCTYPE *)(src.buf + (y * src.rowbytes));
+		DESTTYPE *d = (DESTTYPE *)destRow;
+		SRCTYPE *s = (SRCTYPE *)srcRow;
 		
 		if(dest.sgnd == src.sgnd)
 		{
 			if(bitShift == 0)
 			{
 				// no shift
-				for(int x=0; x < width; x++)
+				for(int x=1; x <= width; x++)
 				{
 					*d = *s;
 					
 					d += destStep;
-					s += srcStep;
+					
+					if(x % src.subsampling.x == 0)
+						s += srcStep;
 				}
 			}
 			else if(bitShift > 0)
@@ -266,12 +274,14 @@ CopyChannel(const Channel &dest, const Channel &src)
 						// so we just have to repeat some bits in the gap
 						const int fillDownshift =  (src.depth - bitShift);
 					
-						for(int x=0; x < width; x++)
+						for(int x=1; x <= width; x++)
 						{
 							*d = ( ((DESTTYPE)*s << bitShift) | (*s >> fillDownshift) );
 							
 							d += destStep;
-							s += srcStep;
+							
+							if(x % src.subsampling.x == 0)
+								s += srcStep;
 						}
 					}
 					else
@@ -283,14 +293,16 @@ CopyChannel(const Channel &dest, const Channel &src)
 						const int secondShift = (bitShift - firstShift);
 						const int fillDownshift = ((src.depth * 2) - secondShift);
 						
-						for(int x=0; x < width; x++)
+						for(int x=1; x <= width; x++)
 						{
 							const DESTTYPE t = (((DESTTYPE)*s << firstShift) | *s);
 						
 							*d = ( (t << secondShift) | (t >> fillDownshift) );
 							
 							d += destStep;
-							s += srcStep;
+							
+							if(x % src.subsampling.x == 0)
+								s += srcStep;
 						}
 					}
 				}
@@ -302,17 +314,24 @@ CopyChannel(const Channel &dest, const Channel &src)
 				// downshift
 				const int downShift = -bitShift;
 				
-				for(int x=0; x < width; x++)
+				for(int x=1; x <= width; x++)
 				{
 					*d = (*s >> downShift);
 					
 					d += destStep;
-					s += srcStep;
+					
+					if(x % src.subsampling.x == 0)
+						s += srcStep;
 				}
 			}
 		}
 		else
 			assert(false); // TODO: write singed-unsigned conversions
+		
+		destRow += dest.rowbytes;
+		
+		if(y % src.subsampling.y == 0)
+			srcRow += src.rowbytes;
 	}
 }
 
@@ -392,6 +411,34 @@ Codec::NumberOfCPUs()
 	}
 	
 	return cpus;
+}
+
+
+size_t
+SizeOfSample(SampleType type)
+{
+	switch(type)
+	{
+		case UCHAR:		return sizeof(unsigned char);
+		case USHORT:	return sizeof(unsigned short);
+		case UINT:		return sizeof(unsigned int);
+		case INT:		return sizeof(int);
+		
+		default:
+			throw Exception("invalid type!");
+	}
+}
+
+
+unsigned int
+SubsampledSize(unsigned int size, int subsampling)
+{
+	assert(subsampling > 0);
+
+	if(subsampling == 1)
+		return size;
+		
+	return ceil((double)size / (double)subsampling);
 }
 
 
