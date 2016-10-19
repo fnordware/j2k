@@ -26,6 +26,7 @@
 #include "j2k_exception.h"
 
 #include <assert.h>
+#include <algorithm>
 
 namespace j2k
 {
