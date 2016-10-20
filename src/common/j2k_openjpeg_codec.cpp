@@ -218,7 +218,7 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 				info.width = image->x1;
 				info.height = image->y1;
 				
-				info.channels = image->numcomps;
+				info.channels = static_cast<uint8_t>(image->numcomps);
 				
 				info.colorSpace = (image->color_space == OPJ_CLRSPC_SRGB ? sRGB :
 									image->color_space == OPJ_CLRSPC_GRAY ? sLUM :
@@ -239,7 +239,7 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 					info.colorSpace = iccRGB;
 				}
 				
-				info.depth = image->comps[0].prec;
+				info.depth = static_cast<uint8_t>(image->comps[0].prec);
 				
 				assert(image->comps[0].bpp == 0); // unused?
 				
@@ -247,7 +247,7 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 				
 				assert(image->x0 == 0 && image->x0 == 0); // how to deal with this?
 				
-				for(int i=0; i < image->numcomps; i++)
+				for(OPJ_UINT32 i=0U; i < image->numcomps; i++)
 				{
 					const opj_image_comp_t &comp = image->comps[i];
 					
@@ -339,9 +339,9 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 					
 					Buffer openjpegBuffer;
 					
-					openjpegBuffer.channels = image->numcomps;
+					openjpegBuffer.channels = static_cast<uint8_t>(image->numcomps);
 					
-					for(int i=0; i < image->numcomps; i++)
+					for(OPJ_UINT32 i=0U; i < image->numcomps; i++)
 					{
 						Channel &chan = openjpegBuffer.channel[i];
 						
@@ -351,8 +351,8 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 						chan.height = comp.h;
 						
 						chan.sampleType = INT;
-						chan.depth = comp.prec;
-						chan.sgnd = comp.sgnd;
+						chan.depth = static_cast<uint8_t>(comp.prec);
+						chan.sgnd = comp.sgnd ? true : false;
 						
 						assert(comp.prec > 0);
 						assert(comp.bpp == 0); // unused?
@@ -396,7 +396,7 @@ OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &b
 	assert(file.Tell() == 0);
 	
 	
-	bool success = true;
+	OPJ_BOOL success = OPJ_TRUE;
 	
 	
 	opj_stream_t *stream = opj_stream_create(OPJ_J2K_STREAM_CHUNK_SIZE, OPJ_FALSE);
@@ -475,9 +475,9 @@ OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &b
 				
 				Buffer openjpegBuffer;
 				
-				openjpegBuffer.channels = image->numcomps;
+				openjpegBuffer.channels = static_cast<uint8_t>(image->numcomps);
 				
-				for(int i=0; i < image->numcomps; i++)
+				for(OPJ_UINT32 i=0U; i < image->numcomps; i++)
 				{
 					Channel &chan = openjpegBuffer.channel[i];
 					
@@ -487,8 +487,8 @@ OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &b
 					chan.height = comp.h;
 					
 					chan.sampleType = INT;
-					chan.depth = comp.prec;
-					chan.sgnd = comp.sgnd;
+					chan.depth = static_cast<uint8_t>(comp.prec);
+					chan.sgnd = comp.sgnd ? true : false;
 					
 					assert(comp.prec > 0);
 					assert(comp.bpp == comp.prec); // now it's used
