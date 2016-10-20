@@ -37,6 +37,9 @@
 
 #include "lcms2.h"
 
+
+static bool A_BooleanToBool(A_Boolean boolean) { return boolean ? true : false; }
+
 //#ifdef MAC_ENV
 //	#include <mach/mach.h>
 //#endif
@@ -308,7 +311,8 @@ j2k_FileInfo(
 			assert(fileInfo.iccProfile != NULL && fileInfo.profileLen > 0);
 		
 			suites.ColorSettingsSuite()->AEGP_GetNewColorProfileFromICCProfile(S_mem_id,
-																				fileInfo.profileLen, fileInfo.iccProfile,
+																				static_cast<A_long>(fileInfo.profileLen),
+																				fileInfo.iccProfile,
 																				&info->color_profile);
 		}
 		else if(fileInfo.colorSpace == j2k::sRGB)
@@ -321,7 +325,8 @@ j2k_FileInfo(
 			assert(iccProfile != NULL && profileSize > 0);
 		
 			suites.ColorSettingsSuite()->AEGP_GetNewColorProfileFromICCProfile(S_mem_id,
-																				profileSize, iccProfile,
+																				static_cast<A_long>(profileSize),
+																				iccProfile,
 																				&info->color_profile);
 			free(iccProfile);
 		}
@@ -571,7 +576,7 @@ j2k_OutputFile(
 	AEGP_SuiteHandler suites(basic_dataP->pica_basicP);
 
 
-	bool advanced = options->advanced;
+	bool advanced = options->advanced ? true : false;
 	JPEG_Method method	= options->method;
 	
 	// make sure we're ok to do DCI, otherwise revert to lossless
@@ -587,7 +592,7 @@ j2k_OutputFile(
 	
 	// resolve advanced parameters
 	JPEG_Format	format					= advanced ? options->format : OUT_DEFAULT_FORMAT;
-	A_short bit_depth					= (advanced && options->custom_depth) ? options->bit_depth : info->depth;
+	A_short bit_depth					= static_cast<A_short>((advanced && options->custom_depth) ? options->bit_depth : info->depth);
 	A_Boolean reversible				= advanced ? options->reversible : OUT_DEFAULT_REVERSIBLE;
 	A_Boolean ycc						= advanced ? options->ycc : OUT_DEFAULT_YCC;
 	A_u_char layers						= advanced ? options->layers : OUT_DEFAULT_LAYERS;
@@ -671,8 +676,8 @@ j2k_OutputFile(
 		fileInfo.width = info->width;
 		fileInfo.height = info->height;
 		
-		fileInfo.channels = info->planes;
-		fileInfo.depth = bit_depth;
+		fileInfo.channels = static_cast<unsigned char>(info->planes);
+		fileInfo.depth = static_cast<unsigned char>(bit_depth);
 		
 		fileInfo.format = (format == JP2_TYPE_J2C ? j2k::J2C :
 							format == JP2_TYPE_JP2 ? j2k::JP2 :
@@ -749,8 +754,8 @@ j2k_OutputFile(
 		fileInfo.settings.dciProfile = (dci_profile == JP2_DCI_4K ? j2k::DCI_4K : j2k::DCI_2K);
 		
 		fileInfo.settings.tileSize = tile_size;
-		fileInfo.settings.ycc = ycc;
-		fileInfo.settings.reversible = reversible;
+		fileInfo.settings.ycc = A_BooleanToBool(ycc);
+		fileInfo.settings.reversible = A_BooleanToBool(reversible);
 		
 		
 		if(fileInfo.settings.method == j2k::CINEMA)
@@ -759,7 +764,7 @@ j2k_OutputFile(
 
 			if(dci_per_frame == DCI_PER_SECOND)
 			{
-				max_per_frame = (double)max_per_frame / (double)dci_frame_rate;
+				max_per_frame = static_cast<A_long>((double)max_per_frame / dci_frame_rate);
 
 				if(dci_stereo)
 					max_per_frame /= 2;
@@ -862,12 +867,12 @@ j2k_WriteOptionsDialog(
 	params.method			= (DialogMethod)options->method;
 	params.size				= options->size;
 	params.quality			= options->quality;
-	params.advanced			= options->advanced;
+	params.advanced			= A_BooleanToBool(options->advanced);
 	params.format			= (DialogFormat)options->format;
-	params.customDepth		= options->custom_depth;
+	params.customDepth		= A_BooleanToBool(options->custom_depth);
 	params.bitDepth			= options->bit_depth;
-	params.reversible		= options->reversible;
-	params.ycc				= options->ycc;
+	params.reversible		= A_BooleanToBool(options->reversible);
+	params.ycc				= A_BooleanToBool(options->ycc);
 	params.order			= (DialogOrder)options->order;
 	params.tileSize			= options->tile_size;
 	params.icc_profile		= (options->color_space == JP2_COLOR_ICC ? DIALOG_PROFILE_ICC : DIALOG_PROFILE_GENERIC);
@@ -875,7 +880,7 @@ j2k_WriteOptionsDialog(
 	params.dci_data_rate	= options->dci_data_rate;
 	params.dci_per_frame	= (DialogDCIPerFrame)options->dci_per_frame;
 	params.dci_frame_rate	= options->dci_frame_rate;
-	params.dci_stereo		= options->dci_stereo;
+	params.dci_stereo		= A_BooleanToBool(options->dci_stereo);
 	
 #ifdef MAC_ENV
 	const char *plugHndl = "com.fnordware.AfterEffects.j2k";

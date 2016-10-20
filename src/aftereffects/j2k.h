@@ -25,6 +25,10 @@
 #ifndef j2k_H
 #define j2k_H
 
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "FrameSeq.h"
 
 
