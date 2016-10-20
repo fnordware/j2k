@@ -293,7 +293,7 @@ sYCCtoRGB(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversible)
 	
 	const SampleType sampleType = rgbBuffer.r.sampleType;
 	const unsigned char depth = rgbBuffer.r.depth;
-	const bool sgnd = rgbBuffer.r.depth;
+	const bool sgnd = rgbBuffer.r.sgnd;
 	
 	bool reuseBuffer = true;
 	
@@ -348,7 +348,7 @@ sYCCtoRGB(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversible)
 	}
 	
 	
-	FullsYCCtoRGB(rgbBuffer, fullYccBuffer, reversible);
+	FullsYCCtoRGB(rgbBuffer, fullYccBuffer, false); // for sYCC I think we always do irreversible
 	
 	
 	for(int i=0; i < tempBuffer.channels; i++)
@@ -413,10 +413,13 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 									
 	ChannelName names[4] = { RED, GREEN, BLUE, ALPHA };
 	
+	const bool hasPal = (_fileInfo.LUTsize > 0);
 	
-	const bool isRGB = (_fileInfo.channels >= 3) && (_fileInfo.colorSpace == sRGB ||
-														_fileInfo.colorSpace == iccRGB ||
-														_fileInfo.colorSpace == UNKNOWN_COLOR_SPACE);
+	const int effectiveChannels = ((hasPal && (_codec->GetReadFlags() & Codec::J2K_APPLIES_LUT)) ? 3 : _fileInfo.channels);
+	
+	const bool isRGB = (effectiveChannels >= 3) && (_fileInfo.colorSpace == sRGB ||
+													_fileInfo.colorSpace == iccRGB ||
+													_fileInfo.colorSpace == UNKNOWN_COLOR_SPACE);
 	
 	bool channelSubsampling = false;
 	
@@ -438,9 +441,9 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 		// can just point to RGB channels
 		assert(_fileInfo.channels <= J2K_CODEC_MAX_CHANNELS);
 		
-		j2kBuffer.channels = _fileInfo.channels;
+		j2kBuffer.channels = effectiveChannels;
 		
-		for(int c=0; c < _fileInfo.channels; c++)
+		for(int c=0; c < effectiveChannels; c++)
 		{
 			Channel &j2kChan = j2kBuffer.channel[c];
 			
@@ -470,13 +473,13 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 	else
 	{
 		// got to make our own
-		assert(_fileInfo.channels <= J2K_CODEC_MAX_CHANNELS);
+		assert(effectiveChannels <= J2K_CODEC_MAX_CHANNELS);
 		
 		const SampleType destType = buffer.r.sampleType;
 		const unsigned char destDepth = buffer.r.depth;
 		const bool destSgnd = buffer.r.sgnd;
 		
-		j2kBuffer.channels = std::min<unsigned char>(_fileInfo.channels, J2K_CODEC_MAX_CHANNELS);
+		j2kBuffer.channels = std::min<unsigned char>(effectiveChannels, J2K_CODEC_MAX_CHANNELS);
 		
 		for(int i=0; i < j2kBuffer.channels; i++)
 		{
@@ -486,6 +489,8 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 			
 			j2kChan.width = SubsampledSize(_fileInfo.width, sub.x);
 			j2kChan.height = SubsampledSize(_fileInfo.height, sub.y);
+			
+			j2kChan.subsampling = sub;
 			
 			j2kChan.sampleType = destType;
 			j2kChan.depth = destDepth;
@@ -509,21 +514,21 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 	
 	if(reuseChannels)
 	{
-		haveAlpha = (_fileInfo.channels == 4);
+		haveAlpha = (effectiveChannels == 4);
 	}
 	else
 	{
-		assert(_fileInfo.channels == j2kBuffer.channels);
+		assert(effectiveChannels == j2kBuffer.channels);
 		
 		if(isRGB)
 		{
-			haveAlpha = (_fileInfo.channels == 4);
+			haveAlpha = (effectiveChannels == 4);
 		
 			assert(channelSubsampling);
 			
 			bool assigned[4] = { false, false, false, false };
 			
-			assert(_fileInfo.channels <= J2K_CODEC_MAX_CHANNELS);
+			assert(effectiveChannels <= J2K_CODEC_MAX_CHANNELS);
 			
 			Buffer j2kRgbBuffer;
 			
@@ -568,17 +573,19 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 			
 			Codec::CopyBuffer(destRgbBuffer, j2kRgbBuffer);
 		}
-		else if(_fileInfo.channels == 1)
+		else if(effectiveChannels == 1)
 		{
 			const Channel &j2kChan = j2kBuffer.channel[0];
 		
-			if(_fileInfo.LUTsize > 0)
+			if(hasPal)
 			{
 				CopyWithLUT(buffer, j2kChan, _fileInfo.LUT, _fileInfo.LUTsize, _fileInfo.LUTmap);
 			}
 			else
 			{
-				assert(_fileInfo.colorSpace == sLUM || _fileInfo.colorSpace == UNKNOWN_COLOR_SPACE);
+				assert(_fileInfo.colorSpace == sLUM ||
+						_fileInfo.colorSpace == iccLUM ||
+						_fileInfo.colorSpace == UNKNOWN_COLOR_SPACE);
 			
 				Buffer sourceBuffer;
 				
@@ -601,7 +608,7 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 		}
 		else if(_fileInfo.colorSpace == sYCC)
 		{
-			assert(_fileInfo.channels >= 3);
+			assert(effectiveChannels >= 3);
 			
 			sYCCtoRGB(buffer, j2kBuffer, _fileInfo.settings.reversible);
 		}

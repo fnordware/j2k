@@ -226,7 +226,12 @@ CopyChannel(const Channel &dest, const Channel &src)
 	const int height = dest.height;
 	const int width = dest.width;
 	
-	assert(dest.subsampling.x == 1 && dest.subsampling.y == 1); // not handling destination subsampling right now
+	// src.subsampling must be >= dest.subsampling right now
+	assert((dest.subsampling.x == 1 && dest.subsampling.y == 1) ||
+			(dest.subsampling.x == src.subsampling.x && dest.subsampling.y == src.subsampling.y));
+	
+	const Subsampling relatativeSub(src.subsampling.x / dest.subsampling.x,
+									src.subsampling.y / dest.subsampling.y);
 	
 	const int destStep = (dest.colbytes / sizeof(DESTTYPE));
 	const int srcStep = (src.colbytes / sizeof(SRCTYPE));
@@ -259,7 +264,7 @@ CopyChannel(const Channel &dest, const Channel &src)
 					
 					d += destStep;
 					
-					if(x % src.subsampling.x == 0)
+					if(x % relatativeSub.x == 0)
 						s += srcStep;
 				}
 			}
@@ -281,7 +286,7 @@ CopyChannel(const Channel &dest, const Channel &src)
 							
 							d += destStep;
 							
-							if(x % src.subsampling.x == 0)
+							if(x % relatativeSub.x == 0)
 								s += srcStep;
 						}
 					}
@@ -302,7 +307,7 @@ CopyChannel(const Channel &dest, const Channel &src)
 							
 							d += destStep;
 							
-							if(x % src.subsampling.x == 0)
+							if(x % relatativeSub.x == 0)
 								s += srcStep;
 						}
 					}
@@ -321,7 +326,7 @@ CopyChannel(const Channel &dest, const Channel &src)
 					
 					d += destStep;
 					
-					if(x % src.subsampling.x == 0)
+					if(x % relatativeSub.x == 0)
 						s += srcStep;
 				}
 			}
@@ -331,7 +336,7 @@ CopyChannel(const Channel &dest, const Channel &src)
 		
 		destRow += dest.rowbytes;
 		
-		if(y % src.subsampling.y == 0)
+		if(y % relatativeSub.y == 0)
 			srcRow += src.rowbytes;
 	}
 }

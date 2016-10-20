@@ -207,9 +207,19 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 			opj_set_info_handler(codec, InfoHandler, NULL);
 			
 			
+		#define AARONs_OPENJPEG_PATCH 1
+			
 			opj_image_t *image = NULL;
 			
+		#ifdef AARONs_OPENJPEG_PATCH
+			opj_header_info_t header_info;
+			
+			memset(&header_info, 0, sizeof(header_info));
+			
+			const OPJ_BOOL headerRead = opj_read_header_ex(stream, codec, &header_info, &image);
+		#else
 			const OPJ_BOOL headerRead = opj_read_header(stream, codec, &image);
+		#endif
 			
 			if(headerRead && image != NULL)
 			{
@@ -219,25 +229,6 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 				info.height = image->y1;
 				
 				info.channels = static_cast<uint8_t>(image->numcomps);
-				
-				info.colorSpace = (image->color_space == OPJ_CLRSPC_SRGB ? sRGB :
-									image->color_space == OPJ_CLRSPC_GRAY ? sLUM :
-									image->color_space == OPJ_CLRSPC_SYCC ? sYCC :
-									image->color_space == OPJ_CLRSPC_EYCC ? esYCC :
-									image->color_space == OPJ_CLRSPC_CMYK ? CMYK :
-									UNKNOWN_COLOR_SPACE);
-									
-				if(image->icc_profile_buf != NULL)
-				{
-					assert(image->icc_profile_len > 0);
-				
-					// openjpeg wants me to free the profile myself, and I will!
-					info.iccProfile = image->icc_profile_buf;
-					
-					info.profileLen = image->icc_profile_len;
-					
-					info.colorSpace = iccRGB;
-				}
 				
 				info.depth = static_cast<uint8_t>(image->comps[0].prec);
 				
@@ -261,7 +252,116 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 					sub.y = comp.dy;
 				}
 				
-				// TODO: fill in more fields in info, like the compression params
+				assert(image->color_space == OPJ_CLRSPC_UNSPECIFIED); // only read by opj_decode()
+			
+				assert(image->icc_profile_buf == NULL);
+				
+			#ifdef AARONs_OPENJPEG_PATCH
+				enum
+				{
+					CS_CMYK = 12,
+					CS_sRGB = 16,
+					CS_GRAY = 17,
+					CS_sYCC = 18,
+					CS_esYCC = 19
+				};
+				
+				info.colorSpace = (header_info.enumcs == CS_CMYK ? CMYK :
+									header_info.enumcs == CS_sRGB ? sRGB :
+									header_info.enumcs == CS_GRAY ? sLUM :
+									header_info.enumcs == CS_sYCC ? sYCC :
+									header_info.enumcs == CS_esYCC ? esYCC :
+									UNKNOWN_COLOR_SPACE);
+				
+				
+				if(header_info.color.icc_profile_buf != NULL)
+				{
+					assert(header_info.color.icc_profile_len > 0);
+				
+					// make my own copy
+					info.iccProfile = malloc(header_info.color.icc_profile_len);
+					
+					if(info.iccProfile == NULL)
+						throw Exception("out of memory");
+					
+					info.profileLen = header_info.color.icc_profile_len;
+					
+					memcpy(info.iccProfile, header_info.color.icc_profile_buf, info.profileLen);
+					
+					info.colorSpace = (image->numcomps >= 3 ? iccRGB :
+										image->numcomps == 1 ? iccLUM :
+										iccANY);
+				}
+				
+				
+				info.settings.reversible = (header_info.irreversible == 0);
+				
+				if(header_info.color.jp2_cdef != NULL)
+				{
+					const opj_jp2_cdef_t &cdef = *header_info.color.jp2_cdef;
+				
+					assert(cdef.n == image->numcomps);
+					
+					for(int i=0; i < cdef.n; i++)
+					{
+						const opj_jp2_cdef_info_t &chan = cdef.info[i];
+						
+						const ChannelName name = (i == 0 ? RED :
+													i == 1 ? GREEN :
+													i == 2 ? BLUE :
+													ALPHA);
+						
+						info.channelMap[chan.cn] = name;
+					}
+				}
+				
+				if(header_info.color.jp2_pclr != NULL)
+				{
+					assert(image->numcomps == 1);
+					
+					const opj_jp2_pclr_t &pal = *header_info.color.jp2_pclr;
+					
+					assert(pal.nr_entries <= J2K_CODEC_MAX_LUT_ENTRIES);
+					assert(pal.nr_channels <= J2K_CODEC_MAX_CHANNELS);
+					
+					info.LUTsize = pal.nr_entries;
+					
+					const uint32_t *entry = pal.entries;
+					const uint8_t *sign = pal.channel_sign;
+					const uint8_t *size = pal.channel_size;
+					
+					for(int i=0; i < pal.nr_entries; i++)
+					{
+						for(int c=0; c < pal.nr_channels; c++)
+						{
+							info.LUT[i].channel[c] = *entry;
+							
+							assert(*entry < 256);
+							//assert(*sign == 0);
+							//assert(*size == 8);
+							
+							entry++;
+							sign++;
+							size++;
+						}
+					}
+					
+					if(pal.cmap != NULL)
+					{
+						assert(pal.nr_channels == 3);
+						
+						for(int i=0; i < pal.nr_channels; i++)
+						{
+							const opj_jp2_cmap_comp_t &chan = pal.cmap[i];
+							
+							info.LUTmap[i] = info.channelMap[chan.pcol];
+							
+							assert(chan.cmp == 0);
+							assert(chan.mtyp == 1);
+						}
+					}
+				}
+			#endif // AARONs_OPENJPEG_PATCH
 			}
 			else
 				success = false;
@@ -349,6 +449,9 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 						
 						chan.width = comp.w;
 						chan.height = comp.h;
+						
+						chan.subsampling.x = comp.dx;
+						chan.subsampling.y = comp.dy;
 						
 						chan.sampleType = INT;
 						chan.depth = static_cast<uint8_t>(comp.prec);

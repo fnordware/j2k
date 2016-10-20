@@ -284,7 +284,7 @@ j2k_FileInfo(
 		info->pixel_aspect_ratio.num = fileInfo.pixelAspect.num;
 		info->pixel_aspect_ratio.den = fileInfo.pixelAspect.den;
 		
-		info->planes = fileInfo.channels;
+		info->planes = fileInfo.channels + (fileInfo.LUTsize ? 2 : 0);
 		info->depth = (fileInfo.depth > 8 ? 16 : 8);
 		
 		if(fileInfo.alpha == j2k::PREMULTIPLIED || fileInfo.alpha == j2k::STRAIGHT)
@@ -311,7 +311,7 @@ j2k_FileInfo(
 																				fileInfo.profileLen, fileInfo.iccProfile,
 																				&info->color_profile);
 		}
-		else if(fileInfo.colorSpace == j2k::sRGB || fileInfo.colorSpace == j2k::sLUM)
+		else if(fileInfo.colorSpace == j2k::sRGB)
 		{
 			// import sRGB profile
 			size_t profileSize;
@@ -321,7 +321,7 @@ j2k_FileInfo(
 			assert(iccProfile != NULL && profileSize > 0);
 		
 			suites.ColorSettingsSuite()->AEGP_GetNewColorProfileFromICCProfile(S_mem_id,
-																				fileInfo.profileLen, fileInfo.iccProfile,
+																				profileSize, iccProfile,
 																				&info->color_profile);
 			free(iccProfile);
 		}

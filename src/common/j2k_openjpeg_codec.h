@@ -42,7 +42,7 @@ class OpenJPEGCodec : public Codec
 	virtual const char * Name() const { return "OpenJPEG"; }
 	virtual const char * FourCharCode() const { return "ojpg"; }
 	
-	virtual ReadFlags GetReadFlags() { return (J2K_CAN_READ | J2K_CAN_SUBSAMPLE); }
+	virtual ReadFlags GetReadFlags() { return (J2K_CAN_READ | J2K_CAN_SUBSAMPLE | J2K_APPLIES_LUT); }
 	virtual WriteFlags GetWriteFlags() { return (J2K_CAN_WRITE); }
 	
 	virtual bool Verify(InputFile &file);

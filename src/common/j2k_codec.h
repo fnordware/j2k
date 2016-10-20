@@ -62,7 +62,7 @@ typedef struct Subsampling
 	int x; // width * subsampling.x == full width
 	int y;
 	
-	Subsampling() : x(1), y(1) {}
+	Subsampling(int xin = 1, int yin = 1) : x(xin), y(yin) {}
 	
 } Subsampling;
 
@@ -261,7 +261,8 @@ class Codec
 	enum {
 		J2K_CAN_NOT_READ	= 0,
 		J2K_CAN_READ		= (1L << 0),
-		J2K_CAN_SUBSAMPLE	= (1L << 1)
+		J2K_CAN_SUBSAMPLE	= (1L << 1),
+		J2K_APPLIES_LUT		= (1L << 2) // can't get the index, just the applied LUT
 	};
 	
 	typedef unsigned int ReadFlags;
