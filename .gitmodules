@@ -6,4 +6,4 @@
 	url = https://github.com/GrokImageCompression/grok.git
 [submodule "ext/openjpeg"]
 	path = ext/openjpeg
-	url = https://github.com/uclouvain/openjpeg.git
+	url = https://github.com/GrokImageCompression/openjpeg.git  
