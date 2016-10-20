@@ -242,6 +242,12 @@ CopyChannel(const Channel &dest, const Channel &src)
 	assert(!dest.sgnd || std::numeric_limits<DESTTYPE>::is_signed); // in other words, a signed channel
 	assert(!src.sgnd || std::numeric_limits<SRCTYPE>::is_signed);   // should have a signed type
 	
+	assert(!dest.sgnd || src.sgnd); // currently not expecting to convert from unsigned to signed
+	
+	const int signConverter = (dest.sgnd == src.sgnd) ? 0 :
+								src.sgnd ? (pow(2, src.depth - 1)) :
+											(-pow(2, src.depth - 1));
+	
 	const int bitShift = ((int)dest.depth - (int)src.depth);
 	
 	
@@ -253,76 +259,88 @@ CopyChannel(const Channel &dest, const Channel &src)
 		DESTTYPE *d = (DESTTYPE *)destRow;
 		SRCTYPE *s = (SRCTYPE *)srcRow;
 		
-		if(dest.sgnd == src.sgnd)
+		if(bitShift == 0)
 		{
-			if(bitShift == 0)
+			// no shift
+			for(int x=1; x <= width; x++)
 			{
-				// no shift
-				for(int x=1; x <= width; x++)
-				{
-					*d = *s;
-					
-					d += destStep;
-					
-					if(x % relatativeSub.x == 0)
-						s += srcStep;
-				}
+				*d = (*s + signConverter);
+				
+				d += destStep;
+				
+				if(x % relatativeSub.x == 0)
+					s += srcStep;
 			}
-			else if(bitShift > 0)
+		}
+		else if(bitShift > 0)
+		{
+			// upshift
+			if(src.depth >= 8)
 			{
-				// upshift
-				if(src.depth >= 8)
+				assert(bitShift <= 24);
+				
+				if(bitShift <= src.depth)
 				{
-					assert(bitShift <= 24);
-					
-					if(bitShift <= src.depth)
+					// so we just have to repeat some bits in the gap
+					const int fillDownshift =  (src.depth - bitShift);
+				
+					for(int x=1; x <= width; x++)
 					{
-						// so we just have to repeat some bits in the gap
-						const int fillDownshift =  (src.depth - bitShift);
+						const SRCTYPE v = (*s + signConverter);
 					
-						for(int x=1; x <= width; x++)
-						{
-							*d = ( ((DESTTYPE)*s << bitShift) | (*s >> fillDownshift) );
-							
-							d += destStep;
-							
-							if(x % relatativeSub.x == 0)
-								s += srcStep;
-						}
-					}
-					else
-					{
-						// have to do two fills
-						// the first one doubles the bit depth
-						// making the second one like the one above
-						const int firstShift = src.depth;
-						const int secondShift = (bitShift - firstShift);
-						const int fillDownshift = ((src.depth * 2) - secondShift);
+						*d = ( ((DESTTYPE)v << bitShift) | (v >> fillDownshift) );
 						
-						for(int x=1; x <= width; x++)
-						{
-							const DESTTYPE t = (((DESTTYPE)*s << firstShift) | *s);
+						d += destStep;
 						
-							*d = ( (t << secondShift) | (t >> fillDownshift) );
-							
-							d += destStep;
-							
-							if(x % relatativeSub.x == 0)
-								s += srcStep;
-						}
+						if(x % relatativeSub.x == 0)
+							s += srcStep;
 					}
 				}
 				else
-					assert(false); // TODO: write upshift for < 8 bit
+				{
+					// have to do two fills
+					// the first one doubles the bit depth
+					// making the second one like the one above
+					const int firstShift = src.depth;
+					const int secondShift = (bitShift - firstShift);
+					const int fillDownshift = ((src.depth * 2) - secondShift);
+					
+					for(int x=1; x <= width; x++)
+					{
+						const SRCTYPE v = (*s + signConverter);
+					
+						const DESTTYPE t = (((DESTTYPE)v << firstShift) | v);
+					
+						*d = ( (t << secondShift) | (t >> fillDownshift) );
+						
+						d += destStep;
+						
+						if(x % relatativeSub.x == 0)
+							s += srcStep;
+					}
+				}
 			}
 			else
 			{
-				// downshift
-				const int downShift = -bitShift;
+				// bit shift for depth < 8
 				
 				for(int x=1; x <= width; x++)
 				{
-					*d = (*s >> downShift);
+					unsigned int pixDepth = src.depth;
+					
+					DESTTYPE v = (*s + signConverter);
+					
+					while((pixDepth * 2) < dest.depth)
+					{
+						v = ((v << pixDepth) | v);
+						
+						pixDepth *= 2;
+					}
+					
+					const int secondShift = (dest.depth - pixDepth);
+					const int fillDownshift = (pixDepth - secondShift);
+					
+					*d = ( (v << secondShift) | (v >> fillDownshift) );
 					
 					d += destStep;
 					
@@ -332,7 +350,22 @@ CopyChannel(const Channel &dest, const Channel &src)
 			}
 		}
 		else
-			assert(false); // TODO: write singed-unsigned conversions
+		{
+			// downshift
+			const int downShift = -bitShift;
+			
+			for(int x=1; x <= width; x++)
+			{
+				const SRCTYPE v = (*s + signConverter);
+			
+				*d = (v >> downShift);
+				
+				d += destStep;
+				
+				if(x % relatativeSub.x == 0)
+					s += srcStep;
+			}
+		}
 		
 		destRow += dest.rowbytes;
 		

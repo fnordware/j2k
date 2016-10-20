@@ -573,13 +573,13 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 			
 			Codec::CopyBuffer(destRgbBuffer, j2kRgbBuffer);
 		}
-		else if(effectiveChannels == 1)
+		else if(effectiveChannels == 1 || effectiveChannels == 2)
 		{
-			const Channel &j2kChan = j2kBuffer.channel[0];
-		
 			if(hasPal)
 			{
-				CopyWithLUT(buffer, j2kChan, _fileInfo.LUT, _fileInfo.LUTsize, _fileInfo.LUTmap);
+				assert(effectiveChannels == 1);
+			
+				CopyWithLUT(buffer, j2kBuffer.channel[0], _fileInfo.LUT, _fileInfo.LUTsize, _fileInfo.LUTmap);
 			}
 			else
 			{
@@ -589,19 +589,25 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 			
 				Buffer sourceBuffer;
 				
-				sourceBuffer.channels = 3;
+				haveAlpha = (effectiveChannels == 2);
 				
-				sourceBuffer.channel[0] = sourceBuffer.channel[1] = sourceBuffer.channel[2] = j2kChan;
+				sourceBuffer.channels = (haveAlpha ? 4 : 3);
+				
+				sourceBuffer.channel[0] = sourceBuffer.channel[1] = sourceBuffer.channel[2] = j2kBuffer.channel[0];
+				
+				if(haveAlpha)
+					sourceBuffer.channel[3] = j2kBuffer.channel[1];
 				
 				
 				Buffer destinationBuffer;
 				
-				destinationBuffer.channels = 3;
+				destinationBuffer.channels = 4;
 				
 				destinationBuffer.channel[0] = buffer.r;
 				destinationBuffer.channel[1] = buffer.g;
 				destinationBuffer.channel[2] = buffer.b;
-				
+				destinationBuffer.channel[3] = buffer.a;
+					
 				
 				Codec::CopyBuffer(destinationBuffer, sourceBuffer);
 			}

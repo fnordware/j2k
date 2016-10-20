@@ -225,26 +225,25 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 			{
 				info.format = (format == OPJ_CODEC_JP2 ? JP2 : J2C);
 			
-				info.width = image->x1;
-				info.height = image->y1;
+				info.width = (image->x1 - image->x0);
+				info.height = (image->y1 - image->y0);
 				
-				info.channels = static_cast<uint8_t>(image->numcomps);
+				//assert(image->x0 == 0 && image->x0 == 0); // not really handling this right now
+				
+				info.channels = std::min<uint8_t>(image->numcomps, J2K_CODEC_MAX_CHANNELS);
 				
 				info.depth = static_cast<uint8_t>(image->comps[0].prec);
 				
-				assert(image->comps[0].bpp == 0); // unused?
 				
-				assert(!image->comps[0].sgnd); // not sure I can deal with signed
-				
-				assert(image->x0 == 0 && image->x0 == 0); // how to deal with this?
-				
-				for(OPJ_UINT32 i=0U; i < image->numcomps; i++)
+				for(OPJ_UINT32 i=0U; i < info.channels; i++)
 				{
 					const opj_image_comp_t &comp = image->comps[i];
 					
 					Subsampling &sub = info.subsampling[i];
 					
-					assert(comp.x0 == 0 && comp.y0 == 0); // how?
+					//assert(comp.x0 == 0 && comp.y0 == 0); // not handling
+					
+					assert(comp.bpp == 0); // unused?
 					
 					assert(comp.factor == 0); // subsampling?
 					
@@ -435,13 +434,13 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 				
 				if(imageRead)
 				{
-					assert(image->numcomps <= J2K_CODEC_MAX_CHANNELS);
+					const uint8_t channels = std::min<uint8_t>(image->numcomps, J2K_CODEC_MAX_CHANNELS);
 					
 					Buffer openjpegBuffer;
 					
-					openjpegBuffer.channels = static_cast<uint8_t>(image->numcomps);
+					openjpegBuffer.channels = channels;
 					
-					for(OPJ_UINT32 i=0U; i < image->numcomps; i++)
+					for(OPJ_UINT32 i=0U; i < channels; i++)
 					{
 						Channel &chan = openjpegBuffer.channel[i];
 						
@@ -455,11 +454,10 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 						
 						chan.sampleType = INT;
 						chan.depth = static_cast<uint8_t>(comp.prec);
-						chan.sgnd = comp.sgnd ? true : false;
+						chan.sgnd = comp.sgnd;
 						
 						assert(comp.prec > 0);
 						assert(comp.bpp == 0); // unused?
-						assert(!comp.sgnd);
 						
 						chan.buf = (unsigned char *)comp.data;
 						chan.colbytes = sizeof(int);

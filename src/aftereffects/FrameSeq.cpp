@@ -680,9 +680,11 @@ FrameSeq_InitInSpecFromFile(
 		
 #define DEPTH_GREY_8	40
 #define DEPTH_GREY_16	-16
-	
-		A_short			depth = static_cast<A_short>(info.planes < 3 ? (info.depth == 16 ? DEPTH_GREY_16 : DEPTH_GREY_8) : // greyscale
-								info.planes * info.depth); // not
+		
+		const A_short planes = (info.planes == 2 ? 4 : info.planes); // AE doesn't like greyscale w/ alpha
+		
+		A_short	depth = static_cast<A_short>(planes < 3 ? (info.depth == 16 ? DEPTH_GREY_16 : DEPTH_GREY_8) : // greyscale
+												planes * info.depth); // not
 
 		err = suites.IOInSuite()->AEGP_SetInSpecDepth(specH, depth);
 
