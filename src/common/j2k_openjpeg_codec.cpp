@@ -423,16 +423,6 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 			opj_codec_set_threads(codec, NumberOfCPUs());
 			
 			
-			opj_dparameters_t params;
-			opj_set_default_decoder_parameters(&params);
-			
-			params.flags |= OPJ_DPARAMETERS_IGNORE_PCLR_CMAP_CDEF_FLAG; // don't apply LUT if you happen to have one
-			
-			const OPJ_BOOL configured = opj_setup_decoder(codec, &params);
-			
-			assert(configured);
-			
-			
 			opj_image_t *image = NULL;
 			
 			OPJ_BOOL imageRead = opj_read_header(stream, codec, &image);
@@ -440,6 +430,17 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 			if(imageRead && image != NULL)
 			{
 				assert(subsample == 0); // not dealing with subsample yet
+				
+				opj_dparameters_t params;
+				opj_set_default_decoder_parameters(&params);
+				
+				if(image->numcomps == 1)
+					params.flags |= OPJ_DPARAMETERS_IGNORE_PCLR_CMAP_CDEF_FLAG; // don't apply LUT if you happen to have one
+				
+				const OPJ_BOOL configured = opj_setup_decoder(codec, &params);
+				
+				assert(configured);
+			
 				
 				// TODO: read one tile at a time and let the user interrupt
 				
