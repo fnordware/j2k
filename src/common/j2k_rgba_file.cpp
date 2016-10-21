@@ -106,20 +106,20 @@ CopyWithLutType(const RGBAbuffer &buffer, const Channel &idxChan, LUTentry LUT[]
 	}
 	
 	
-	const int idxStep = (idxChan.colbytes / sizeof(unsigned char));
-	const int rStep = (channels[0]->colbytes / sizeof(PIXTYPE));
-	const int gStep = (channels[1]->colbytes / sizeof(PIXTYPE));
-	const int bStep = (channels[2]->colbytes / sizeof(PIXTYPE));
+	const int idxStep = static_cast<const int>(idxChan.colbytes / sizeof(unsigned char));
+	const int rStep = static_cast<const int>(channels[0]->colbytes / sizeof(PIXTYPE));
+	const int gStep = static_cast<const int>(channels[1]->colbytes / sizeof(PIXTYPE));
+	const int bStep = static_cast<const int>(channels[2]->colbytes / sizeof(PIXTYPE));
 	
 	
-	for(int y=0; y < idxChan.height; y++)
+	for(unsigned int y=0; y < idxChan.height; y++)
 	{
 		unsigned char *idx = (idxChan.buf + (y * idxChan.rowbytes));
 		PIXTYPE *r = (PIXTYPE *)(channels[0]->buf + (y * channels[0]->rowbytes));
 		PIXTYPE *g = (PIXTYPE *)(channels[1]->buf + (y * channels[1]->rowbytes));
 		PIXTYPE *b = (PIXTYPE *)(channels[2]->buf + (y * channels[2]->rowbytes));
 		
-		for(int x=0; x < idxChan.width; x++)
+		for(unsigned int x=0; x < idxChan.width; x++)
 		{
 			const LUTentry &entry = LUT[*idx];
 			
@@ -191,8 +191,8 @@ FullsYCCtoRGBType(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool rev
 	const int depth = rgbBuffer.r.depth;
 	const bool sgnd = rgbBuffer.r.sgnd;
 	
-	const int maxVal = (sgnd ? pow(2, depth - 1) - 1 : pow(2, depth) - 1);
-	const int signedDiff = (sgnd ? 0 : pow(2, depth - 1));
+	const int maxVal = static_cast<const int>(sgnd ? pow(2, depth - 1) - 1 : pow(2, depth) - 1);
+	const int signedDiff = static_cast<const int>(sgnd ? 0 : pow(2, depth - 1));
 	
 	const Channel &yChan = yccBuffer.channel[0];
 	const Channel &cbChan = yccBuffer.channel[1];
@@ -202,13 +202,13 @@ FullsYCCtoRGBType(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool rev
 	const Channel &gChan = rgbBuffer.g;
 	const Channel &bChan = rgbBuffer.b;
 	
-	const int yStep = (yChan.colbytes / sizeof(PIXTYPE));
-	const int cbStep = (cbChan.colbytes / sizeof(PIXTYPE));
-	const int crStep = (crChan.colbytes / sizeof(PIXTYPE));
+	const int yStep = static_cast<const int>(yChan.colbytes / sizeof(PIXTYPE));
+	const int cbStep = static_cast<const int>(cbChan.colbytes / sizeof(PIXTYPE));
+	const int crStep = static_cast<const int>(crChan.colbytes / sizeof(PIXTYPE));
 	
-	const int rStep = (rChan.colbytes / sizeof(PIXTYPE));
-	const int gStep = (gChan.colbytes / sizeof(PIXTYPE));
-	const int bStep = (bChan.colbytes / sizeof(PIXTYPE));
+	const int rStep = static_cast<const int>(rChan.colbytes / sizeof(PIXTYPE));
+	const int gStep = static_cast<const int>(gChan.colbytes / sizeof(PIXTYPE));
+	const int bStep = static_cast<const int>(bChan.colbytes / sizeof(PIXTYPE));
 	
 	for(int y=0; y < height; y++)
 	{
@@ -245,9 +245,9 @@ FullsYCCtoRGBType(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool rev
 				const float sG = (float)sY - ((float)CR_FACT_G * (float)sCr) - ((float)CB_FACT_G * (float)sCb);
 				const float sB = (float)sY + ((float)CB_FACT_B * (float)sCb);
 				
-				*r = Clamp<PIXTYPE>(sR + signedDiff + 0.5f, maxVal);
-				*g = Clamp<PIXTYPE>(sG + signedDiff + 0.5f, maxVal);
-				*b = Clamp<PIXTYPE>(sB + signedDiff + 0.5f, maxVal);
+				*r = Clamp<PIXTYPE>(static_cast<const int>(sR + signedDiff + 0.5f), maxVal);
+				*g = Clamp<PIXTYPE>(static_cast<const int>(sG + signedDiff + 0.5f), maxVal);
+				*b = Clamp<PIXTYPE>(static_cast<const int>(sB + signedDiff + 0.5f), maxVal);
 			}
 			
 			
@@ -367,17 +367,17 @@ template <typename PIXTYPE>
 static void
 FillChannelType(Channel &channel, bool fillWhite)
 {
-	const int colstep = (channel.colbytes / sizeof(PIXTYPE));
+	const int colstep = static_cast<const int>(channel.colbytes / sizeof(PIXTYPE));
 	
-	const PIXTYPE val = (fillWhite ? (pow(2, channel.depth) - 1) : 0);
+	const PIXTYPE val = static_cast<const uint8_t>(fillWhite ? (pow(2, channel.depth) - 1) : 0);
 	
 	unsigned char *row = channel.buf;
 	
-	for(int y=0; y < channel.height; y++)
+	for(unsigned int y=0; y < channel.height; y++)
 	{
 		PIXTYPE *pix = (PIXTYPE *)(row);
 		
-		for(int x=0; x < channel.width; x++)
+		for(unsigned int x=0; x < channel.width; x++)
 		{
 			*pix = val;
 			

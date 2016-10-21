@@ -170,11 +170,11 @@ static void SetDCIslider(HWND hwndDlg)
 
 	if(per_frame == DIALOG_DCI_PER_FRAME)
 	{
-		val = (((double)current_value * 100.0) / (double)DCI_MAX) + 0.5;
+		val = static_cast<int>(((current_value * 100.0) / DCI_MAX) + 0.5);
 	}
 	else
 	{
-		val = ((double)(current_value * 100 * 1024 / 8) / (double)(24 * DCI_MAX)) + 0.5;
+		val = static_cast<int>(((current_value * 100.0 * 1024 / 8) / (24 * DCI_MAX)) + 0.5);
 	}
 
 	val = MAX(1, MIN(val, 100));
@@ -189,7 +189,7 @@ static void TrackDCIslider(HWND hwndDlg)
 {
 	DialogDCIPerFrame per_frame = (DialogDCIPerFrame)GET_MENU_VALUE(OUT_DCI_Per_Frame);
 
-	int val = GET_SLIDER(OUT_DCI_Data_Rate_Slider); // 1-100 scale
+	int val = static_cast<int>(GET_SLIDER(OUT_DCI_Data_Rate_Slider)); // 1-100 scale
 
 	if(val != g_dci_slider_val)
 	{
@@ -197,14 +197,14 @@ static void TrackDCIslider(HWND hwndDlg)
 
 		if(per_frame == DIALOG_DCI_PER_FRAME)
 		{
-			new_value = ((double)DCI_MAX * (double)val / 100.0) + 0.5;
+			new_value = static_cast<int>(((double)DCI_MAX * val / 100.0) + 0.5);
 		}
 		else
 		{
-			int frame_rate = GET_MENU_VALUE(OUT_DCI_Frame_Rate);
+			int frame_rate = static_cast<int>(GET_MENU_VALUE(OUT_DCI_Frame_Rate));
 			int stereo_mult = ( GET_CHECK(OUT_DCI_Stereo) ? 2 : 1 );
 
-			new_value = ((double)(24 * DCI_MAX * 8 / 1024) * (double)val / 100.0) + 0.5 ;
+			new_value = static_cast<int>(((double)(24 * DCI_MAX * 8 / 1024) * (double)val / 100.0) + 0.5) ;
 		}
 
 		SET_FIELD(OUT_DCI_Data_Rate, new_value);
@@ -227,11 +227,11 @@ static void RecalcDataRate(HWND hwndDlg)
 
 		if(per_frame == DIALOG_DCI_PER_SECOND)
 		{
-			val = (((double)current_value * 8.0 / 1024.0) * (double)frame_rate * (double)stereo_mult) + 0.5;
+			val = static_cast<int>(((double)current_value * 8.0 / 1024.0) * (frame_rate * (double)stereo_mult) + 0.5);
 		}
 		else
 		{
-			val = ((double)(current_value * 1024 / 8) / (double)(frame_rate * stereo_mult)) + 0.5;
+			val = static_cast<int>(((double)(current_value * 1024 / 8) / (frame_rate * stereo_mult)) + 0.5);
 		}
 
 		g_dci_per_frame = per_frame;
@@ -254,10 +254,10 @@ static void TrackDCIPerFrame(HWND hwndDlg)
 
 static void TrackMethod(HWND hwndDlg)
 {
-	ENABLE_ITEM(OUT_Size_Field, GET_CHECK(OUT_Size));
+	ENABLE_ITEM(OUT_Size_Field, static_cast<BOOL>(GET_CHECK(OUT_Size)));
 
-	ENABLE_ITEM(OUT_Quality_Field, GET_CHECK(OUT_Quality));
-	ENABLE_ITEM(OUT_Quality_Slider, GET_CHECK(OUT_Quality));
+	ENABLE_ITEM(OUT_Quality_Field, static_cast<BOOL>(GET_CHECK(OUT_Quality)));
+	ENABLE_ITEM(OUT_Quality_Slider, static_cast<BOOL>(GET_CHECK(OUT_Quality)));
 
 	
 	BOOL enable_controls = !GET_CHECK(OUT_Cinema);
@@ -295,8 +295,6 @@ static void TrackLosslessLabel(HWND hwndDlg)
 
 BOOL CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam) 
 { 
-    BOOL fError; 
- 
     switch (message) 
     { 
 		case WM_INITDIALOG:
@@ -423,7 +421,7 @@ BOOL CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 			switch(LOWORD(wParam))
 			{
 				case OUT_Quality_Slider:
-					SET_FIELD(OUT_Quality_Field, GET_SLIDER(OUT_Quality_Slider) );
+					SET_FIELD(OUT_Quality_Field, static_cast<BOOL>(GET_SLIDER(OUT_Quality_Slider)) );
 				return TRUE;
 
 				case OUT_Depth_Spinner:
@@ -457,21 +455,21 @@ BOOL CALLBACK DialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 					g_depth = GET_FIELD(OUT_Depth);
 
 					// check boxes
-					g_advanced = GET_CHECK(OUT_Advanced);
-					g_custom_depth = GET_CHECK(OUT_Custom_Depth);
-					g_ycc = GET_CHECK(OUT_Ycc);
+					g_advanced = GET_CHECK(OUT_Advanced) ? true : false;
+					g_custom_depth = GET_CHECK(OUT_Custom_Depth) ? true : false;
+					g_ycc = GET_CHECK(OUT_Ycc) ? true : false;
 					g_reversible = !GET_CHECK(OUT_Float);
-					g_dci_stereo = GET_CHECK(OUT_DCI_Stereo);
+					g_dci_stereo = GET_CHECK(OUT_DCI_Stereo) ? true : false;
 
 					// menus
 					g_format = (DialogFormat)GET_MENU_VALUE(OUT_Format);
-					g_tile_size = GET_MENU_VALUE(OUT_Tiles);
+					g_tile_size = static_cast<int>(GET_MENU_VALUE(OUT_Tiles));
 					g_order = (DialogOrder)GET_MENU_VALUE(OUT_Order);
 					g_profile = (DialogProfile)GET_MENU_VALUE(OUT_Profile);
 					g_dci_profile = (DialogDCIProfile)GET_MENU_VALUE(OUT_DCI_Profile);
 					g_sub = (DialogSubsample)GET_MENU_VALUE(OUT_Subsample);
 					g_dci_per_frame = (DialogDCIPerFrame)GET_MENU_VALUE(OUT_DCI_Per_Frame);
-					g_dci_frame_rate = GET_MENU_VALUE(OUT_DCI_Frame_Rate);
+					g_dci_frame_rate = static_cast<int>(GET_MENU_VALUE(OUT_DCI_Frame_Rate));
 
 					if(g_dci_per_frame == DIALOG_DCI_PER_FRAME)
 						g_dci_data_rate = GET_FIELD(OUT_DCI_Data_Rate);
@@ -652,7 +650,7 @@ j2k_OutUI(
 	g_dci_stereo		= params->dci_stereo;
 
 
-	int status = DialogBox((HINSTANCE)plugHndl, (LPSTR)"OUT_DIALOG", (HWND)mwnd, (DLGPROC)DialogProc);
+	int status = static_cast<int>(DialogBox((HINSTANCE)plugHndl, (LPSTR)"OUT_DIALOG", (HWND)mwnd, (DLGPROC)DialogProc));
 	
 
 	if(g_item_clicked == OUT_OK)
@@ -709,6 +707,6 @@ j2k_About(
 	const void		*plugHndl,
 	const void		*mwnd)
 {
-	int status = DialogBox((HINSTANCE)plugHndl, (LPSTR)"ABOUT_DIALOG", (HWND)mwnd, (DLGPROC)AboutDialogProc);
+	int status = static_cast<int>(DialogBox((HINSTANCE)plugHndl, (LPSTR)"ABOUT_DIALOG", (HWND)mwnd, (DLGPROC)AboutDialogProc));
 }
 
