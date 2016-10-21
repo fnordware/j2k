@@ -498,7 +498,9 @@ static void GetFileSize(const A_PathType *path, A_long *size)
 #endif
 }
 
+#ifdef __APPLE__
 #pragma mark-
+#endif
 
 A_Err
 FrameSeq_PluginName(char *name)
@@ -525,7 +527,9 @@ FrameSeq_ConstructModuleInfo(
 	return j2k_ConstructModuleInfo(info);
 }
 
+#ifdef __APPLE__
 #pragma mark-
+#endif
 
 A_Err	
 FrameSeq_VerifyFileImportable(
@@ -681,7 +685,7 @@ FrameSeq_InitInSpecFromFile(
 #define DEPTH_GREY_8	40
 #define DEPTH_GREY_16	-16
 		
-		const A_short planes = (info.planes == 2 ? 4 : info.planes); // AE doesn't like greyscale w/ alpha
+		const A_short planes = static_cast<const A_short>(info.planes == 2 ? 4 : info.planes); // AE doesn't like greyscale w/ alpha
 		
 		A_short	depth = static_cast<A_short>(planes < 3 ? (info.depth == 16 ? DEPTH_GREY_16 : DEPTH_GREY_8) : // greyscale
 												planes * info.depth); // not
@@ -1113,7 +1117,9 @@ FrameSeq_InflateOptions(
 // =====================================================================
 //     output
 
+#ifdef __APPLE__
 #pragma mark-
+#endif
 
 
 A_Err	

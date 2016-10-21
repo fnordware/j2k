@@ -391,8 +391,7 @@ PlatformInputFile::~PlatformInputFile()
 {
 	BOOL result = CloseHandle(_hFile);
 
-	if(!result)
-		throw Exception("Error closing file.");
+	assert(result);
 }
 
 
@@ -406,7 +405,7 @@ PlatformInputFile::FileSize()
 size_t
 PlatformInputFile::Read(void *buf, size_t num_bytes)
 {
-	DWORD count = num_bytes, bytes_read = 0;
+	DWORD count = static_cast<DWORD>(num_bytes), bytes_read = 0;
 	
 	BOOL result = ReadFile(_hFile, (LPVOID)buf, count, &bytes_read, NULL);
 
@@ -423,7 +422,7 @@ PlatformInputFile::Seek(size_t position)
 
 	BOOL result = SetFilePointerEx(_hFile, lpos, NULL, FILE_BEGIN);
 	
-	return result;
+	return result ? true : false;
 }
 
 
@@ -474,7 +473,7 @@ PlatformOutputFile::~PlatformOutputFile()
 size_t
 PlatformOutputFile::Read(void *buf, size_t num_bytes)
 {
-	DWORD count = num_bytes, bytes_read = 0;
+	DWORD count = static_cast<DWORD>(num_bytes), bytes_read = 0;
 	
 	BOOL result = ReadFile(_hFile, (LPVOID)buf, count, &bytes_read, NULL);
 
@@ -485,7 +484,7 @@ PlatformOutputFile::Read(void *buf, size_t num_bytes)
 size_t
 PlatformOutputFile::Write(const void *buf, size_t num_bytes)
 {
-	DWORD count = num_bytes, out = 0;
+	DWORD count = static_cast<DWORD>(num_bytes), out = 0;
 	
 	BOOL result = WriteFile(_hFile, (LPVOID)buf, count, &out, NULL);
 	
@@ -502,7 +501,7 @@ PlatformOutputFile::Seek(size_t position)
 
 	BOOL result = SetFilePointerEx(_hFile, lpos, NULL, FILE_BEGIN);
 	
-	return result;
+	return result ? true : false;
 }
 
 

@@ -505,7 +505,9 @@ j2k_InflateInputOptions(
 // =====================================================================
 //     output
 
+#ifdef __APPLE__
 #pragma mark-
+#endif
 
 
 A_Err	

@@ -30,6 +30,8 @@
 #include "openjpeg.h"
 
 #include <assert.h>
+#include <algorithm>
+
 
 namespace j2k
 {
@@ -127,8 +129,9 @@ InfoHandler(const char *msg, void *client_data)
 	printf("openjpeg info: %s", msg);
 }
 
-
+#ifdef __APPLE__
 #pragma mark-
+#endif
 
 
 static OPJ_CODEC_FORMAT
@@ -230,7 +233,7 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 				
 				//assert(image->x0 == 0 && image->x0 == 0); // not really handling this right now
 				
-				info.channels = std::min<uint8_t>(image->numcomps, J2K_CODEC_MAX_CHANNELS);
+				info.channels = std::min<uint8_t>(static_cast<uint8_t>(image->numcomps), J2K_CODEC_MAX_CHANNELS);
 				
 				info.depth = static_cast<uint8_t>(image->comps[0].prec);
 				
@@ -333,7 +336,7 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 					{
 						for(int c=0; c < pal.nr_channels; c++)
 						{
-							info.LUT[i].channel[c] = *entry;
+							info.LUT[i].channel[c] = static_cast<uint8_t>(*entry);
 							
 							assert(*entry < 256);
 							//assert(*sign == 0);
@@ -434,7 +437,7 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 				
 				if(imageRead)
 				{
-					const uint8_t channels = std::min<uint8_t>(image->numcomps, J2K_CODEC_MAX_CHANNELS);
+					const uint8_t channels = std::min<uint8_t>(static_cast<uint8_t>(image->numcomps), J2K_CODEC_MAX_CHANNELS);
 					
 					Buffer openjpegBuffer;
 					
@@ -454,7 +457,7 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 						
 						chan.sampleType = INT;
 						chan.depth = static_cast<uint8_t>(comp.prec);
-						chan.sgnd = comp.sgnd;
+						chan.sgnd = comp.sgnd ? true : false;
 						
 						assert(comp.prec > 0);
 						assert(comp.bpp == 0); // unused?

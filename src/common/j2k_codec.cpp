@@ -199,7 +199,7 @@ Codec::IssRGBProfile(const void *iccProfile, size_t profileSize)
 {
 	bool result = FALSE;
 	
-	cmsHPROFILE iccH = cmsOpenProfileFromMem(iccProfile, profileSize);
+	cmsHPROFILE iccH = cmsOpenProfileFromMem(iccProfile, static_cast<cmsUInt32Number>(profileSize));
 	
 	if(iccH)
 	{
@@ -233,8 +233,8 @@ CopyChannel(const Channel &dest, const Channel &src)
 	const Subsampling relatativeSub(src.subsampling.x / dest.subsampling.x,
 									src.subsampling.y / dest.subsampling.y);
 	
-	const int destStep = (dest.colbytes / sizeof(DESTTYPE));
-	const int srcStep = (src.colbytes / sizeof(SRCTYPE));
+	const int destStep = static_cast<const int>(dest.colbytes / sizeof(DESTTYPE));
+	const int srcStep = static_cast<const int>(src.colbytes / sizeof(SRCTYPE));
 
 	assert(dest.depth <= (sizeof(DESTTYPE) * 8)); // make sure the specified depth
 	assert(src.depth <= (sizeof(SRCTYPE) * 8));   // fits in the specified type
@@ -245,8 +245,8 @@ CopyChannel(const Channel &dest, const Channel &src)
 	assert(!dest.sgnd || src.sgnd); // currently not expecting to convert from unsigned to signed
 	
 	const int signConverter = (dest.sgnd == src.sgnd) ? 0 :
-								src.sgnd ? (pow(2, src.depth - 1)) :
-											(-pow(2, src.depth - 1));
+								src.sgnd ? static_cast<const int>(pow(2, src.depth - 1)) :
+												static_cast<const int>(-pow(2, src.depth - 1));
 	
 	const int bitShift = ((int)dest.depth - (int)src.depth);
 	
@@ -477,7 +477,7 @@ SubsampledSize(unsigned int size, int subsampling)
 	if(subsampling == 1)
 		return size;
 		
-	return ceil((double)size / (double)subsampling);
+	return static_cast<unsigned int>(ceil((double)size / (subsampling)));
 }
 
 
