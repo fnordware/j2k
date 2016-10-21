@@ -247,10 +247,12 @@ typedef struct Channel
 } Channel;
 
 
-typedef struct
+typedef struct Buffer
 {
 	unsigned char channels;
 	Channel channel[J2K_CODEC_MAX_CHANNELS];
+	
+	Buffer() : channels(0) {}
 	
 } Buffer;
 

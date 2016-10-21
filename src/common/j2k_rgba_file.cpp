@@ -161,6 +161,21 @@ CopyWithLUT(const RGBAbuffer &buffer, const Channel &idxChan, LUTentry LUT[], un
 }
 
 
+typedef struct
+{
+	Channel y;
+	Channel cb;
+	Channel cr;
+	
+} YCCbuffer;
+
+enum YccChannelName
+{
+	Y = RED,
+	CB = GREEN,
+	CR = BLUE
+};
+
 template <typename PIXTYPE>
 static PIXTYPE Clamp(const int &val, const int &max)
 {
@@ -169,7 +184,7 @@ static PIXTYPE Clamp(const int &val, const int &max)
 
 template <typename PIXTYPE>
 static void
-FullsYCCtoRGBType(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversible)
+FullsYCCtoRGBType(const RGBAbuffer &rgbBuffer, const YCCbuffer &yccBuffer, bool reversible)
 {
 #define ALPHA_R 0.299 // These are exact expressions from which the
 #define ALPHA_G 0.587 // ICT forward and reverse transform coefficients
@@ -194,9 +209,9 @@ FullsYCCtoRGBType(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool rev
 	const int maxVal = static_cast<const int>(sgnd ? pow(2, depth - 1) - 1 : pow(2, depth) - 1);
 	const int signedDiff = static_cast<const int>(sgnd ? 0 : pow(2, depth - 1));
 	
-	const Channel &yChan = yccBuffer.channel[0];
-	const Channel &cbChan = yccBuffer.channel[1];
-	const Channel &crChan = yccBuffer.channel[2];
+	const Channel &yChan = yccBuffer.y;
+	const Channel &cbChan = yccBuffer.cb;
+	const Channel &crChan = yccBuffer.cr;
 	
 	const Channel &rChan = rgbBuffer.r;
 	const Channel &gChan = rgbBuffer.g;
@@ -263,16 +278,16 @@ FullsYCCtoRGBType(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool rev
 }
 
 static void
-FullsYCCtoRGB(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversible)
+FullsYCCtoRGB(const RGBAbuffer &rgbBuffer, const YCCbuffer &yccBuffer, bool reversible)
 {
 	const SampleType sampleType = rgbBuffer.r.sampleType;
 	
-	assert(yccBuffer.channel[0].sampleType == sampleType);
+	assert(yccBuffer.y.sampleType == sampleType);
 	
-	assert(rgbBuffer.r.depth == yccBuffer.channel[0].depth);
+	assert(rgbBuffer.r.depth == yccBuffer.y.depth);
 	
-	assert(yccBuffer.channel[1].subsampling.x == 1 && yccBuffer.channel[1].subsampling.y == 1);
-	assert(yccBuffer.channel[2].subsampling.x == 1 && yccBuffer.channel[2].subsampling.y == 1);
+	assert(yccBuffer.cb.subsampling.x == 1 && yccBuffer.cb.subsampling.y == 1);
+	assert(yccBuffer.cr.subsampling.x == 1 && yccBuffer.cr.subsampling.y == 1);
 
 	if(sampleType == USHORT)
 	{
@@ -287,19 +302,43 @@ FullsYCCtoRGB(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversi
 }
 
 static void
-sYCCtoRGB(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversible)
+CopyBuffer(const YCCbuffer &yccDest, const YCCbuffer &yccSrc)
 {
-	assert(yccBuffer.channels >= 3);
+	Buffer dst;
 	
+	dst.channels = 3;
+	dst.channel[0] = yccDest.y;
+	dst.channel[1] = yccDest.cb;
+	dst.channel[2] = yccDest.cr;
+	
+	
+	Buffer src;
+	
+	src.channels = 3;
+	src.channel[0] = yccSrc.y;
+	src.channel[1] = yccSrc.cb;
+	src.channel[2] = yccSrc.cr;
+	
+	
+	Codec::CopyBuffer(dst, src);
+}
+
+static void
+sYCCtoRGB(const RGBAbuffer &rgbBuffer, const YCCbuffer &yccBuffer, bool reversible)
+{
 	const SampleType sampleType = rgbBuffer.r.sampleType;
 	const unsigned char depth = rgbBuffer.r.depth;
 	const bool sgnd = rgbBuffer.r.sgnd;
 	
 	bool reuseBuffer = true;
 	
+	const Channel *ycc_channels[3] = { &yccBuffer.y,
+										&yccBuffer.cb,
+										&yccBuffer.cr };
+	
 	for(int i=0; i < 3; i++)
 	{
-		const Channel &yccChan = yccBuffer.channel[i];
+		const Channel &yccChan = *ycc_channels[i];
 		
 		if(yccChan.subsampling.x != 1 ||
 			yccChan.subsampling.y != 1 ||
@@ -312,20 +351,22 @@ sYCCtoRGB(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversible)
 	}
 	
 	
-	Buffer tempBuffer;
-	
-	const Buffer &fullYccBuffer = (reuseBuffer ? yccBuffer : tempBuffer);
+	YCCbuffer tempBuffer;
+
+	const YCCbuffer &fullYccBuffer = (reuseBuffer ? yccBuffer : tempBuffer);
 	
 	if(!reuseBuffer)
 	{
 		// need to make a non-subsampled YCC buffer with the same bit depth as the output
-		tempBuffer.channels = yccBuffer.channels;
+		Channel *temp_channels[3] = { &tempBuffer.y,
+										&tempBuffer.cb,
+										&tempBuffer.cr };
 		
-		for(int i=0; i < tempBuffer.channels; i++)
+		for(int i=0; i < 3; i++)
 		{
-			const Channel &subsampledChannel = yccBuffer.channel[i];
+			const Channel &subsampledChannel = *ycc_channels[i];
 			
-			Channel &tempChannel = tempBuffer.channel[i];
+			Channel &tempChannel = *temp_channels[i];
 			
 			tempChannel.width = (subsampledChannel.width * subsampledChannel.subsampling.x);
 			tempChannel.height = (subsampledChannel.height * subsampledChannel.subsampling.y);
@@ -344,22 +385,22 @@ sYCCtoRGB(const RGBAbuffer &rgbBuffer, const Buffer &yccBuffer, bool reversible)
 				throw Exception("out of memory");
 		}
 		
-		Codec::CopyBuffer(tempBuffer, yccBuffer);
+		CopyBuffer(tempBuffer, yccBuffer);
 	}
 	
 	
 	FullsYCCtoRGB(rgbBuffer, fullYccBuffer, false); // for sYCC I think we always do irreversible
 	
 	
-	for(int i=0; i < tempBuffer.channels; i++)
-	{
-		Channel &tempChan = tempBuffer.channel[i];
-		
-		if(tempChan.buf != NULL)
-		{
-			free(tempChan.buf);
-		}
-	}
+	// free any temp buffers
+	if(tempBuffer.y.buf != NULL)
+		free(tempBuffer.y.buf);
+
+	if(tempBuffer.cb.buf != NULL)
+		free(tempBuffer.cb.buf);
+
+	if(tempBuffer.cr.buf != NULL)
+		free(tempBuffer.cr.buf);	
 }
 
 
@@ -461,6 +502,8 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 						
 						j2kChan = rgbaChan;
 						
+						assigned[i] = true;
+						
 						assert(rgbaChan.width == _fileInfo.width);
 						assert(rgbaChan.height == _fileInfo.height);
 					}
@@ -553,6 +596,8 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 							Channel &rgbaChan = j2kRgbBuffer.channel[i];
 							
 							rgbaChan = j2kChan;
+							
+							assigned[i] = true;
 						}
 						else
 							assert(false); // channel appears twice?
@@ -616,7 +661,46 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 		{
 			assert(effectiveChannels >= 3);
 			
-			sYCCtoRGB(buffer, j2kBuffer, _fileInfo.settings.reversible);
+			YCCbuffer yccBuffer;
+			
+			Channel *ycc_channels[3] = { &yccBuffer.y,
+											&yccBuffer.cb,
+											&yccBuffer.cr };
+											
+			YccChannelName ycc_names[3] = { Y, CB, CR };
+			
+			bool ycc_assigned[3] = { false, false, false };
+			
+			for(int c=0; c < 3; c++)
+			{
+				Channel &j2kChan = j2kBuffer.channel[c];
+				
+				const ChannelName j2kName = _fileInfo.channelMap[c];
+				
+				for(int i=0; i < 3; i++)
+				{
+					const YccChannelName yccName = ycc_names[i];
+					
+					if(j2kName == (ChannelName)yccName)
+					{
+						if(ycc_assigned[i] == false)
+						{
+							Channel &yccChan = *ycc_channels[i];
+							
+							yccChan = j2kChan;
+							
+							ycc_assigned[i] = true;
+						}
+						else
+							assert(false); // channel appears twice?
+					}
+				}
+			}
+			
+			assert(ycc_assigned[0] == true && ycc_assigned[1] == true && ycc_assigned[2] == true);
+			
+			
+			sYCCtoRGB(buffer, yccBuffer, _fileInfo.settings.reversible);
 		}
 		else
 			assert(false);
