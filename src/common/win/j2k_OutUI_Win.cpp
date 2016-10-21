@@ -156,7 +156,7 @@ static void ResizeWindow(HWND hwndDlg, BOOL shrink)
 	SetWindowPlacement(hwndDlg, &winPlace);
 }
 
-#define DCI_MAX		(1302083 / 1024)
+const double DCI_MAX = (1302083.0 / 1024);
 
 static int g_dci_slider_val = 50;
 
@@ -193,18 +193,18 @@ static void TrackDCIslider(HWND hwndDlg)
 
 	if(val != g_dci_slider_val)
 	{
-		int new_value = DCI_MAX * 8 / 1024;
+		int new_value = static_cast<int>((DCI_MAX * 8 / 1024) + 0.5);
 
 		if(per_frame == DIALOG_DCI_PER_FRAME)
 		{
-			new_value = static_cast<int>(((double)DCI_MAX * val / 100.0) + 0.5);
+			new_value = static_cast<int>((DCI_MAX * val / 100.0) + 0.5);
 		}
 		else
 		{
 			int frame_rate = static_cast<int>(GET_MENU_VALUE(OUT_DCI_Frame_Rate));
 			int stereo_mult = ( GET_CHECK(OUT_DCI_Stereo) ? 2 : 1 );
 
-			new_value = static_cast<int>(((double)(24 * DCI_MAX * 8 / 1024) * (double)val / 100.0) + 0.5) ;
+			new_value = static_cast<int>(((24 * DCI_MAX * 8 / 1024) * val / 100.0) + 0.5) ;
 		}
 
 		SET_FIELD(OUT_DCI_Data_Rate, new_value);
