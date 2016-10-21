@@ -223,6 +223,9 @@ template <typename DESTTYPE, typename SRCTYPE>
 static void
 CopyChannel(const Channel &dest, const Channel &src)
 {
+	if(dest.buf == NULL || src.buf == NULL)
+		return;
+
 	const int height = dest.height;
 	const int width = dest.width;
 	

@@ -408,6 +408,9 @@ template <typename PIXTYPE>
 static void
 FillChannelType(Channel &channel, bool fillWhite)
 {
+	if(channel.buf == NULL)
+		return;
+
 	const int colstep = static_cast<const int>(channel.colbytes / sizeof(PIXTYPE));
 	
 	const PIXTYPE val = static_cast<const uint8_t>(fillWhite ? (pow(2, channel.depth) - 1) : 0);
