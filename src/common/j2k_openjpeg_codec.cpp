@@ -476,8 +476,7 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 				opj_dparameters_t params;
 				opj_set_default_decoder_parameters(&params);
 				
-				if(image->numcomps == 1)
-					params.flags |= OPJ_DPARAMETERS_IGNORE_PCLR_CMAP_CDEF_FLAG; // don't apply LUT if you happen to have one
+				params.flags |= OPJ_DPARAMETERS_IGNORE_PALETTE_FLAG; // don't apply LUT if you happen to have one
 				
 				const OPJ_BOOL configured = opj_setup_decoder(codec, &params);
 				
