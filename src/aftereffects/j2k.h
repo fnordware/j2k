@@ -109,6 +109,9 @@ typedef struct j2k_inData
 	A_Boolean			reversible;
 	A_Boolean			ycc;
 	A_Boolean			has_LUT; // i.e. indexed color, must do 8-bit
+	A_u_char			pad;
+	A_u_char			codec[4];
+	A_u_char			padding[20]; // total 32 bytes
 } j2k_inData;
 
 
@@ -189,6 +192,10 @@ j2k_FileInfo(
 	AEIO_BasicData	*basic_dataP,
 	const A_PathType *file_pathZ,
 	FrameSeq_Info	*info,
+	j2k_inData		*options);
+
+A_Boolean
+j2k_CanSubsample(
 	j2k_inData		*options);
 
 A_Err	

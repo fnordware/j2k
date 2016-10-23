@@ -879,17 +879,18 @@ FrameSeq_DrawSparseFrame(
 		// not sure what Kadaku does otherwise
 		A_u_char subsample = 1;
 		
-		/* -- turning off subsampling for now
-		while(((subsample * 2) <= max_subsample) &&
-				(info.width % (subsample * 2) == 0) &&
-				(info.height % (subsample * 2) == 0))
+		if( j2k_CanSubsample(options) )
 		{
-			subsample *= 2;
+			while(((subsample * 2) <= max_subsample) &&
+					(info.width % (subsample * 2) == 0) &&
+					(info.height % (subsample * 2) == 0))
+			{
+				subsample *= 2;
+			}
 		}
-		-- */
 
 		// here's the only time we won't need to make our own buffer
-		if(	(info.width/subsample == wP->width) && (info.height/subsample == wP->height) &&
+		if(	(info.width / subsample == wP->width) && (info.height / subsample == wP->height) &&
 			!(wP_depth != 8 && options->has_LUT) ) // need to make an 8-bit world if we have a LUT
 		{
 			active_World = wP; // just use the PF_EffectWorld AE gave us
@@ -899,7 +900,7 @@ FrameSeq_DrawSparseFrame(
 		else
 		{
 			// make our own PF_EffectWorld
-			suites.PFWorldSuite()->PF_NewWorld(NULL, info.width/subsample, info.height/subsample, FALSE,
+			suites.PFWorldSuite()->PF_NewWorld(NULL, info.width / subsample, info.height / subsample, FALSE,
 										(options->has_LUT ? PF_PixelFormat_ARGB32 : pixel_format), temp_World);
 			
 			active_World = temp_World;

@@ -507,8 +507,8 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 						
 						assigned[i] = true;
 						
-						assert(rgbaChan.width == _fileInfo.width);
-						assert(rgbaChan.height == _fileInfo.height);
+						assert(subsample * rgbaChan.width == _fileInfo.width);
+						assert(subsample * rgbaChan.height == _fileInfo.height);
 					}
 					else
 						assert(false); // channel appears twice?

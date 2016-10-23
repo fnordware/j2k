@@ -87,25 +87,6 @@ j2k_PluginName(char *name)
 A_Err
 j2k_Init(struct SPBasicSuite *pica_basicP)
 {
-/*
-#ifdef MAC_ENV
-	// get number of CPUs using Mach calls
-	host_basic_info_data_t hostInfo;
-	mach_msg_type_number_t infoCount;
-	
-	infoCount = HOST_BASIC_INFO_COUNT;
-	host_info(mach_host_self(), HOST_BASIC_INFO, 
-			  (host_info_t)&hostInfo, &infoCount);
-	
-	g_num_cpus = hostInfo.avail_cpus;
-#else // WIN_ENV
-	SYSTEM_INFO systemInfo;
-	GetSystemInfo(&systemInfo);
-
-	g_num_cpus = systemInfo.dwNumberOfProcessors;
-#endif
-*/
-	
 	return A_Err_NONE;
 }
 
@@ -381,6 +362,20 @@ WorldToBuffer(PF_EffectWorld *wP, PF_PixelFormat pixelFormat)
 }
 
 
+A_Boolean
+j2k_CanSubsample(
+	j2k_inData		*options)
+{
+	// reading with just the default codec
+	
+	j2k::Codec *codec = j2k::GetDefaultCodec();
+	
+	const j2k::Codec::ReadFlags flags = codec->GetReadFlags();
+	
+	return !!(flags & j2k::Codec::J2K_CAN_SUBSAMPLE);
+}
+
+
 A_Err
 j2k_DrawSparseFrame(
 	AEIO_BasicData					*basic_dataP,
@@ -405,8 +400,8 @@ j2k_DrawSparseFrame(
 		
 		const j2k::FileInfo &fileInfo = file.GetFileInfo();
 		
-		assert(fileInfo.width == wP->width);
-		assert(fileInfo.height == wP->height);
+		assert(fileInfo.width == wP->width * subsample);
+		assert(fileInfo.height == wP->height * subsample);
 		
 		
 		PF_PixelFormat	pixelFormat;
@@ -415,25 +410,12 @@ j2k_DrawSparseFrame(
 		j2k::RGBAbuffer rgbaBuffer = WorldToBuffer(wP, pixelFormat);
 		
 		
-		file.ReadFile(rgbaBuffer);
+		file.ReadFile(rgbaBuffer, subsample);
 		
 		
 		// ReadFile returns regular 16-bit
 		if(pixelFormat == PF_PixelFormat_ARGB64)
 			DemoteWorld(basic_dataP, wP);
-		
-		/*
-		// deal with LUT
-		if(use_LUT)
-			WorldApplyLUT(basic_dataP, wP, jp2_lut);
-		
-		// deal with channel mapping (bastards!)
-		else if( chan_map[0] != 0 || chan_map[1] != 1 || chan_map[2] != 2 )
-			WorldChannelMap(basic_dataP, wP, chan_map);
-
-		// do our sYCC conversion
-		if(colorSpace == JP2_sYCC_SPACE)
-			WorldYCCtoRGB(basic_dataP, wP, FALSE);*/
 	}
 	catch(...)
 	{
@@ -785,11 +767,6 @@ j2k_OutputFile(
 		suites.PFWorldSuite()->PF_GetPixelFormat(wP, &pixel_format);
 		
 		
-		// do the YCC color conversion (if necessary)
-		//if(color_space == j2k::sYCC)
-		//	WorldRGBtoYCC(basic_dataP, wP, FALSE); // sYCC always gets irreversible
-
-			
 		// we can't be bothered with 15bit+1
 		if(pixel_format ==  PF_PixelFormat_ARGB64)
 			PromoteWorld(basic_dataP, wP);

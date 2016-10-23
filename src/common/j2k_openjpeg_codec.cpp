@@ -429,6 +429,25 @@ OpenJPEGCodec::GetFileInfo(InputFile &file, FileInfo &info)
 }
 
 
+#if !defined(__GNUC__)
+static int log2(int input)
+{
+	int result = 0;
+
+	for(int i=1; i<100; i++)
+	{
+		if(pow(2.f, i) > input)
+		{
+			result = i-1;
+			break;
+		}
+	}
+
+	return result;
+}
+#endif
+
+
 void
 OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample)
 {
@@ -471,10 +490,15 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 			
 			if(imageRead && image != NULL)
 			{
-				assert(subsample == 0); // not dealing with subsample yet
-				
 				opj_dparameters_t params;
 				opj_set_default_decoder_parameters(&params);
+				
+				// When you cp_reduce, the buffer doesn't change size, but the image is shrunk
+				// into the upper right hand corner.  This means the OpenJPEG buffer doesn't match the
+				// buffer we provide, but it works out because CopyBuffer is based on the destination
+				// size.
+				
+				params.cp_reduce = log2(subsample);
 				
 				params.flags |= OPJ_DPARAMETERS_IGNORE_PALETTE_FLAG; // don't apply LUT if you happen to have one
 				
@@ -602,8 +626,8 @@ OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &b
 				param.h = chan.height;
 				param.x0 = 0;
 				param.y0 = 0;
-				param.prec = (chan.sampleType == USHORT ? 16 : 8);
-				param.bpp = info.depth;
+				param.prec = info.depth;
+				param.bpp = (chan.sampleType == USHORT ? 16 : 8);
 				param.sgnd = OPJ_FALSE;
 			}
 			
@@ -646,8 +670,8 @@ OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &b
 					chan.depth = static_cast<uint8_t>(comp.prec);
 					chan.sgnd = comp.sgnd ? true : false;
 					
-					assert(comp.prec > 0);
-					assert(comp.bpp == comp.prec); // now it's used
+					assert(comp.prec == info.depth);
+					assert(comp.bpp == (buffer.channel[i].sampleType == USHORT ? 16 : 8));
 					assert(!comp.sgnd);
 					
 					chan.buf = (unsigned char *)comp.data;
