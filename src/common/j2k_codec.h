@@ -289,11 +289,9 @@ class Codec
 	
 	virtual bool Verify(InputFile &file);
 	virtual void GetFileInfo(InputFile &file, FileInfo &info) = 0;
-	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 0) = 0;
-	// subsample = 0 : normal resolution
-	// subsample = 1 : half resolution
-	// subsample = 2 : quarter resolution
-	// and so on
+	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 1) = 0;
+	// Subsample 1 means normal resolution.  Buffer width = image width / subsample.
+	// But for all known JPEG 2000 implementations, subsample should be a power of 2.
 	
 	virtual void WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer) = 0;
 

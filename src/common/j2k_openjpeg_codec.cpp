@@ -494,7 +494,7 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 				opj_set_default_decoder_parameters(&params);
 				
 				// When you cp_reduce, the buffer doesn't change size, but the image is shrunk
-				// into the upper right hand corner.  This means the OpenJPEG buffer doesn't match the
+				// into the upper left hand corner.  This means the OpenJPEG buffer doesn't match the
 				// buffer we provide, but it works out because CopyBuffer is based on the destination
 				// size.
 				

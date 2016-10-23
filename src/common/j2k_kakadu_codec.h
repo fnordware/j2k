@@ -47,7 +47,7 @@ class KakaduCodec : public Codec
 	
 	//virtual bool Verify(InputFile &file);
 	virtual void GetFileInfo(InputFile &file, FileInfo &info);
-	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 0);
+	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 1);
 	
 	virtual void WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer);
 };
