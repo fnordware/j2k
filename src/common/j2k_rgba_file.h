@@ -66,7 +66,7 @@ class RGBAoutputFile
 	RGBAoutputFile(OutputFile &file, const FileInfo &info, Codec *codec = NULL);
 	~RGBAoutputFile() {}
 	
-	void WriteFile(RGBAbuffer &buffer);
+	void WriteFile(RGBAbuffer &buffer, Progress *progress = NULL);
 	
   private:
 	OutputFile &_file;

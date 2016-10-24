@@ -761,7 +761,7 @@ RGBAoutputFile::RGBAoutputFile(OutputFile &file, const FileInfo &info, Codec *co
 
 
 void
-RGBAoutputFile::WriteFile(RGBAbuffer &buffer)
+RGBAoutputFile::WriteFile(RGBAbuffer &buffer, Progress *progress)
 {
 	Channel *channels[4] = { &buffer.r,
 								&buffer.g,
@@ -809,7 +809,7 @@ RGBAoutputFile::WriteFile(RGBAbuffer &buffer)
 	}
 	
 	
-	_codec->WriteFile(_file, _fileInfo, j2kBuffer);
+	_codec->WriteFile(_file, _fileInfo, j2kBuffer, progress);
 }
 
 
