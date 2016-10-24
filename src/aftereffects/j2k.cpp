@@ -452,7 +452,7 @@ j2k_DrawSparseFrame(
 		
 		j2k::Progress *progressPtr = NULL;
 		
-	//#ifdef NDEBUG
+	#ifdef NDEBUG
 		// weird stuff happens when you run progress stuff during debugging;
 		AEProgressData aeProgressData;
 		
@@ -473,15 +473,15 @@ j2k_DrawSparseFrame(
 			
 			progressPtr = &progressData;
 		}
-	//#endif
+	#endif
 		
 		
 		file.ReadFile(rgbaBuffer, subsample, progressPtr);
 		
 		
-	//#ifdef NDEBUG
+	#ifdef NDEBUG
 		err = aeProgressData.err;
-	//#endif
+	#endif
 	
 		
 		// ReadFile returns regular 16-bit
