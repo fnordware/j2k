@@ -485,7 +485,7 @@ j2k_DrawSparseFrame(
 	
 		
 		// ReadFile returns regular 16-bit
-		if(pixelFormat == PF_PixelFormat_ARGB64)
+		if(pixelFormat == PF_PixelFormat_ARGB64 && err == A_Err_NONE)
 			DemoteWorld(basic_dataP, wP);
 	}
 	catch(...)
