@@ -449,7 +449,7 @@ static int log2(int input)
 
 
 void
-OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample)
+OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample, Progress *progress)
 {
 	const OPJ_CODEC_FORMAT format = GetFormat(file);
 	
@@ -510,8 +510,22 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 				// TODO: read one tile at a time and let the user interrupt
 				
 				imageRead = opj_decode(codec, stream, image);
+			
+			
+			#define PROG(COUNT, TOTAL) (progress == NULL ? true : \
+											!progress->keepGoing ? false : \
+											progress->progressProc != NULL ? \
+												(progress->keepGoing = progress->progressProc(progress->refCon, COUNT, TOTAL)) : \
+												progress->abortProc != NULL ? \
+													(progress->keepGoing = progress->abortProc(progress->refCon)) : \
+													true)
 				
-				if(imageRead)
+			#define NOABORT() (progress == NULL ? true : \
+								!progress->keepGoing ? false : \
+								progress->abortProc == NULL ? true : \
+									(progress->keepGoing = progress->abortProc(progress->refCon)))
+				
+				if(imageRead && NOABORT())
 				{
 					const uint8_t channels = std::min<uint8_t>(static_cast<uint8_t>(image->numcomps), J2K_CODEC_MAX_CHANNELS);
 					
@@ -547,6 +561,8 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 					
 					CopyBuffer(buffer, openjpegBuffer);
 				}
+				else if(!imageRead)
+					success = false;
 			}
 			else
 				success = false;
@@ -571,7 +587,7 @@ OpenJPEGCodec::ReadFile(InputFile &file, const Buffer &buffer, unsigned int subs
 
 
 void
-OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer)
+OpenJPEGCodec::WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer, Progress *progress)
 {
 	assert(file.Tell() == 0);
 	

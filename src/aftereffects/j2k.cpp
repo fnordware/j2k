@@ -376,6 +376,45 @@ j2k_CanSubsample(
 }
 
 
+typedef struct
+{
+	const AEIO_DrawSparseFramePB *sparse_framePPB;
+	
+	A_Err err;
+
+} AEProgressData;
+
+static bool
+AEProgressProc(void *refCon, size_t count, size_t total)
+{
+	assert(refCon != NULL);
+
+	AEProgressData *progressData = (AEProgressData *)refCon;
+	
+	assert(progressData->sparse_framePPB != NULL &&
+			progressData->sparse_framePPB->inter.progress0 != NULL);
+	
+	progressData->err = progressData->sparse_framePPB->inter.progress0(progressData->sparse_framePPB->inter.refcon, count, total);
+	
+	return (progressData->err == A_Err_NONE);
+}
+
+static bool
+AEAbortProc(void *refCon)
+{
+	assert(refCon != NULL);
+
+	AEProgressData *progressData = (AEProgressData *)refCon;
+	
+	assert(progressData->sparse_framePPB != NULL &&
+			progressData->sparse_framePPB->inter.abort0 != NULL);
+	
+	progressData->err = progressData->sparse_framePPB->inter.abort0(progressData->sparse_framePPB->inter.refcon);
+	
+	return (progressData->err == A_Err_NONE);
+}
+
+
 A_Err
 j2k_DrawSparseFrame(
 	AEIO_BasicData					*basic_dataP,
@@ -388,7 +427,7 @@ j2k_DrawSparseFrame(
 	A_u_char						subsample)
 { 
 	// read a file and pass AE the basic info
-	A_Err err = A_Err_NONE, err2 = A_Err_NONE;
+	A_Err err = A_Err_NONE;
 
 	AEGP_SuiteHandler suites(basic_dataP->pica_basicP);
 	
@@ -410,8 +449,40 @@ j2k_DrawSparseFrame(
 		j2k::RGBAbuffer rgbaBuffer = WorldToBuffer(wP, pixelFormat);
 		
 		
-		file.ReadFile(rgbaBuffer, subsample);
 		
+		j2k::Progress *progressPtr = NULL;
+		
+	//#ifdef NDEBUG
+		// weird stuff happens when you run progress stuff during debugging;
+		AEProgressData aeProgressData;
+		
+		aeProgressData.sparse_framePPB = sparse_framePPB;
+		aeProgressData.err = A_Err_NONE;
+		
+		j2k::Progress progressData;
+		
+		if(sparse_framePPB != NULL)
+		{
+			if(sparse_framePPB->inter.progress0 != NULL)
+				progressData.progressProc = AEProgressProc;
+			
+			if(sparse_framePPB->inter.abort0 != NULL)
+				progressData.abortProc = AEAbortProc;
+				
+			progressData.refCon = &aeProgressData;
+			
+			progressPtr = &progressData;
+		}
+	//#endif
+		
+		
+		file.ReadFile(rgbaBuffer, subsample, progressPtr);
+		
+		
+	//#ifdef NDEBUG
+		err = aeProgressData.err;
+	//#endif
+	
 		
 		// ReadFile returns regular 16-bit
 		if(pixelFormat == PF_PixelFormat_ARGB64)
@@ -423,8 +494,6 @@ j2k_DrawSparseFrame(
 	}
 
 	
-	if(err2) { err = err2; }
-
 	return err;
 }
 

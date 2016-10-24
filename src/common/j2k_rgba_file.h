@@ -50,7 +50,7 @@ class RGBAinputFile
 	
 	const FileInfo & GetFileInfo() const { return _fileInfo; }
 	
-	void ReadFile(RGBAbuffer &buffer, unsigned int subsample = 0);
+	void ReadFile(RGBAbuffer &buffer, unsigned int subsample = 0, Progress *progress = NULL);
 	
   private:
 	InputFile &_file;

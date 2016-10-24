@@ -142,7 +142,7 @@ typedef struct CompressionSettings
 	
 	CompressionSettings() :
 		method(LOSSLESS),
-		fileSize(50 * 1024),
+		fileSize(50),
 		quality(50),
 		layers(12),
 		order(RPCL),
@@ -257,6 +257,25 @@ typedef struct Buffer
 } Buffer;
 
 
+// return false to cancel
+typedef bool (ProgressProc)(void *refCon, size_t count, size_t total);
+typedef bool (AbortProc)(void *refCon);
+
+typedef struct Progress
+{
+	ProgressProc *progressProc;
+	AbortProc *abortProc;
+	
+	void *refCon;
+	
+	bool keepGoing;
+	
+	
+	Progress() : progressProc(NULL), abortProc(NULL), refCon(NULL), keepGoing(true) {}
+	
+} Progress;
+
+
 class Codec
 {
   public:
@@ -289,11 +308,11 @@ class Codec
 	
 	virtual bool Verify(InputFile &file);
 	virtual void GetFileInfo(InputFile &file, FileInfo &info) = 0;
-	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 1) = 0;
+	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 1, Progress *progress = NULL) = 0;
 	// Subsample 1 means normal resolution.  Buffer width = image width / subsample.
 	// But for all known JPEG 2000 implementations, subsample should be a power of 2.
 	
-	virtual void WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer) = 0;
+	virtual void WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer, Progress *progress = NULL) = 0;
 
 	static Format GetFileFormat(InputFile &file);
 	static void *CreateProfile(ColorSpace colorSpace, size_t &profileSize);

@@ -448,7 +448,7 @@ FillChannel(Channel &channel, bool fillWhite)
 }
 
 void
-RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
+RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample, Progress *progress)
 {
 	Channel *channels[4] = { &buffer.r,
 								&buffer.g,
@@ -553,8 +553,14 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 	}
 	
 	
-	_codec->ReadFile(_file, j2kBuffer, subsample);
+	_codec->ReadFile(_file, j2kBuffer, subsample, progress);
 		
+	
+	
+#define NOABORT() (progress == NULL ? true : \
+					!progress->keepGoing ? false : \
+					progress->abortProc == NULL ? true : \
+						(progress->keepGoing = progress->abortProc(progress->refCon)))
 	
 	bool haveAlpha = false;
 	
@@ -562,7 +568,7 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 	{
 		haveAlpha = (effectiveChannels == 4);
 	}
-	else
+	else if( NOABORT() )
 	{
 		assert(effectiveChannels == j2kBuffer.channels);
 		
@@ -709,6 +715,10 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 			assert(false);
 		
 		
+	}
+	
+	if(!reuseChannels)
+	{
 		for(int i=0; i < j2kBuffer.channels; i++)
 		{
 			Channel &j2kChan = j2kBuffer.channel[i];
@@ -720,8 +730,7 @@ RGBAinputFile::ReadFile(RGBAbuffer &buffer, unsigned int subsample)
 		}
 	}
 	
-	
-	if(!haveAlpha)
+	if(!haveAlpha && NOABORT())
 		FillChannel(buffer.a, true);
 }
 

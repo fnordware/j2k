@@ -47,9 +47,9 @@ class OpenJPEGCodec : public Codec
 	
 	virtual bool Verify(InputFile &file);
 	virtual void GetFileInfo(InputFile &file, FileInfo &info);
-	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 1);
+	virtual void ReadFile(InputFile &file, const Buffer &buffer, unsigned int subsample = 1, Progress *progress = NULL);
 	
-	virtual void WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer);
+	virtual void WriteFile(OutputFile &file, const FileInfo &info, const Buffer &buffer, Progress *progress = NULL);
 };
 
 
