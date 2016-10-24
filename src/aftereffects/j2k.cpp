@@ -394,7 +394,10 @@ AEProgressProc(void *refCon, size_t count, size_t total)
 	assert(progressData->sparse_framePPB != NULL &&
 			progressData->sparse_framePPB->inter.progress0 != NULL);
 	
-	progressData->err = progressData->sparse_framePPB->inter.progress0(progressData->sparse_framePPB->inter.refcon, count, total);
+	progressData->err = 
+		progressData->sparse_framePPB->inter.progress0(progressData->sparse_framePPB->inter.refcon,
+														static_cast<A_long>(count),
+														static_cast<A_long>(total));
 	
 	return (progressData->err == A_Err_NONE);
 }
