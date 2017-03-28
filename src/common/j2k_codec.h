@@ -258,13 +258,13 @@ typedef struct Buffer
 
 
 // return false to cancel
-typedef bool (ProgressProc)(void *refCon, size_t count, size_t total);
-typedef bool (AbortProc)(void *refCon);
+typedef bool (* ProgressProc)(void *refCon, size_t count, size_t total);
+typedef bool (* AbortProc)(void *refCon);
 
 typedef struct Progress
 {
-	ProgressProc *progressProc;
-	AbortProc *abortProc;
+	ProgressProc progressProc;
+	AbortProc abortProc;
 	
 	void *refCon;
 	
